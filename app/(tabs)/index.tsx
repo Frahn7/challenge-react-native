@@ -1,110 +1,100 @@
-import { StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import { ThemedText } from "@/components/themed-text";
+import { Stack, router } from "expo-router";
+import { TouchableOpacity, View } from "react-native";
+import { RootState } from "@/features/store";
+import { useDispatch, useSelector } from "react-redux";
 import { ThemedView } from "@/components/themed-view";
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
-import { router } from "expo-router";
-
-const User = {
-  Correo: "F",
-  Contrasena: "1234",
-};
-
-type Inputs = {
-  Correo: string;
-  Contrasena: string;
-};
+import { FontAwesome } from "@expo/vector-icons";
+import { eliminarTurno } from "@/features/shiftSlice";
 
 export default function HomeScreen() {
-  const [errorMessage, setErrorMessage] = useState("");
+  const turnos = useSelector((state: RootState) => state.shifts.turnos);
+  const dispatch = useDispatch();
 
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm<Inputs>();
-
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    if (data.Correo === User.Correo && data.Contrasena === User.Contrasena) {
-      router.replace("/inicio");
-    } else setErrorMessage("El usuario no es correcto");
+  const handleDelete = (id: number) => {
+    dispatch(eliminarTurno(id));
+    router.replace("/");
   };
 
   return (
-    <ThemedView style={styles.Container}>
-      <ThemedText style={styles.Text}>Iniciar sesion</ThemedText>
-
-      <Controller
-        control={control}
-        render={({ field: { onChange, value } }) => (
-          <TextInput
-            placeholder="Correo"
-            style={styles.Input}
-            value={value}
-            onChangeText={(value) => onChange(value)}
-            {...register("Correo", { required: true })}
-          />
-        )}
-        name="Correo"
-        rules={{ required: true }}
-      />
-      <Controller
-        control={control}
-        render={({ field: { onChange, value } }) => (
-          <TextInput
-            placeholder="Contraseña"
-            style={styles.Input}
-            value={value}
-            onChangeText={(value) => onChange(value)}
-            secureTextEntry={true}
-            {...register("Contrasena", { required: true })}
-          />
-        )}
-        name="Contrasena"
-        rules={{ required: true }}
-      />
-
-      <TouchableOpacity onPress={handleSubmit(onSubmit)}>
-        <ThemedText>Ingresar</ThemedText>
-      </TouchableOpacity>
-
-      <ThemedView>
-        {errors.Correo && (
-          <ThemedText style={styles.Error}>Debes ingresar un correo</ThemedText>
-        )}
-        {errors.Contrasena && (
-          <ThemedText style={styles.Error}>
-            Debes ingresar una contraseña
+    <>
+      <Stack.Screen options={{ headerShown: false }} />
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "flex-start",
+          paddingTop: 50,
+          gap: 5,
+        }}
+      >
+        <View
+          style={{
+            flexDirection: "row",
+            gap: 8,
+            alignItems: "center",
+          }}
+        >
+          <ThemedText
+            style={{
+              fontSize: 25,
+              color: "white",
+            }}
+          >
+            Gestion de turnos
           </ThemedText>
-        )}
-        {errorMessage && (
-          <ThemedText style={styles.Error}>{errorMessage}</ThemedText>
-        )}
-      </ThemedView>
-    </ThemedView>
+
+          <TouchableOpacity onPress={() => router.push("/create_shift")}>
+            <ThemedText
+              style={{
+                fontSize: 20,
+                color: "black",
+                padding: 2,
+                width: 50,
+                borderRadius: 999,
+                borderColor: "blue",
+                borderWidth: 1,
+                backgroundColor: "white",
+                textAlign: "center",
+              }}
+            >
+              +
+            </ThemedText>
+          </TouchableOpacity>
+        </View>
+
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            gap: 7,
+          }}
+        >
+          {turnos.map((turno) => (
+            <ThemedView
+              style={{
+                flexDirection: "row",
+                gap: 6,
+                width: 300,
+                flexWrap: "wrap",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: 2,
+                padding: 5,
+              }}
+              key={turno.id}
+            >
+              <ThemedText>{turno.nombrePaciente}</ThemedText>
+              <ThemedText>{turno.nombreDoctor}</ThemedText>
+              <ThemedText>{turno.fecha}</ThemedText>
+              <ThemedText>{turno.estado}</ThemedText>
+              <TouchableOpacity onPress={() => handleDelete(turno.id)}>
+                <FontAwesome name="trash-o" size={28} color="red" />
+              </TouchableOpacity>
+            </ThemedView>
+          ))}
+        </View>
+      </View>
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  Container: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 8,
-  },
-  Input: {
-    backgroundColor: "white",
-    width: 300,
-    color: "black",
-  },
-  Text: {
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-  Error: {
-    color: "red",
-  },
-});

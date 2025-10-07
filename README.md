@@ -1,50 +1,27 @@
-# Welcome to your Expo app 👋
-
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
-
 ## Get started
 
 1. Install dependencies
 
-   ```bash
    npm install
-   ```
 
 2. Start the app
 
-   ```bash
    npx expo start
-   ```
 
-In the output, you'll find options to open the app in a
+🧩 Descripción general
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+Aplicación móvil desarrollada con React Native (Expo) que permite gestionar turnos médicos, incluyendo creación, listado y eliminación de turnos con validaciones y persistencia de estado global.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+⚙️ Tecnologías principales
 
-## Get a fresh project
+React Native con Expo → Framework para el desarrollo móvil multiplataforma (Android / iOS).
 
-When you're ready, run:
+React Hook Form → Manejo y validación de formularios de forma eficiente y declarativa.
 
-```bash
-npm run reset-project
-```
+Redux Toolkit → Control del estado global de la aplicación (turnos, usuarios, etc.).
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+React Navigation / Expo Router → Navegación entre pantallas (Home, Crear turno, Login, etc.).
 
-## Learn more
+React Query → Manejo de peticiones asíncronas (mutations y queries) para comunicación con API o backend.
 
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+TypeScript → Tipado estático que mejora la seguridad y mantenibilidad del código.
