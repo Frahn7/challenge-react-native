@@ -2,9 +2,12 @@ import { StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
+import { router } from "expo-router";
 
 const User = {
-  Correo: "Francisco@gmail.com",
+  Correo: "F",
   Contrasena: "1234",
 };
 
@@ -14,6 +17,8 @@ type Inputs = {
 };
 
 export default function HomeScreen() {
+  const [errorMessage, setErrorMessage] = useState("");
+
   const {
     register,
     handleSubmit,
@@ -21,10 +26,14 @@ export default function HomeScreen() {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    if (data.Correo === User.Correo && data.Contrasena === User.Contrasena) {
+      router.replace("/inicio");
+    } else setErrorMessage("El usuario no es correcto");
+  };
 
   return (
-    <ThemedView style={styles.Container} className="">
+    <ThemedView style={styles.Container}>
       <ThemedText style={styles.Text}>Iniciar sesion</ThemedText>
 
       <Controller
@@ -61,7 +70,7 @@ export default function HomeScreen() {
         <ThemedText>Ingresar</ThemedText>
       </TouchableOpacity>
 
-      <ThemedText>
+      <ThemedView>
         {errors.Correo && (
           <ThemedText style={styles.Error}>Debes ingresar un correo</ThemedText>
         )}
@@ -70,7 +79,10 @@ export default function HomeScreen() {
             Debes ingresar una contraseña
           </ThemedText>
         )}
-      </ThemedText>
+        {errorMessage && (
+          <ThemedText style={styles.Error}>{errorMessage}</ThemedText>
+        )}
+      </ThemedView>
     </ThemedView>
   );
 }
