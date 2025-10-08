@@ -10,6 +10,5 @@ export function useThemeColors() {
   return {
     bg: scheme === "dark" ? "#000" : "#fff",
     text: scheme === "dark" ? "#fff" : "#000",
-    card: scheme === "dark" ? "#1c1c1c" : "#f2f2f2",
   };
 }

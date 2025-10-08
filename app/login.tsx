@@ -3,6 +3,7 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  View,
 } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
@@ -10,6 +11,8 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { useState } from "react";
 import { router, Stack } from "expo-router";
 import { FadeIn } from "@/components/fade-in";
+import { useThemeColors } from "@/hooks/use-theme-colors";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const User = {
   Correo: "F@gmail.com",
@@ -63,11 +66,18 @@ export default function Login() {
     }
   };
 
+  const { bg, text } = useThemeColors();
+
   return (
     <>
       <Stack.Screen options={{ headerShown: false }} />
-      <KeyboardAvoidingView style={styles.Container}>
-        <ThemedText style={styles.Text}>Iniciar sesion</ThemedText>
+      <KeyboardAvoidingView style={[styles.Container, { backgroundColor: bg }]}>
+        <View style={{ paddingLeft: 250 }}>
+          <ThemeToggle />
+        </View>
+        <ThemedText style={[styles.Text, { color: text }]}>
+          Iniciar sesion
+        </ThemedText>
 
         <FadeIn delay={22 * 22}>
           <Controller
@@ -75,7 +85,13 @@ export default function Login() {
             render={({ field: { onChange, value } }) => (
               <TextInput
                 placeholder="Correo"
-                style={styles.Input}
+                style={[
+                  styles.Input,
+                  {
+                    backgroundColor: bg === "#000" ? "white" : "gray",
+                    color: bg === "#000" ? "gray" : "white",
+                  },
+                ]}
                 value={value}
                 onChangeText={(value) => onChange(value)}
                 {...register("Correo", { required: true })}
@@ -92,7 +108,13 @@ export default function Login() {
             render={({ field: { onChange, value } }) => (
               <TextInput
                 placeholder="Contraseña"
-                style={styles.Input}
+                style={[
+                  styles.Input,
+                  {
+                    backgroundColor: bg === "#000" ? "white" : "gray",
+                    color: bg === "#000" ? "gray" : "white",
+                  },
+                ]}
                 value={value}
                 onChangeText={(value) => onChange(value)}
                 secureTextEntry={true}
@@ -106,12 +128,12 @@ export default function Login() {
         <TouchableOpacity onPress={handleSubmit(onSubmit)}>
           <ThemedText
             style={{
-              color: "black",
+              color: text,
               padding: 9,
               borderRadius: 10,
               borderColor: "blue",
               borderWidth: 1,
-              backgroundColor: "white",
+              backgroundColor: bg,
               textAlign: "center",
             }}
           >
@@ -151,14 +173,12 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "flex-start",
-    paddingTop: 200,
+    paddingTop: 40,
     gap: 8,
   },
   Input: {
-    backgroundColor: "white",
     width: 300,
     marginBottom: 8,
-    color: "black",
   },
   Text: {
     fontSize: 24,
