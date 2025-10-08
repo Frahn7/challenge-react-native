@@ -12,6 +12,8 @@ import { store, persistor } from "@/features/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { ActivityIndicator, View } from "react-native";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Provider as JotaiProvider, useAtomValue } from "jotai";
+import { resolvedThemeAtom } from "@/features/themeAtom";
 
 export const unstable_settings = {
   anchor: "(tabs)",
@@ -19,9 +21,26 @@ export const unstable_settings = {
 
 const queryClient = new QueryClient();
 
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
+function AppShell() {
+  const systemScheme = useColorScheme();
+  const pref = useAtomValue(resolvedThemeAtom);
+  const scheme = pref === "system" ? systemScheme ?? "light" : pref;
 
+  return (
+    <ThemeProvider value={scheme === "dark" ? DarkTheme : DefaultTheme}>
+      <Stack initialRouteName="login">
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="modal"
+          options={{ presentation: "modal", title: "Modal" }}
+        />
+      </Stack>
+      <StatusBar style={scheme === "dark" ? "light" : "dark"} />
+    </ThemeProvider>
+  );
+}
+
+export default function RootLayout() {
   return (
     <Provider store={store}>
       <PersistGate
@@ -35,18 +54,9 @@ export default function RootLayout() {
         persistor={persistor}
       >
         <QueryClientProvider client={queryClient}>
-          <ThemeProvider
-            value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-          >
-            <Stack initialRouteName="login">
-              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-              <Stack.Screen
-                name="modal"
-                options={{ presentation: "modal", title: "Modal" }}
-              />
-            </Stack>
-            <StatusBar style="auto" />
-          </ThemeProvider>
+          <JotaiProvider>
+            <AppShell />
+          </JotaiProvider>
         </QueryClientProvider>
       </PersistGate>
     </Provider>
