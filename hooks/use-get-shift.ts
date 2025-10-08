@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 export interface ShiftInterface {
   id: number;
@@ -11,9 +12,8 @@ export interface ShiftInterface {
 const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
 async function fetchShifts(): Promise<ShiftInterface[]> {
-  const res = await fetch(`${API_URL}`);
-  if (!res.ok) throw new Error(`Error ${res.status}`);
-  return res.json();
+  const { data } = await axios.get(`${API_URL}`);
+  return data;
 }
 
 export function useGetShifts() {
