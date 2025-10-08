@@ -10,6 +10,7 @@ import React, { useEffect } from "react";
 import { useGetShifts } from "@/hooks/use-get-shift";
 import { helperDate } from "@/components/helper-fechas";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { FadeIn } from "@/components/fade-in";
 
 export default function HomeScreen() {
   const turnos = useSelector((state: RootState) => state.shifts.turnos);
@@ -87,60 +88,64 @@ export default function HomeScreen() {
                 <Text style={{ color: "white" }}>Ocurrio un error</Text>
               )}
 
-              {isLoading ? (
-                <Text style={{ color: "white" }}>Cargando...</Text>
-              ) : (
-                turnos.map((turno) => (
-                  <View key={turno.id}>
-                    <ThemedView
-                      style={{
-                        flexDirection: "row",
-                        backgroundColor: "gray",
-                        gap: 6,
-                        width: 300,
-                        flexWrap: "wrap",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        borderRadius: 5,
-                        padding: 5,
-                      }}
-                    >
-                      <ThemedText>{turno.nombrePaciente}</ThemedText>
-                      <ThemedText>{turno.nombreDoctor}</ThemedText>
-                      <ThemedText>{turno.estado}</ThemedText>
-                      <ThemedText>{helperDate(turno.fecha)}</ThemedText>
-                    </ThemedView>
-                    <ThemedView
-                      style={{
-                        flexDirection: "row",
-                        justifyContent: "center",
-                        gap: 12,
-                        padding: 5,
-                      }}
-                    >
-                      <TouchableOpacity onPress={() => handleDelete(turno.id)}>
-                        <FontAwesome name="trash-o" size={24} color="red" />
-                      </TouchableOpacity>
-                      <TouchableOpacity
-                        onPress={() => {
-                          router.push({
-                            pathname: "/edit_shift",
-                            params: {
-                              id: turno.id,
-                              name: turno.nombrePaciente,
-                              doctor: turno.nombreDoctor,
-                              estado: turno.estado,
-                              fecha: turno.fecha,
-                            },
-                          });
+              <FadeIn delay={20 * 40}>
+                {isLoading ? (
+                  <Text style={{ color: "white" }}>Cargando...</Text>
+                ) : (
+                  turnos.map((turno) => (
+                    <View key={turno.id}>
+                      <ThemedView
+                        style={{
+                          flexDirection: "row",
+                          backgroundColor: "gray",
+                          gap: 6,
+                          width: 300,
+                          flexWrap: "wrap",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          borderRadius: 5,
+                          padding: 5,
                         }}
                       >
-                        <FontAwesome name="pencil" size={24} color="white" />
-                      </TouchableOpacity>
-                    </ThemedView>
-                  </View>
-                ))
-              )}
+                        <ThemedText>{turno.nombrePaciente}</ThemedText>
+                        <ThemedText>{turno.nombreDoctor}</ThemedText>
+                        <ThemedText>{turno.estado}</ThemedText>
+                        <ThemedText>{helperDate(turno.fecha)}</ThemedText>
+                      </ThemedView>
+                      <ThemedView
+                        style={{
+                          flexDirection: "row",
+                          justifyContent: "center",
+                          gap: 12,
+                          padding: 5,
+                        }}
+                      >
+                        <TouchableOpacity
+                          onPress={() => handleDelete(turno.id)}
+                        >
+                          <FontAwesome name="trash-o" size={24} color="red" />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          onPress={() => {
+                            router.push({
+                              pathname: "/edit_shift",
+                              params: {
+                                id: turno.id,
+                                name: turno.nombrePaciente,
+                                doctor: turno.nombreDoctor,
+                                estado: turno.estado,
+                                fecha: turno.fecha,
+                              },
+                            });
+                          }}
+                        >
+                          <FontAwesome name="pencil" size={24} color="white" />
+                        </TouchableOpacity>
+                      </ThemedView>
+                    </View>
+                  ))
+                )}
+              </FadeIn>
             </View>
           </View>
         </ScrollView>

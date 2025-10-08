@@ -9,6 +9,7 @@ import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
 import { FormatDate } from "@/components/format-date";
+import { FadeIn } from "@/components/fade-in";
 
 type Inputs = {
   id: number;
@@ -58,49 +59,52 @@ export default function CreateShift() {
         }}
       >
         <ThemedText style={styles.Text}>Registra tu turno!</ThemedText>
-        <Controller
-          control={control}
-          render={({ field: { onChange, value } }) => (
-            <TextInput
-              placeholder="Nombre del paciente"
-              style={styles.Input}
-              value={value}
-              onChangeText={(value) => onChange(value)}
-              {...register("paciente", { required: true })}
-            />
-          )}
-          name="paciente"
-          rules={{ required: true }}
-        />
-        <Controller
-          control={control}
-          render={({ field: { onChange, value } }) => (
-            <TextInput
-              placeholder="Nombre del medico"
-              style={styles.Input}
-              value={value}
-              onChangeText={(value) => onChange(value)}
-              {...register("medico", { required: true })}
-            />
-          )}
-          name="medico"
-          rules={{ required: true }}
-        />
 
-        <Controller
-          control={control}
-          render={({ field: { onChange, value } }) => (
-            <TextInput
-              placeholder="Estado"
-              style={styles.Input}
-              value={value}
-              onChangeText={(value) => onChange(value)}
-              {...register("estado", { required: true })}
-            />
-          )}
-          name="estado"
-          rules={{ required: true }}
-        />
+        <FadeIn delay={20 * 40}>
+          <Controller
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <TextInput
+                placeholder="Nombre del paciente"
+                style={styles.Input}
+                value={value}
+                onChangeText={(value) => onChange(value)}
+                {...register("paciente", { required: true })}
+              />
+            )}
+            name="paciente"
+            rules={{ required: true }}
+          />
+          <Controller
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <TextInput
+                placeholder="Nombre del medico"
+                style={styles.Input}
+                value={value}
+                onChangeText={(value) => onChange(value)}
+                {...register("medico", { required: true })}
+              />
+            )}
+            name="medico"
+            rules={{ required: true }}
+          />
+
+          <Controller
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <TextInput
+                placeholder="Estado"
+                style={styles.Input}
+                value={value}
+                onChangeText={(value) => onChange(value)}
+                {...register("estado", { required: true })}
+              />
+            )}
+            name="estado"
+            rules={{ required: true }}
+          />
+        </FadeIn>
 
         <TouchableOpacity onPress={() => setShowPicker(true)}>
           <ThemedText style={styles.Input}>Seleccionar fecha</ThemedText>
@@ -140,6 +144,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     width: 300,
     color: "black",
+    marginBottom: 5,
   },
   Text: {
     fontSize: 24,

@@ -9,6 +9,7 @@ import { ThemedView } from "@/components/themed-view";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { useState } from "react";
 import { router, Stack } from "expo-router";
+import { FadeIn } from "@/components/fade-in";
 
 const User = {
   Correo: "F@gmail.com",
@@ -68,39 +69,40 @@ export default function Login() {
       <KeyboardAvoidingView style={styles.Container}>
         <ThemedText style={styles.Text}>Iniciar sesion</ThemedText>
 
-        <Controller
-          control={control}
-          render={({ field: { onChange, value } }) => (
-            <TextInput
-              placeholder="Correo"
-              style={styles.Input}
-              value={value}
-              onChangeText={(value) => onChange(value)}
-              {...register("Correo", { required: true })}
-            />
-          )}
-          name="Correo"
-          rules={{
-            required: true,
-          }}
-        />
+        <FadeIn delay={22 * 22}>
+          <Controller
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <TextInput
+                placeholder="Correo"
+                style={styles.Input}
+                value={value}
+                onChangeText={(value) => onChange(value)}
+                {...register("Correo", { required: true })}
+              />
+            )}
+            name="Correo"
+            rules={{
+              required: true,
+            }}
+          />
 
-        <Controller
-          control={control}
-          render={({ field: { onChange, value } }) => (
-            <TextInput
-              placeholder="Contraseña"
-              style={styles.Input}
-              value={value}
-              onChangeText={(value) => onChange(value)}
-              secureTextEntry={true}
-              {...register("Contrasena", { required: true })}
-            />
-          )}
-          name="Contrasena"
-          rules={{ required: true }}
-        />
-
+          <Controller
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <TextInput
+                placeholder="Contraseña"
+                style={styles.Input}
+                value={value}
+                onChangeText={(value) => onChange(value)}
+                secureTextEntry={true}
+                {...register("Contrasena", { required: true })}
+              />
+            )}
+            name="Contrasena"
+            rules={{ required: true }}
+          />
+        </FadeIn>
         <TouchableOpacity onPress={handleSubmit(onSubmit)}>
           <ThemedText
             style={{
@@ -155,6 +157,7 @@ const styles = StyleSheet.create({
   Input: {
     backgroundColor: "white",
     width: 300,
+    marginBottom: 8,
     color: "black",
   },
   Text: {
