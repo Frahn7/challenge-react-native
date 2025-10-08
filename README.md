@@ -8,6 +8,8 @@
 
    npx expo start
 
+3. crear un archivo .env para la EXPO_PUBLIC_API_URL
+
 🧩 Descripción general
 
 Aplicación móvil desarrollada con React Native (Expo) que permite gestionar turnos médicos, incluyendo creación, listado y eliminación de turnos con validaciones y persistencia de estado global.

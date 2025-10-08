@@ -34,8 +34,19 @@ const shiftSlice = createSlice({
         state.turnos[idx] = action.payload;
       }
     },
+    setTurnos: (state, action: PayloadAction<ShiftInterface[]>) => {
+      action.payload.forEach((nuevo) => {
+        const existente = state.turnos.find((t) => t.id === nuevo.id);
+        if (existente) {
+          Object.assign(existente, nuevo);
+        } else {
+          state.turnos.push(nuevo);
+        }
+      });
+    },
   },
 });
 
-export const { agregarTurno, eliminarTurno, editarTurno } = shiftSlice.actions;
+export const { agregarTurno, eliminarTurno, editarTurno, setTurnos } =
+  shiftSlice.actions;
 export default shiftSlice.reducer;
