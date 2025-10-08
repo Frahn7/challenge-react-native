@@ -4,10 +4,11 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { agregarTurno } from "../features/shiftSlice";
 import { useDispatch } from "react-redux";
 import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
+import { FormatDate } from "@/components/format-date";
 
 type Inputs = {
   id: number;
@@ -18,11 +19,11 @@ type Inputs = {
 };
 
 export default function CreateShift() {
-  const { register, handleSubmit, control } = useForm<Inputs>();
-  const dispatch = useDispatch();
-
   const [showPicker, setShowPicker] = useState(false);
   const [fechaSeleccionada, setFechaSeccionada] = useState(new Date());
+
+  const { register, handleSubmit, control } = useForm<Inputs>();
+  const dispatch = useDispatch();
 
   const handleChange = (event: DateTimePickerEvent, date?: Date) => {
     setShowPicker(false);
@@ -31,21 +32,12 @@ export default function CreateShift() {
     }
   };
 
-  const formatDate = (d?: Date) =>
-    d
-      ? d.toLocaleDateString("es-AR", {
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-        })
-      : "";
-
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const nuevoTurno = {
       id: Date.now(),
       nombrePaciente: data.paciente,
       nombreDoctor: data.medico,
-      fecha: formatDate(fechaSeleccionada),
+      fecha: FormatDate(fechaSeleccionada)!.toString(),
       estado: data.estado,
     };
 

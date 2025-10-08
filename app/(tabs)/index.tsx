@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ThemedView } from "@/components/themed-view";
 import { FontAwesome } from "@expo/vector-icons";
 import { eliminarTurno } from "@/features/shiftSlice";
+import React from "react";
 
 export default function HomeScreen() {
   const turnos = useSelector((state: RootState) => state.shifts.turnos);
@@ -71,27 +72,54 @@ export default function HomeScreen() {
           }}
         >
           {turnos.map((turno) => (
-            <ThemedView
-              style={{
-                flexDirection: "row",
-                gap: 6,
-                width: 300,
-                flexWrap: "wrap",
-                alignItems: "center",
-                justifyContent: "center",
-                borderRadius: 2,
-                padding: 5,
-              }}
-              key={turno.id}
-            >
-              <ThemedText>{turno.nombrePaciente}</ThemedText>
-              <ThemedText>{turno.nombreDoctor}</ThemedText>
-              <ThemedText>{turno.fecha}</ThemedText>
-              <ThemedText>{turno.estado}</ThemedText>
-              <TouchableOpacity onPress={() => handleDelete(turno.id)}>
-                <FontAwesome name="trash-o" size={28} color="red" />
-              </TouchableOpacity>
-            </ThemedView>
+            <View key={turno.id}>
+              <ThemedView
+                style={{
+                  flexDirection: "row",
+                  backgroundColor: "gray",
+                  gap: 6,
+                  width: 300,
+                  flexWrap: "wrap",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: 5,
+                  padding: 5,
+                }}
+              >
+                <ThemedText>{turno.nombrePaciente}</ThemedText>
+                <ThemedText>{turno.nombreDoctor}</ThemedText>
+                <ThemedText>{turno.fecha}</ThemedText>
+                <ThemedText>{turno.estado}</ThemedText>
+              </ThemedView>
+              <ThemedView
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  gap: 12,
+                  padding: 5,
+                }}
+              >
+                <TouchableOpacity onPress={() => handleDelete(turno.id)}>
+                  <FontAwesome name="trash-o" size={24} color="red" />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    router.push({
+                      pathname: "/edit_shift",
+                      params: {
+                        id: turno.id,
+                        name: turno.nombrePaciente,
+                        doctor: turno.nombreDoctor,
+                        estado: turno.estado,
+                        fecha: turno.fecha,
+                      },
+                    });
+                  }}
+                >
+                  <FontAwesome name="pencil" size={24} color="white" />
+                </TouchableOpacity>
+              </ThemedView>
+            </View>
           ))}
         </View>
       </View>

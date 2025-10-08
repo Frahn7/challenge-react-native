@@ -1,4 +1,9 @@
-import { StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import {
+  KeyboardAvoidingView,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
@@ -60,7 +65,7 @@ export default function Login() {
   return (
     <>
       <Stack.Screen options={{ headerShown: false }} />
-      <ThemedView style={styles.Container}>
+      <KeyboardAvoidingView style={styles.Container}>
         <ThemedText style={styles.Text}>Iniciar sesion</ThemedText>
 
         <Controller
@@ -133,7 +138,7 @@ export default function Login() {
               </ThemedText>
             )}
         </ThemedView>
-      </ThemedView>
+      </KeyboardAvoidingView>
     </>
   );
 }
