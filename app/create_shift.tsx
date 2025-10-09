@@ -10,6 +10,7 @@ import DateTimePicker, {
 } from "@react-native-community/datetimepicker";
 import { FormatDate } from "@/components/format-date";
 import { FadeIn } from "@/components/fade-in";
+import { useThemeColors } from "@/hooks/use-theme-colors";
 
 type Inputs = {
   id: number;
@@ -46,6 +47,8 @@ export default function CreateShift() {
     router.replace("/");
   };
 
+  const { bg, text } = useThemeColors();
+
   return (
     <>
       <Stack.Screen options={{ headerShown: false }} />
@@ -58,7 +61,9 @@ export default function CreateShift() {
           gap: 5,
         }}
       >
-        <ThemedText style={styles.Text}>Registra tu turno!</ThemedText>
+        <ThemedText style={[styles.Text, { color: text }]}>
+          Registra tu turno!
+        </ThemedText>
 
         <FadeIn delay={20 * 40}>
           <Controller
@@ -66,7 +71,13 @@ export default function CreateShift() {
             render={({ field: { onChange, value } }) => (
               <TextInput
                 placeholder="Nombre del paciente"
-                style={styles.Input}
+                style={[
+                  styles.Input,
+                  {
+                    color: bg === "#000" ? "gray" : "black",
+                    backgroundColor: bg === "#000" ? "white" : "#F5F5DC",
+                  },
+                ]}
                 value={value}
                 onChangeText={(value) => onChange(value)}
                 {...register("paciente", { required: true })}
@@ -80,7 +91,13 @@ export default function CreateShift() {
             render={({ field: { onChange, value } }) => (
               <TextInput
                 placeholder="Nombre del medico"
-                style={styles.Input}
+                style={[
+                  styles.Input,
+                  {
+                    color: bg === "#000" ? "gray" : "black",
+                    backgroundColor: bg === "#000" ? "white" : "#F5F5DC",
+                  },
+                ]}
                 value={value}
                 onChangeText={(value) => onChange(value)}
                 {...register("medico", { required: true })}
@@ -95,7 +112,13 @@ export default function CreateShift() {
             render={({ field: { onChange, value } }) => (
               <TextInput
                 placeholder="Estado"
-                style={styles.Input}
+                style={[
+                  styles.Input,
+                  {
+                    color: bg === "#000" ? "gray" : "black",
+                    backgroundColor: bg === "#000" ? "white" : "#F5F5DC",
+                  },
+                ]}
                 value={value}
                 onChangeText={(value) => onChange(value)}
                 {...register("estado", { required: true })}
@@ -107,7 +130,18 @@ export default function CreateShift() {
         </FadeIn>
 
         <TouchableOpacity onPress={() => setShowPicker(true)}>
-          <ThemedText style={styles.Input}>Seleccionar fecha</ThemedText>
+          <ThemedText
+            style={[
+              styles.Input,
+              {
+                color: bg === "#000" ? "gray" : "black",
+                backgroundColor: bg === "#000" ? "white" : "#F5F5DC",
+                padding: 4,
+              },
+            ]}
+          >
+            Seleccionar fecha
+          </ThemedText>
         </TouchableOpacity>
 
         {showPicker && (
@@ -141,7 +175,6 @@ export default function CreateShift() {
 
 const styles = StyleSheet.create({
   Input: {
-    backgroundColor: "white",
     width: 300,
     color: "black",
     marginBottom: 5,
