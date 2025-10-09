@@ -10,6 +10,7 @@ import DateTimePicker, {
 import { FormatDate } from "@/components/format-date";
 import { editarTurno } from "../features/shiftSlice";
 import { FadeIn } from "@/components/fade-in";
+import { useThemeColors } from "@/hooks/use-theme-colors";
 
 type Inputs = {
   id: number;
@@ -66,18 +67,23 @@ export default function EditShift() {
     router.replace("/");
   };
 
+  const { bg, text } = useThemeColors();
+
   return (
     <View
       style={{
         flex: 1,
-        justifyContent: "center",
+        justifyContent: "flex-start",
         alignItems: "center",
+        paddingTop: 150,
         gap: 3,
       }}
     >
       <Stack.Screen options={{ headerShown: false }} />
-      <View>
-        <ThemedText>Editar Turnos!</ThemedText>
+      <View style={{ marginBottom: 15 }}>
+        <ThemedText style={[styles.Text, { color: text }]}>
+          Editar Turnos!
+        </ThemedText>
       </View>
 
       <FadeIn delay={20 * 40}>
@@ -86,7 +92,13 @@ export default function EditShift() {
           render={({ field: { onChange, value } }) => (
             <TextInput
               placeholder={name}
-              style={styles.Input}
+              style={[
+                styles.Input,
+                {
+                  color: bg === "#000" ? "gray" : "black",
+                  backgroundColor: bg === "#000" ? "white" : "#F5F5DC",
+                },
+              ]}
               value={value}
               onChangeText={(value) => onChange(value)}
               {...register("paciente", { required: true })}
@@ -100,7 +112,13 @@ export default function EditShift() {
           render={({ field: { onChange, value } }) => (
             <TextInput
               placeholder={doctor}
-              style={styles.Input}
+              style={[
+                styles.Input,
+                {
+                  color: bg === "#000" ? "gray" : "black",
+                  backgroundColor: bg === "#000" ? "white" : "#F5F5DC",
+                },
+              ]}
               value={value}
               onChangeText={(value) => onChange(value)}
               {...register("medico", { required: true })}
@@ -115,7 +133,13 @@ export default function EditShift() {
           render={({ field: { onChange, value } }) => (
             <TextInput
               placeholder={estado}
-              style={styles.Input}
+              style={[
+                styles.Input,
+                {
+                  color: bg === "#000" ? "gray" : "black",
+                  backgroundColor: bg === "#000" ? "white" : "#F5F5DC",
+                },
+              ]}
               value={value}
               onChangeText={(value) => onChange(value)}
               {...register("estado", { required: true })}
@@ -127,7 +151,16 @@ export default function EditShift() {
       </FadeIn>
 
       <TouchableOpacity onPress={() => setShowPicker(true)}>
-        <ThemedText style={[styles.Input, { marginBottom: 10 }]}>
+        <ThemedText
+          style={[
+            styles.Input,
+            {
+              color: bg === "#000" ? "gray" : "black",
+              backgroundColor: bg === "#000" ? "white" : "#F5F5DC",
+              marginBottom: 10,
+            },
+          ]}
+        >
           Seleccionar fecha
         </ThemedText>
       </TouchableOpacity>
