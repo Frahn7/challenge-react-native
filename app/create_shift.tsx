@@ -12,7 +12,6 @@ import { FormatDate } from "@/components/format-date";
 import { FadeIn } from "@/components/fade-in";
 import { useThemeColors } from "@/hooks/use-theme-colors";
 import { Ionicons } from "@expo/vector-icons";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 type Inputs = {
   id: number;
