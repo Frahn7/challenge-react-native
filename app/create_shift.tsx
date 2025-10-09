@@ -11,6 +11,8 @@ import DateTimePicker, {
 import { FormatDate } from "@/components/format-date";
 import { FadeIn } from "@/components/fade-in";
 import { useThemeColors } from "@/hooks/use-theme-colors";
+import { Ionicons } from "@expo/vector-icons";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 type Inputs = {
   id: number;
@@ -54,10 +56,28 @@ export default function CreateShift() {
       <Stack.Screen options={{ headerShown: false }} />
       <View
         style={{
+          paddingLeft: 50,
+          gap: 80,
+          justifyContent: "flex-start",
+          width: 300,
+          paddingTop: 50,
+          flexDirection: "row",
+          alignItems: "center",
+        }}
+      >
+        <Ionicons
+          name="chevron-back"
+          size={24}
+          color={text}
+          onPress={() => router.push("/")}
+        />
+      </View>
+      <View
+        style={{
           flex: 1,
           alignItems: "center",
           justifyContent: "flex-start",
-          paddingTop: 150,
+          paddingTop: 50,
           gap: 5,
         }}
       >

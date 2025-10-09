@@ -4,7 +4,7 @@ import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { RootState } from "@/features/store";
 import { useDispatch, useSelector } from "react-redux";
 import { ThemedView } from "@/components/themed-view";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { eliminarTurno, setTurnos } from "@/features/shiftSlice";
 import React, { useEffect } from "react";
 import { useGetShifts } from "@/hooks/use-get-shift";
@@ -37,7 +37,23 @@ export default function HomeScreen() {
       <SafeAreaView style={{ flex: 1, backgroundColor: bg }}>
         <ScrollView contentContainerStyle={{ padding: 20 }}>
           <Stack.Screen options={{ headerShown: false }} />
-          <View style={{ paddingLeft: 250 }}>
+
+          <View
+            style={{
+              paddingLeft: 50,
+              gap: 80,
+              justifyContent: "center",
+              width: 300,
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Ionicons
+              name="chevron-back"
+              size={24}
+              color={text}
+              onPress={() => router.push("/login")}
+            />
             <ThemeToggle />
           </View>
           <View

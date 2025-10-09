@@ -11,6 +11,7 @@ import { FormatDate } from "@/components/format-date";
 import { editarTurno } from "../features/shiftSlice";
 import { FadeIn } from "@/components/fade-in";
 import { useThemeColors } from "@/hooks/use-theme-colors";
+import { Ionicons } from "@expo/vector-icons";
 
 type Inputs = {
   id: number;
@@ -75,11 +76,28 @@ export default function EditShift() {
         flex: 1,
         justifyContent: "flex-start",
         alignItems: "center",
-        paddingTop: 150,
+        paddingTop: 50,
         gap: 3,
       }}
     >
       <Stack.Screen options={{ headerShown: false }} />
+      <View
+        style={{
+          gap: 80,
+          justifyContent: "flex-start",
+          width: 300,
+          paddingTop: 50,
+          flexDirection: "row",
+          alignItems: "center",
+        }}
+      >
+        <Ionicons
+          name="chevron-back"
+          size={24}
+          color={text}
+          onPress={() => router.push("/")}
+        />
+      </View>
       <View style={{ marginBottom: 15 }}>
         <ThemedText style={[styles.Text, { color: text }]}>
           Editar Turnos!
