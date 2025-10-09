@@ -59,7 +59,7 @@ export default function CreateShift() {
           gap: 80,
           justifyContent: "flex-start",
           width: 300,
-          paddingTop: 50,
+          paddingTop: 52,
           flexDirection: "row",
           alignItems: "center",
         }}
