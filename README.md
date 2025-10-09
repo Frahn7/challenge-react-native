@@ -29,3 +29,14 @@ React Navigation / Expo Router → Navegación entre pantallas (Home, Crear turn
 React Query → Manejo de peticiones asíncronas para comunicación con API o backend.
 
 TypeScript → Tipado estático que mejora la seguridad y mantenibilidad del código.
+
+FLUJO DEL SISTEMA:
+
+![](./assets/images/Flujo/login.jpg)
+![](./assets/images/Flujo/login2.jpg)
+![](./assets/images/Flujo/home.jpg)
+![](./assets/images/Flujo/home2.jpg)
+![](./assets/images/Flujo/turno.jpg)
+![](./assets/images/Flujo/turno2.jpg)
+![](./assets/images/Flujo/editar.jpg)
+![](./assets/images/Flujo/editar2.jpg)
