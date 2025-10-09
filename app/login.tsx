@@ -88,8 +88,8 @@ export default function Login() {
                 style={[
                   styles.Input,
                   {
-                    backgroundColor: bg === "#000" ? "white" : "gray",
-                    color: bg === "#000" ? "gray" : "white",
+                    backgroundColor: bg === "#000" ? "white" : "#F5F5DC",
+                    color: bg === "#000" ? "gray" : "black",
                   },
                 ]}
                 value={value}
@@ -111,8 +111,8 @@ export default function Login() {
                 style={[
                   styles.Input,
                   {
-                    backgroundColor: bg === "#000" ? "white" : "gray",
-                    color: bg === "#000" ? "gray" : "white",
+                    backgroundColor: bg === "#000" ? "white" : "#F5F5DC",
+                    color: bg === "#000" ? "gray" : "black",
                   },
                 ]}
                 value={value}

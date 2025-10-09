@@ -2,11 +2,11 @@ import { atom } from "jotai";
 import { atomWithStorage, createJSONStorage } from "jotai/utils";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export type ThemePref = "light" | "dark" | "system";
+export type ThemePref = "light" | "dark";
 
 export const themeAtom = atomWithStorage<ThemePref>(
   "theme-pref",
-  "system",
+  "dark",
   createJSONStorage(() => AsyncStorage)
 );
 

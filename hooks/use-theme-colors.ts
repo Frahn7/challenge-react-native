@@ -5,7 +5,7 @@ import { resolvedThemeAtom } from "@/features/themeAtom";
 export function useThemeColors() {
   const system = useColorScheme();
   const pref = useAtomValue(resolvedThemeAtom);
-  const scheme = pref === "system" ? system ?? "light" : pref;
+  const scheme = pref === "dark" ? system ?? "light" : pref;
 
   return {
     bg: scheme === "dark" ? "#000" : "#fff",

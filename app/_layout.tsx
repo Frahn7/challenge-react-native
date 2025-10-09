@@ -24,7 +24,7 @@ const queryClient = new QueryClient();
 function AppShell() {
   const systemScheme = useColorScheme();
   const pref = useAtomValue(resolvedThemeAtom);
-  const scheme = pref === "system" ? systemScheme ?? "light" : pref;
+  const scheme = pref === "dark" ? systemScheme ?? "light" : pref;
 
   return (
     <ThemeProvider value={scheme === "dark" ? DarkTheme : DefaultTheme}>

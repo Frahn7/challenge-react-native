@@ -11,6 +11,8 @@ import { useGetShifts } from "@/hooks/use-get-shift";
 import { helperDate } from "@/components/helper-fechas";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FadeIn } from "@/components/fade-in";
+import { useThemeColors } from "@/hooks/use-theme-colors";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function HomeScreen() {
   const turnos = useSelector((state: RootState) => state.shifts.turnos);
@@ -28,17 +30,22 @@ export default function HomeScreen() {
     }
   }, [data, dispatch]);
 
+  const { bg, text } = useThemeColors();
+
   return (
     <>
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: bg }}>
         <ScrollView contentContainerStyle={{ padding: 20 }}>
           <Stack.Screen options={{ headerShown: false }} />
+          <View style={{ paddingLeft: 250 }}>
+            <ThemeToggle />
+          </View>
           <View
             style={{
               flex: 1,
               alignItems: "center",
               justifyContent: "flex-start",
-              paddingTop: 50,
+              paddingTop: 20,
               gap: 5,
             }}
           >
@@ -47,12 +54,13 @@ export default function HomeScreen() {
                 flexDirection: "row",
                 gap: 8,
                 alignItems: "center",
+                marginBottom: 20,
               }}
             >
               <ThemedText
                 style={{
                   fontSize: 25,
-                  color: "white",
+                  color: text,
                 }}
               >
                 Gestion de turnos
@@ -81,7 +89,6 @@ export default function HomeScreen() {
               style={{
                 flex: 1,
                 justifyContent: "center",
-                gap: 7,
               }}
             >
               {error && (
@@ -93,7 +100,7 @@ export default function HomeScreen() {
                   <Text style={{ color: "white" }}>Cargando...</Text>
                 ) : (
                   turnos.map((turno) => (
-                    <View key={turno.id}>
+                    <View key={turno.id} style={{ marginBottom: 10 }}>
                       <ThemedView
                         style={{
                           flexDirection: "row",
