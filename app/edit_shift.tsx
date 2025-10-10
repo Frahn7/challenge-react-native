@@ -12,6 +12,7 @@ import { editarTurno } from "../features/shiftSlice";
 import { FadeIn } from "@/components/fade-in";
 import { useThemeColors } from "@/hooks/use-theme-colors";
 import { Ionicons } from "@expo/vector-icons";
+import { useMutation } from "@tanstack/react-query";
 
 type Inputs = {
   id: number;
@@ -20,6 +21,10 @@ type Inputs = {
   fecha: string;
   estado: string;
 };
+
+interface Data {
+  data: Inputs;
+}
 
 export default function EditShift() {
   const { id, name, doctor, estado, fecha } = useLocalSearchParams<{
@@ -55,17 +60,26 @@ export default function EditShift() {
     setShowPicker(false);
   };
 
+  const mutation = useMutation({
+    mutationFn: async ({ data }: Data) => {
+      dispatch(
+        editarTurno({
+          id: Number(id),
+          nombrePaciente: data.paciente,
+          nombreDoctor: data.medico,
+          estado: data.estado,
+          fecha: FormatDate(fechaSeleccionada)!.toString(),
+        })
+      );
+      return data;
+    },
+    onSuccess: () => {
+      router.replace("/");
+    },
+  });
+
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    dispatch(
-      editarTurno({
-        id: Number(id),
-        nombrePaciente: data.paciente,
-        nombreDoctor: data.medico,
-        estado: data.estado,
-        fecha: FormatDate(fechaSeleccionada)!.toString(),
-      })
-    );
-    router.replace("/");
+    mutation.mutate({ data });
   };
 
   const { bg, text } = useThemeColors();
