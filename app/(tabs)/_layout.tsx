@@ -3,6 +3,7 @@ import React from "react";
 import { HapticTab } from "@/components/haptic-tab";
 import { Colors } from "@/constants/theme";
 import { useColorScheme } from "@/hooks/use-color-scheme";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -20,6 +21,16 @@ export default function TabLayout() {
           href: null,
         }}
         name="index"
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="person" color={color} size={size} />
+          ),
+          headerShown: false,
+          tabBarLabel: "Perfil",
+        }}
       />
     </Tabs>
   );
