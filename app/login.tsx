@@ -13,6 +13,8 @@ import { router, Stack } from "expo-router";
 import { FadeIn } from "@/components/fade-in";
 import { useThemeColors } from "@/hooks/use-theme-colors";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { useAtom } from "jotai";
+import { profileAtom } from "@/features/profileAtom";
 
 const User = {
   Correo: "F@gmail.com",
@@ -25,6 +27,7 @@ type Inputs = {
 };
 
 export default function Login() {
+  const [profile, setProfile] = useAtom(profileAtom);
   const [ErrorCorreoMessage, setErrorCorreoMessage] = useState("");
   const [ErrorContrasenaMessage, setErrorContrasenaMessage] = useState("");
   const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -62,6 +65,7 @@ export default function Login() {
     }
 
     if (ok) {
+      setProfile({ name: User.Correo });
       router.push("/");
     }
   };

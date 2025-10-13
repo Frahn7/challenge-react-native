@@ -2,9 +2,14 @@ import { useThemeColors } from "@/hooks/use-theme-colors";
 import { Text, TouchableOpacity, View, Image } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
+import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
+import { useAtom } from "jotai";
+import { profileAtom } from "@/features/profileAtom";
 
 export default function Profile() {
   const [photo, setPhoto] = useState<string | null>(null);
+  const [profile, setProfile] = useAtom(profileAtom);
 
   const { bg, text } = useThemeColors();
 
@@ -31,17 +36,36 @@ export default function Profile() {
     <View
       style={{
         flex: 1,
-        justifyContent: "center",
+        justifyContent: "flex-start",
+        paddingTop: 80,
         alignItems: "center",
-        gap: 8,
+        gap: 12,
         backgroundColor: bg,
       }}
     >
+      <View style={{ alignContent: "flex-end", width: 300 }}>
+        <Ionicons
+          name="chevron-back"
+          size={24}
+          color={text}
+          onPress={() => router.push("/")}
+        />
+      </View>
       <Text style={{ color: text, fontSize: 28, fontWeight: "bold" }}>
-        Hola bienvenido!
+        Bienvenido {profile.name} !!
       </Text>
-      <TouchableOpacity onPress={openCamera}>
-        <Text style={{ color: text }}>Subir foto</Text>
+      <TouchableOpacity
+        onPress={openCamera}
+        style={{
+          alignItems: "center",
+          gap: 3,
+          borderWidth: 3,
+          padding: 3,
+          borderColor: "red",
+        }}
+      >
+        <Text style={{ color: text }}>SUBIR FOTO</Text>
+        <Ionicons name="image" size={24} color={text} />
       </TouchableOpacity>
 
       {photo && (

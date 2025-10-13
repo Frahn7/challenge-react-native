@@ -79,7 +79,7 @@ export default function HomeScreen() {
                   color: text,
                 }}
               >
-                Gestion de turnos
+                Gestion de turnos!
               </ThemedText>
 
               <TouchableOpacity onPress={() => router.push("/create_shift")}>
@@ -100,7 +100,6 @@ export default function HomeScreen() {
                 </ThemedText>
               </TouchableOpacity>
             </View>
-
             <View
               style={{
                 flex: 1,
