@@ -40,3 +40,4 @@ FLUJO DEL SISTEMA:
 ![](./assets/images/Flujo/turno2.jpg)
 ![](./assets/images/Flujo/editar.jpg)
 ![](./assets/images/Flujo/editar2.jpg)
+![](./assets/images/Flujo/profile.jpg)
