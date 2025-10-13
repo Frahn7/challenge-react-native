@@ -8,9 +8,7 @@ import { useAtom } from "jotai";
 import { profileAtom } from "@/features/profileAtom";
 
 export default function Profile() {
-  const [photo, setPhoto] = useState<string | null>(null);
   const [profile, setProfile] = useAtom(profileAtom);
-
   const { bg, text } = useThemeColors();
 
   const openCamera = async () => {
@@ -28,7 +26,7 @@ export default function Profile() {
     });
 
     if (!result.canceled) {
-      setPhoto(result.assets[0].uri);
+      setProfile({ name: profile.name, photo: result.assets[0].uri });
     }
   };
 
@@ -68,9 +66,9 @@ export default function Profile() {
         <Ionicons name="image" size={24} color={text} />
       </TouchableOpacity>
 
-      {photo && (
+      {profile.photo && (
         <Image
-          source={{ uri: photo }}
+          source={{ uri: profile.photo }}
           style={{ width: 200, height: 200, marginTop: 20, borderRadius: 10 }}
         />
       )}
