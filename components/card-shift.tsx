@@ -7,6 +7,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useDispatch } from "react-redux";
 import { eliminarTurno } from "@/features/shiftSlice";
+import * as Notifications from "expo-notifications";
 
 interface ShiftProps {
   id: number;
@@ -71,6 +72,21 @@ export const CardShift = ({ turno }: { turno: ShiftProps }) => {
           }}
         >
           <FontAwesome name="pencil" size={24} color="white" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={async () => {
+            await Notifications.scheduleNotificationAsync({
+              content: {
+                title: "Turno medico!",
+                body: `Hola! tu turno medico esta programado para el dia ${helperDate(
+                  turno.fecha
+                )}! no te olvides`,
+              },
+              trigger: { seconds: 1, channelId: "urgent" },
+            });
+          }}
+        >
+          <FontAwesome name="bell" size={24} color="green" />
         </TouchableOpacity>
       </ThemedView>
     </View>
