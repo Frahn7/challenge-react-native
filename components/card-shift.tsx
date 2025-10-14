@@ -30,12 +30,12 @@ export const CardShift = ({ turno }: { turno: ShiftProps }) => {
         style={{
           flexDirection: "row",
           backgroundColor: "gray",
+          marginTop: 14,
           gap: 6,
           width: 300,
           flexWrap: "wrap",
           alignItems: "center",
           justifyContent: "center",
-          borderRadius: 5,
           padding: 5,
         }}
       >
@@ -44,6 +44,7 @@ export const CardShift = ({ turno }: { turno: ShiftProps }) => {
         <ThemedText>{turno.estado}</ThemedText>
         <ThemedText>{helperDate(turno.fecha)}</ThemedText>
       </ThemedView>
+
       <ThemedView
         style={{
           flexDirection: "row",
