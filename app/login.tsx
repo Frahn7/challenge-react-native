@@ -75,12 +75,25 @@ export default function Login() {
   return (
     <>
       <Stack.Screen options={{ headerShown: false }} />
-      <KeyboardAvoidingView style={[styles.Container, { backgroundColor: bg }]}>
+      <KeyboardAvoidingView
+        style={[styles.Container, { backgroundColor: bg, gap: 20 }]}
+      >
         <View style={{ paddingLeft: 250 }}>
           <ThemeToggle />
         </View>
         <ThemedText style={[styles.Text, { color: text }]}>
           Iniciar sesion
+        </ThemedText>
+
+        <ThemedText
+          style={{
+            color: "black",
+            backgroundColor: "lightblue",
+            padding: 3,
+            borderRadius: 10,
+          }}
+        >
+          F@gmail.com / 12345678
         </ThemedText>
 
         <FadeIn delay={22 * 22}>
