@@ -36,7 +36,7 @@ export default function Profile() {
         justifyContent: "flex-start",
         paddingTop: 80,
         alignItems: "center",
-        gap: 12,
+        gap: 30,
         backgroundColor: bg,
       }}
     >
@@ -56,19 +56,28 @@ export default function Profile() {
         style={{
           alignItems: "center",
           gap: 3,
-          borderWidth: 3,
+          borderWidth: 2,
+          backgroundColor: "lightblue",
           padding: 3,
-          borderColor: "red",
+          borderRadius: 9,
+          borderColor: "white",
         }}
       >
-        <Text style={{ color: text }}>SUBIR FOTO</Text>
-        <Ionicons name="image" size={24} color={text} />
+        <Text style={{ color: "black" }}>SUBIR FOTO</Text>
+        <Ionicons name="image" size={24} color={"black"} />
       </TouchableOpacity>
 
       {profile.photo && (
         <Image
           source={{ uri: profile.photo }}
-          style={{ width: 200, height: 200, marginTop: 20, borderRadius: 10 }}
+          style={{
+            width: 200,
+            height: 200,
+            marginTop: 20,
+            borderRadius: 10,
+            borderColor: "white",
+            borderWidth: 2,
+          }}
         />
       )}
     </View>
