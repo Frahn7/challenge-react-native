@@ -1,7 +1,6 @@
 import { useThemeColors } from "@/hooks/use-theme-colors";
 import { Text, TouchableOpacity, View, Image } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useAtom } from "jotai";

@@ -45,8 +45,8 @@ export default function Login() {
 
     let ok = true;
 
-    const correo = (data.Correo || "").trim().toLowerCase();
-    const correoUser = (User.Correo || "").trim().toLowerCase();
+    const correo = data.Correo.trim().toLowerCase();
+    const correoUser = User.Correo.trim().toLowerCase();
 
     if (!regexCorreo.test(correo)) {
       setErrorCorreoMessage("Ingresa un correo válido");
@@ -65,7 +65,7 @@ export default function Login() {
     }
 
     if (ok) {
-      setProfile({ name: User.Correo });
+      setProfile({ name: User.Correo, photo: "" });
       router.push("/");
     }
   };
