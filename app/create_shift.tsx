@@ -12,6 +12,7 @@ import { FormatDate } from "@/components/format-date";
 import { FadeIn } from "@/components/fade-in";
 import { useThemeColors } from "@/hooks/use-theme-colors";
 import { Ionicons } from "@expo/vector-icons";
+import { helperDate } from "@/components/helper-fechas";
 
 type Inputs = {
   id: number;
@@ -162,6 +163,17 @@ export default function CreateShift() {
             Seleccionar fecha
           </ThemedText>
         </TouchableOpacity>
+        <ThemedText
+          style={[
+            {
+              color: text,
+              width: 300,
+              textAlign: "center",
+            },
+          ]}
+        >
+          Fecha seleccionada: {helperDate(fechaSeleccionada)}
+        </ThemedText>
 
         {showPicker && (
           <DateTimePicker
