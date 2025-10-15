@@ -1,3 +1,4 @@
+import "@/features/notifications";
 import {
   DarkTheme,
   DefaultTheme,
