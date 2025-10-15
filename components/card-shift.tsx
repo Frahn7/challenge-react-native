@@ -80,7 +80,7 @@ export const CardShift = ({ turno }: { turno: ShiftProps }) => {
               body: `Hola! tu turno medico esta programado para el dia ${helperDate(
                 turno.fecha
               )}! no te olvides`,
-              time: 50,
+              time: 1,
             });
           }}
         >
