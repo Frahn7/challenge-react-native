@@ -12,11 +12,12 @@ import { FadeIn } from "@/components/fade-in";
 import { useThemeColors } from "@/hooks/use-theme-colors";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { CardShift } from "@/components/card-shift";
+import Line from "@/components/line";
 
 export default function HomeScreen() {
   const turnos = useSelector((state: RootState) => state.shifts.turnos);
   const dispatch = useDispatch();
-  const { data, isLoading, error } = useGetShifts();
+  const { data, isLoading } = useGetShifts();
 
   useEffect(() => {
     if (data) {
@@ -31,7 +32,6 @@ export default function HomeScreen() {
       <SafeAreaView style={{ flex: 1, backgroundColor: bg }}>
         <ScrollView contentContainerStyle={{ padding: 20 }}>
           <Stack.Screen options={{ headerShown: false }} />
-
           <View
             style={{
               paddingLeft: 50,
@@ -43,13 +43,16 @@ export default function HomeScreen() {
             }}
           >
             <Ionicons
-              name="chevron-back"
+              name="log-in-sharp"
               size={24}
               color={text}
               onPress={() => router.push("/login")}
             />
             <ThemeToggle />
           </View>
+
+          <Line />
+
           <View
             style={{
               flex: 1,
@@ -73,37 +76,34 @@ export default function HomeScreen() {
                   color: text,
                 }}
               >
-                Gestion de turnos!
+                Gestion de turnos
               </ThemedText>
-
-              <TouchableOpacity onPress={() => router.push("/create_shift")}>
-                <ThemedText
-                  style={{
-                    fontSize: 20,
-                    color: "black",
-                    padding: 2,
-                    width: 50,
-                    borderRadius: 999,
-                    borderColor: "blue",
-                    borderWidth: 1,
-                    backgroundColor: "white",
-                    textAlign: "center",
-                  }}
-                >
-                  +
-                </ThemedText>
-              </TouchableOpacity>
             </View>
+
+            <TouchableOpacity onPress={() => router.push("/create_shift")}>
+              <ThemedText
+                style={{
+                  fontSize: 20,
+                  color: "black",
+                  padding: 2,
+                  width: 50,
+                  borderRadius: 999,
+                  borderColor: "blue",
+                  borderWidth: 1,
+                  backgroundColor: "white",
+                  textAlign: "center",
+                }}
+              >
+                +
+              </ThemedText>
+            </TouchableOpacity>
+            <Line />
             <View
               style={{
                 flex: 1,
                 justifyContent: "center",
               }}
             >
-              {error && (
-                <Text style={{ color: "white" }}>Ocurrio un error</Text>
-              )}
-
               <FadeIn delay={20 * 40}>
                 {isLoading ? (
                   <Text style={{ color: "white" }}>Cargando...</Text>

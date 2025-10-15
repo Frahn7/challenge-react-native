@@ -29,29 +29,33 @@ export const CardShift = ({ turno }: { turno: ShiftProps }) => {
     <View>
       <ThemedView
         style={{
-          flexDirection: "row",
-          backgroundColor: "gray",
-          marginTop: 14,
-          gap: 6,
-          width: 300,
-          flexWrap: "wrap",
-          alignItems: "center",
-          justifyContent: "center",
+          width: 250,
           padding: 5,
+          gap: 6,
+          backgroundColor: "#1F1F1F",
+          overflow: "hidden",
+          alignItems: "center",
+          shadowColor: "#000",
+          shadowOpacity: 0.15,
+          shadowRadius: 8,
+          shadowOffset: { width: 0, height: 4 },
+          elevation: 3,
+          marginTop: 14,
         }}
       >
-        <ThemedText>{turno.nombrePaciente}</ThemedText>
-        <ThemedText>{turno.nombreDoctor}</ThemedText>
-        <ThemedText>{turno.estado}</ThemedText>
-        <ThemedText>{helperDate(turno.fecha)}</ThemedText>
+        <ThemedText>Paciente: {turno.nombrePaciente}</ThemedText>
+        <ThemedText>Doctor: {turno.nombreDoctor}</ThemedText>
+        <ThemedText>Estado: {turno.estado}</ThemedText>
+        <ThemedText>Fecha: {helperDate(turno.fecha)}</ThemedText>
       </ThemedView>
 
       <ThemedView
         style={{
           flexDirection: "row",
           justifyContent: "center",
-          gap: 12,
+          gap: 20,
           padding: 5,
+          backgroundColor: "lightblue",
         }}
       >
         <TouchableOpacity onPress={() => handleDelete(turno.id)}>

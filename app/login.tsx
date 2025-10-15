@@ -12,9 +12,9 @@ import { router, Stack } from "expo-router";
 import { useThemeColors } from "@/hooks/use-theme-colors";
 import { useAtom } from "jotai";
 import { profileAtom } from "@/features/profileAtom";
-import { regexCorreo, User } from "./utils/utils";
-import { Inputs } from "./utils/types";
-import { globalStyles } from "./globalStyle";
+import { regexCorreo, User } from "../utils/utils";
+import { Inputs } from "../utils/types";
+import { globalStyles } from "../globalStyle";
 import { Ionicons } from "@expo/vector-icons";
 import { ThemeToggle } from "@/components/theme-toggle";
 

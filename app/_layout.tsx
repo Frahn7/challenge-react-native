@@ -19,7 +19,7 @@ import { useEffect } from "react";
 import {
   registerNotificationResponse,
   unregisterNotificationResponse,
-} from "./utils/notificationListenner";
+} from "../utils/notificationListenner";
 
 export const unstable_settings = {
   anchor: "(tabs)",
