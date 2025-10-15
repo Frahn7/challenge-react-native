@@ -15,6 +15,11 @@ import { ActivityIndicator, View } from "react-native";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Provider as JotaiProvider, useAtomValue } from "jotai";
 import { resolvedThemeAtom } from "@/features/themeAtom";
+import { useEffect } from "react";
+import {
+  registerNotificationResponse,
+  unregisterNotificationResponse,
+} from "./utils/notificationListenner";
 
 export const unstable_settings = {
   anchor: "(tabs)",
@@ -26,6 +31,11 @@ function AppShell() {
   const systemScheme = useColorScheme();
   const pref = useAtomValue(resolvedThemeAtom);
   const scheme = pref === "dark" ? systemScheme ?? "light" : pref;
+
+  useEffect(() => {
+    registerNotificationResponse();
+    return () => unregisterNotificationResponse();
+  }, []);
 
   return (
     <ThemeProvider value={scheme === "dark" ? DarkTheme : DefaultTheme}>

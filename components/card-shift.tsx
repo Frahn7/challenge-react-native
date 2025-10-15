@@ -81,6 +81,7 @@ export const CardShift = ({ turno }: { turno: ShiftProps }) => {
                 turno.fecha
               )}! no te olvides`,
               time: 1,
+              text: `Hola! test de mi turno del ${helperDate(turno.fecha)}.`,
             });
           }}
         >
