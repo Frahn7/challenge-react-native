@@ -51,6 +51,7 @@ export default function CreateShift() {
 
   const { bg, text } = useThemeColors();
 
+  ("");
   return (
     <>
       <Stack.Screen options={{ headerShown: false }} />

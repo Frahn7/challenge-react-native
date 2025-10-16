@@ -1,5 +1,5 @@
 import { ThemedText } from "@/components/themed-text";
-import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
+import { TextInput, TouchableOpacity, View } from "react-native";
 import { Stack, useLocalSearchParams, router } from "expo-router";
 import { Controller, useForm, SubmitHandler } from "react-hook-form";
 import { useState } from "react";
@@ -14,18 +14,8 @@ import { useThemeColors } from "@/hooks/use-theme-colors";
 import { Ionicons } from "@expo/vector-icons";
 import { useMutation } from "@tanstack/react-query";
 import { helperDate } from "@/components/helper-fechas";
-
-type Inputs = {
-  id: number;
-  paciente: string;
-  medico: string;
-  fecha: string;
-  estado: string;
-};
-
-interface Data {
-  data: Inputs;
-}
+import { globalStyles } from "@/globalStyle";
+import { Data, InputsForm } from "@/utils/types";
 
 export default function EditShift() {
   const { id, name, doctor, estado, fecha } = useLocalSearchParams<{
@@ -38,13 +28,11 @@ export default function EditShift() {
 
   const [dia, mes, año] = fecha.split("/");
   const fechaFormateada = new Date(Number(año), Number(mes) - 1, Number(dia));
-
   const inicial = fechaFormateada || new Date();
-
   const [showPicker, setShowPicker] = useState(false);
   const [fechaSeleccionada, setFechaSeleccionada] = useState<Date>(inicial);
 
-  const { register, handleSubmit, control } = useForm<Inputs>({
+  const { register, handleSubmit, control } = useForm<InputsForm>({
     defaultValues: {
       paciente: name,
       medico: doctor,
@@ -79,12 +67,13 @@ export default function EditShift() {
     },
   });
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<InputsForm> = (data) => {
     mutation.mutate({ data });
   };
 
   const { bg, text } = useThemeColors();
 
+  ("");
   return (
     <View
       style={{
@@ -114,7 +103,7 @@ export default function EditShift() {
         />
       </View>
       <View style={{ marginBottom: 15 }}>
-        <ThemedText style={[styles.Text, { color: text }]}>
+        <ThemedText style={[globalStyles.TextEdit, { color: text }]}>
           Editar Turnos!
         </ThemedText>
       </View>
@@ -126,7 +115,7 @@ export default function EditShift() {
             <TextInput
               placeholder={name}
               style={[
-                styles.Input,
+                globalStyles.InputEdit,
                 {
                   color: bg === "#000" ? "gray" : "black",
                   backgroundColor: bg === "#000" ? "white" : "#F5F5DC",
@@ -146,7 +135,7 @@ export default function EditShift() {
             <TextInput
               placeholder={doctor}
               style={[
-                styles.Input,
+                globalStyles.InputEdit,
                 {
                   color: bg === "#000" ? "gray" : "black",
                   backgroundColor: bg === "#000" ? "white" : "#F5F5DC",
@@ -167,7 +156,7 @@ export default function EditShift() {
             <TextInput
               placeholder={estado}
               style={[
-                styles.Input,
+                globalStyles.InputEdit,
                 {
                   color: bg === "#000" ? "gray" : "black",
                   backgroundColor: bg === "#000" ? "white" : "#F5F5DC",
@@ -186,7 +175,7 @@ export default function EditShift() {
       <TouchableOpacity onPress={() => setShowPicker(true)}>
         <ThemedText
           style={[
-            styles.Input,
+            globalStyles.InputEdit,
             {
               color: bg === "#000" ? "gray" : "black",
               backgroundColor: bg === "#000" ? "white" : "#F5F5DC",
@@ -238,20 +227,3 @@ export default function EditShift() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  Input: {
-    backgroundColor: "white",
-    width: 300,
-    color: "black",
-    marginBottom: 5,
-  },
-  Text: {
-    fontSize: 24,
-    fontWeight: "bold",
-    paddingBottom: 6,
-  },
-  Error: {
-    color: "red",
-  },
-});

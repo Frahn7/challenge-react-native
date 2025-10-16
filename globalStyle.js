@@ -7,7 +7,6 @@ export const globalStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     gap: 15,
-    marginTop: -15,
   },
   InputLogin: {
     width: 300,
@@ -20,5 +19,16 @@ export const globalStyles = StyleSheet.create({
   Error: {
     color: "red",
     fontWeight: "bold",
+  },
+  InputEdit: {
+    backgroundColor: "white",
+    width: 300,
+    color: "black",
+    marginBottom: 5,
+  },
+  TextEdit: {
+    fontSize: 24,
+    fontWeight: "bold",
+    paddingBottom: 6,
   },
 });

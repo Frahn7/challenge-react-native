@@ -38,38 +38,38 @@ function AppShell() {
   }, []);
 
   return (
-    <ThemeProvider value={scheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack initialRouteName="login">
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen
-          name="modal"
-          options={{ presentation: "modal", title: "Modal" }}
-        />
-      </Stack>
-      <StatusBar style={scheme === "dark" ? "light" : "dark"} />
-    </ThemeProvider>
+    <PersistGate
+      loading={
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <ActivityIndicator />
+        </View>
+      }
+      persistor={persistor}
+    >
+      <QueryClientProvider client={queryClient}>
+        <JotaiProvider>
+          <ThemeProvider value={scheme === "dark" ? DarkTheme : DefaultTheme}>
+            <Stack initialRouteName="login">
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen
+                name="modal"
+                options={{ presentation: "modal", title: "Modal" }}
+              />
+            </Stack>
+            <StatusBar style={scheme === "dark" ? "light" : "dark"} />
+          </ThemeProvider>
+        </JotaiProvider>
+      </QueryClientProvider>
+    </PersistGate>
   );
 }
 
 export default function RootLayout() {
   return (
     <Provider store={store}>
-      <PersistGate
-        loading={
-          <View
-            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-          >
-            <ActivityIndicator />
-          </View>
-        }
-        persistor={persistor}
-      >
-        <QueryClientProvider client={queryClient}>
-          <JotaiProvider>
-            <AppShell />
-          </JotaiProvider>
-        </QueryClientProvider>
-      </PersistGate>
+      <AppShell />
     </Provider>
   );
 }

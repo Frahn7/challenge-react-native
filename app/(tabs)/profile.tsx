@@ -5,6 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useAtom } from "jotai";
 import { profileAtom } from "@/features/profileAtom";
+import Line from "@/components/line";
 
 export default function Profile() {
   const [profile, setProfile] = useAtom(profileAtom);
@@ -48,9 +49,11 @@ export default function Profile() {
           onPress={() => router.push("/")}
         />
       </View>
-      <Text style={{ color: text, fontSize: 28, fontWeight: "bold" }}>
-        Bienvenido {profile.name} !!
+      <Line />
+      <Text style={{ color: text, fontSize: 30, fontWeight: "bold" }}>
+        Bienvenido a tu perfil
       </Text>
+      <Line />
       <TouchableOpacity
         onPress={openCamera}
         style={{
@@ -58,13 +61,13 @@ export default function Profile() {
           gap: 3,
           borderWidth: 2,
           backgroundColor: "lightblue",
-          padding: 3,
+          padding: 4,
           borderRadius: 9,
           borderColor: "white",
         }}
       >
-        <Text style={{ color: "black" }}>SUBIR FOTO</Text>
-        <Ionicons name="image" size={24} color={"black"} />
+        <Text style={{ color: "black", fontSize: 22 }}>SUBIR FOTO</Text>
+        <Ionicons name="image" size={27} color={"black"} />
       </TouchableOpacity>
 
       {profile.photo && (

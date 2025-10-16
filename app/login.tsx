@@ -17,6 +17,7 @@ import { Inputs } from "../utils/types";
 import { globalStyles } from "../globalStyle";
 import { Ionicons } from "@expo/vector-icons";
 import { ThemeToggle } from "@/components/theme-toggle";
+import Line from "@/components/line";
 
 export default function Login() {
   const [, setProfile] = useAtom(profileAtom);
@@ -78,6 +79,8 @@ export default function Login() {
         keyboardVerticalOffset={15}
       >
         <ThemeToggle />
+        <Line />
+
         <ThemedText
           style={[globalStyles.TextLogin, { color: text, marginBottom: 30 }]}
         >
@@ -190,6 +193,7 @@ export default function Login() {
               </ThemedText>
             )}
         </View>
+        <Line />
 
         <TouchableOpacity onPress={handleSubmit(onSubmit)}>
           <ThemedText
