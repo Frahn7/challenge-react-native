@@ -7,10 +7,9 @@ export type Inputs = {
 };
 
 export type InputsForm = {
-  id: number;
+  id?: number;
   paciente: string;
   medico: string;
-  fecha: string;
   estado: string;
 };
 

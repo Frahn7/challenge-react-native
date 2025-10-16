@@ -1,5 +1,5 @@
 import { ThemedText } from "@/components/themed-text";
-import { TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { Stack, useLocalSearchParams, router } from "expo-router";
 import { Controller, useForm, SubmitHandler } from "react-hook-form";
 import { useState } from "react";
@@ -15,7 +15,10 @@ import { Ionicons } from "@expo/vector-icons";
 import { useMutation } from "@tanstack/react-query";
 import { helperDate } from "@/components/helper-fechas";
 import { globalStyles } from "@/globalStyle";
-import { Data, InputsForm } from "@/utils/types";
+import { Data, FormValues } from "@/utils/types";
+import Line from "@/components/line";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { schemaForm } from "@/utils/utils";
 
 export default function EditShift() {
   const { id, name, doctor, estado, fecha } = useLocalSearchParams<{
@@ -32,12 +35,16 @@ export default function EditShift() {
   const [showPicker, setShowPicker] = useState(false);
   const [fechaSeleccionada, setFechaSeleccionada] = useState<Date>(inicial);
 
-  const { register, handleSubmit, control } = useForm<InputsForm>({
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<FormValues>({
+    resolver: zodResolver(schemaForm),
     defaultValues: {
       paciente: name,
       medico: doctor,
       estado: estado,
-      fecha: fecha,
     },
   });
   const dispatch = useDispatch();
@@ -67,13 +74,12 @@ export default function EditShift() {
     },
   });
 
-  const onSubmit: SubmitHandler<InputsForm> = (data) => {
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
     mutation.mutate({ data });
   };
 
   const { bg, text } = useThemeColors();
 
-  ("");
   return (
     <View
       style={{
@@ -81,7 +87,8 @@ export default function EditShift() {
         justifyContent: "flex-start",
         alignItems: "center",
         paddingTop: 50,
-        gap: 3,
+        backgroundColor: bg,
+        gap: 5,
       }}
     >
       <Stack.Screen options={{ headerShown: false }} />
@@ -90,23 +97,34 @@ export default function EditShift() {
           gap: 80,
           justifyContent: "flex-start",
           width: 300,
-          paddingTop: 50,
+          paddingTop: 52,
           flexDirection: "row",
           alignItems: "center",
         }}
       >
         <Ionicons
-          name="chevron-back"
-          size={24}
+          name="close"
+          size={28}
           color={text}
-          onPress={() => router.push("/")}
+          onPress={() => {
+            Alert.alert(
+              "¿Quieres salir?",
+              "Si sales, los cambios no se guardarán.",
+              [
+                { text: "No", style: "cancel" },
+                { text: "Sí", onPress: () => router.push("/") },
+              ],
+              { cancelable: true }
+            );
+          }}
         />
       </View>
-      <View style={{ marginBottom: 15 }}>
-        <ThemedText style={[globalStyles.TextEdit, { color: text }]}>
+      <View style={{ paddingTop: 50 }}>
+        <ThemedText style={[globalStyles.TextCreate, { color: text }]}>
           Editar Turnos!
         </ThemedText>
       </View>
+      <Line />
 
       <FadeIn delay={20 * 40}>
         <Controller
@@ -120,15 +138,20 @@ export default function EditShift() {
                   color: bg === "#000" ? "gray" : "black",
                   backgroundColor: bg === "#000" ? "white" : "#F5F5DC",
                 },
+                errors.paciente && { borderColor: "red", borderWidth: 1 },
               ]}
               value={value}
               onChangeText={(value) => onChange(value)}
-              {...register("paciente", { required: true })}
             />
           )}
           name="paciente"
           rules={{ required: true }}
         />
+        {errors.paciente && (
+          <Text style={globalStyles.ErrorCreate}>
+            {errors.paciente.message}
+          </Text>
+        )}
         <Controller
           control={control}
           render={({ field: { onChange, value } }) => (
@@ -143,13 +166,14 @@ export default function EditShift() {
               ]}
               value={value}
               onChangeText={(value) => onChange(value)}
-              {...register("medico", { required: true })}
             />
           )}
           name="medico"
           rules={{ required: true }}
         />
-
+        {errors.medico && (
+          <Text style={globalStyles.ErrorCreate}>{errors.medico.message}</Text>
+        )}
         <Controller
           control={control}
           render={({ field: { onChange, value } }) => (
@@ -164,40 +188,43 @@ export default function EditShift() {
               ]}
               value={value}
               onChangeText={(value) => onChange(value)}
-              {...register("estado", { required: true })}
             />
           )}
           name="estado"
           rules={{ required: true }}
         />
+        {errors.estado && (
+          <Text style={globalStyles.ErrorCreate}>{errors.estado.message}</Text>
+        )}
       </FadeIn>
 
-      <TouchableOpacity onPress={() => setShowPicker(true)}>
+      <TouchableOpacity
+        onPress={() => setShowPicker(true)}
+        style={{
+          borderWidth: 1,
+          backgroundColor: bg === "#000" ? "white" : "#F5F5DC",
+          padding: 2,
+          maxWidth: 200,
+          borderRadius: 10,
+          alignItems: "center",
+          gap: 5,
+        }}
+      >
         <ThemedText
-          style={[
-            globalStyles.InputEdit,
-            {
-              color: bg === "#000" ? "gray" : "black",
-              backgroundColor: bg === "#000" ? "white" : "#F5F5DC",
-              marginBottom: 10,
-            },
-          ]}
+          style={{
+            width: 200,
+            color: "black",
+            textAlign: "center",
+            fontWeight: "bold",
+            fontSize: 18,
+          }}
         >
           Seleccionar fecha
         </ThemedText>
+        <Text style={{ textAlign: "center" }}>
+          Fecha actual: {helperDate(fechaSeleccionada)}
+        </Text>
       </TouchableOpacity>
-
-      <ThemedText
-        style={[
-          {
-            color: text,
-            width: 300,
-            textAlign: "center",
-          },
-        ]}
-      >
-        Fecha seleccionada: {helperDate(fechaSeleccionada)}
-      </ThemedText>
 
       {showPicker && (
         <DateTimePicker
@@ -214,7 +241,7 @@ export default function EditShift() {
             color: "black",
             padding: 9,
             borderRadius: 10,
-
+            marginTop: 20,
             borderColor: "blue",
             borderWidth: 1,
             backgroundColor: "white",

@@ -3,7 +3,7 @@ import { Stack, router } from "expo-router";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { agregarTurno } from "../features/shiftSlice";
 import { useDispatch } from "react-redux";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { useState } from "react";
 import DateTimePicker, {
   DateTimePickerEvent,
@@ -70,10 +70,20 @@ export default function CreateShift() {
         }}
       >
         <Ionicons
-          name="chevron-back"
-          size={24}
+          name="close"
+          size={28}
           color={text}
-          onPress={() => router.push("/")}
+          onPress={() => {
+            Alert.alert(
+              "¿Quieres salir?",
+              "Si sales, los cambios no se guardarán.",
+              [
+                { text: "No", style: "cancel" },
+                { text: "Sí", onPress: () => router.push("/") },
+              ],
+              { cancelable: true }
+            );
+          }}
         />
       </View>
       <View
