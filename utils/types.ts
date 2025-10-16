@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { schemaForm } from "./utils";
+import { ThemePref } from "@/features/themeAtom";
 
 export type Inputs = {
   Correo: string;
@@ -18,3 +19,5 @@ export interface Data {
 }
 
 export type FormValues = z.infer<typeof schemaForm>;
+
+export const order: ThemePref[] = ["light", "dark"];

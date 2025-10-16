@@ -1,10 +1,9 @@
 import { Pressable, Text } from "react-native";
 import { useAtom } from "jotai";
-import { themeAtom, ThemePref } from "@/features/themeAtom";
+import { themeAtom } from "@/features/themeAtom";
 import { useThemeColors } from "@/hooks/use-theme-colors";
 import { Ionicons } from "@expo/vector-icons";
-
-const order: ThemePref[] = ["light", "dark"];
+import { order } from "@/utils/types";
 
 export function ThemeToggle() {
   const [pref, setPref] = useAtom(themeAtom);
