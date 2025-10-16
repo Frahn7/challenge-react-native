@@ -18,6 +18,13 @@ import Line from "@/components/line";
 import { globalStyles } from "@/globalStyle";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { schemaForm } from "@/utils/utils";
+import {
+  BUSINESS_CLOSE,
+  BUSINESS_OPEN,
+  clampToBusinessHours,
+  minDate,
+  startOfDay,
+} from "@/utils/data-functions";
 
 export default function CreateShift() {
   const [showPicker, setShowPicker] = useState(false);
@@ -34,24 +41,6 @@ export default function CreateShift() {
     defaultValues: { paciente: "", medico: "", estado: "" },
   });
 
-  const handleChange = (event: DateTimePickerEvent, date?: Date) => {
-    setShowPicker(false);
-    if (date) {
-      setFechaSeccionada(date);
-      setShowTimePicker(true);
-    }
-  };
-
-  const handleTimeChange = (_event: DateTimePickerEvent, time?: Date) => {
-    if (time && fechaSeleccionada) {
-      const nuevaFecha = new Date(fechaSeleccionada);
-      nuevaFecha.setHours(time.getHours());
-      nuevaFecha.setMinutes(time.getMinutes());
-      setFechaSeccionada(nuevaFecha);
-      setShowTimePicker(false);
-    }
-  };
-
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     const nuevoTurno = {
       id: Date.now(),
@@ -63,6 +52,49 @@ export default function CreateShift() {
 
     dispatch(agregarTurno(nuevoTurno));
     router.replace("/");
+  };
+
+  const onDateChange = (_: DateTimePickerEvent, date?: Date) => {
+    setShowPicker(false);
+    if (!date) return;
+    const chosen = startOfDay(date) < minDate ? new Date(minDate) : date;
+    const merged = new Date(
+      chosen.getFullYear(),
+      chosen.getMonth(),
+      chosen.getDate(),
+      fechaSeleccionada.getHours(),
+      fechaSeleccionada.getMinutes()
+    );
+    setFechaSeccionada(clampToBusinessHours(merged));
+    setShowTimePicker(true);
+  };
+
+  const onTimeChange = (event: DateTimePickerEvent, date?: Date) => {
+    if (event.type !== "set" || !date) return;
+
+    const now = new Date();
+
+    if (date.toDateString() === now.toDateString() && date < now) {
+      Alert.alert("Horario no válido", "No podés elegir una hora que ya pasó.");
+      return;
+    }
+
+    const next = new Date(
+      fechaSeleccionada.getFullYear(),
+      fechaSeleccionada.getMonth(),
+      fechaSeleccionada.getDate(),
+      date.getHours(),
+      date.getMinutes()
+    );
+
+    if (next.getHours() < BUSINESS_OPEN || next.getHours() >= BUSINESS_CLOSE) {
+      Alert.alert("Horario no permitido", "Horario maximo 18:00hs.");
+      return;
+    }
+
+    const clamped = clampToBusinessHours(next);
+    setFechaSeccionada(clamped);
+    setShowTimePicker(false);
   };
 
   const { bg, text } = useThemeColors();
@@ -224,7 +256,8 @@ export default function CreateShift() {
             value={fechaSeleccionada ?? new Date()}
             mode="date"
             display="default"
-            onChange={handleChange}
+            onChange={onDateChange}
+            minimumDate={minDate}
           />
         )}
         {showTimePicker && (
@@ -232,7 +265,9 @@ export default function CreateShift() {
             value={fechaSeleccionada ?? new Date()}
             mode="time"
             display="default"
-            onChange={handleTimeChange}
+            onChange={(e, date) => {
+              onTimeChange(e, date);
+            }}
           />
         )}
 
