@@ -1,3 +1,6 @@
+import { z } from "zod";
+import { schemaForm } from "./utils";
+
 export type Inputs = {
   Correo: string;
   Contrasena: string;
@@ -14,3 +17,5 @@ export type InputsForm = {
 export interface Data {
   data: InputsForm;
 }
+
+export type FormValues = z.infer<typeof schemaForm>;

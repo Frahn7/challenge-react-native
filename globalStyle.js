@@ -31,4 +31,20 @@ export const globalStyles = StyleSheet.create({
     fontWeight: "bold",
     paddingBottom: 6,
   },
+  InputCreate: {
+    width: 300,
+    color: "black",
+    marginBottom: 5,
+  },
+  TextCreate: {
+    fontWeight: "bold",
+    paddingBottom: 6,
+    fontSize: 30,
+  },
+  ErrorCreate: {
+    color: "red",
+    fontWeight: "bold",
+    marginTop: -5,
+    textAlign: "right",
+  },
 });

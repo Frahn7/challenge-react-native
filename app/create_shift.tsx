@@ -3,7 +3,7 @@ import { Stack, router } from "expo-router";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { agregarTurno } from "../features/shiftSlice";
 import { useDispatch } from "react-redux";
-import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { useState } from "react";
 import DateTimePicker, {
   DateTimePickerEvent,
@@ -13,21 +13,25 @@ import { FadeIn } from "@/components/fade-in";
 import { useThemeColors } from "@/hooks/use-theme-colors";
 import { Ionicons } from "@expo/vector-icons";
 import { helperDate } from "@/components/helper-fechas";
-
-type Inputs = {
-  id: number;
-  paciente: string;
-  medico: string;
-  fecha: string;
-  estado: string;
-};
+import { FormValues } from "@/utils/types";
+import Line from "@/components/line";
+import { globalStyles } from "@/globalStyle";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { schemaForm } from "@/utils/utils";
 
 export default function CreateShift() {
   const [showPicker, setShowPicker] = useState(false);
   const [fechaSeleccionada, setFechaSeccionada] = useState(new Date());
-
-  const { register, handleSubmit, control } = useForm<Inputs>();
   const dispatch = useDispatch();
+
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<FormValues>({
+    resolver: zodResolver(schemaForm),
+    defaultValues: { paciente: "", medico: "", estado: "" },
+  });
 
   const handleChange = (event: DateTimePickerEvent, date?: Date) => {
     setShowPicker(false);
@@ -36,7 +40,7 @@ export default function CreateShift() {
     }
   };
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
     const nuevoTurno = {
       id: Date.now(),
       nombrePaciente: data.paciente,
@@ -51,9 +55,8 @@ export default function CreateShift() {
 
   const { bg, text } = useThemeColors();
 
-  ("");
   return (
-    <>
+    <View style={{ flex: 1, backgroundColor: bg }}>
       <Stack.Screen options={{ headerShown: false }} />
       <View
         style={{
@@ -80,11 +83,13 @@ export default function CreateShift() {
           justifyContent: "flex-start",
           paddingTop: 50,
           gap: 5,
+          backgroundColor: bg,
         }}
       >
-        <ThemedText style={[styles.Text, { color: text }]}>
-          Registra tu turno!
+        <ThemedText style={[globalStyles.TextCreate, { color: text }]}>
+          Registra tu turno
         </ThemedText>
+        <Line />
 
         <FadeIn delay={20 * 40}>
           <Controller
@@ -93,27 +98,33 @@ export default function CreateShift() {
               <TextInput
                 placeholder="Nombre del paciente"
                 style={[
-                  styles.Input,
+                  globalStyles.InputCreate,
                   {
                     color: bg === "#000" ? "gray" : "black",
                     backgroundColor: bg === "#000" ? "white" : "#F5F5DC",
                   },
+                  errors.paciente && { borderColor: "red", borderWidth: 1 },
                 ]}
                 value={value}
                 onChangeText={(value) => onChange(value)}
-                {...register("paciente", { required: true })}
               />
             )}
             name="paciente"
             rules={{ required: true }}
           />
+          {errors.paciente && (
+            <Text style={globalStyles.ErrorCreate}>
+              {errors.paciente.message}
+            </Text>
+          )}
+
           <Controller
             control={control}
             render={({ field: { onChange, value } }) => (
               <TextInput
                 placeholder="Nombre del medico"
                 style={[
-                  styles.Input,
+                  globalStyles.InputCreate,
                   {
                     color: bg === "#000" ? "gray" : "black",
                     backgroundColor: bg === "#000" ? "white" : "#F5F5DC",
@@ -121,12 +132,16 @@ export default function CreateShift() {
                 ]}
                 value={value}
                 onChangeText={(value) => onChange(value)}
-                {...register("medico", { required: true })}
               />
             )}
             name="medico"
             rules={{ required: true }}
           />
+          {errors.medico && (
+            <Text style={globalStyles.ErrorCreate}>
+              {errors.medico.message}
+            </Text>
+          )}
 
           <Controller
             control={control}
@@ -134,7 +149,7 @@ export default function CreateShift() {
               <TextInput
                 placeholder="Estado"
                 style={[
-                  styles.Input,
+                  globalStyles.InputCreate,
                   {
                     color: bg === "#000" ? "gray" : "black",
                     backgroundColor: bg === "#000" ? "white" : "#F5F5DC",
@@ -142,39 +157,45 @@ export default function CreateShift() {
                 ]}
                 value={value}
                 onChangeText={(value) => onChange(value)}
-                {...register("estado", { required: true })}
               />
             )}
             name="estado"
             rules={{ required: true }}
           />
+          {errors.estado && (
+            <Text style={globalStyles.ErrorCreate}>
+              {errors.estado.message}
+            </Text>
+          )}
         </FadeIn>
 
-        <TouchableOpacity onPress={() => setShowPicker(true)}>
+        <TouchableOpacity
+          onPress={() => setShowPicker(true)}
+          style={{
+            borderWidth: 1,
+            backgroundColor: bg === "#000" ? "white" : "#F5F5DC",
+            padding: 2,
+            maxWidth: 200,
+            borderRadius: 10,
+            alignItems: "center",
+            gap: 5,
+          }}
+        >
           <ThemedText
-            style={[
-              styles.Input,
-              {
-                color: bg === "#000" ? "gray" : "black",
-                backgroundColor: bg === "#000" ? "white" : "#F5F5DC",
-                padding: 4,
-              },
-            ]}
+            style={{
+              width: 200,
+              color: "black",
+              textAlign: "center",
+              fontWeight: "bold",
+              fontSize: 18,
+            }}
           >
             Seleccionar fecha
           </ThemedText>
+          <Text style={{ textAlign: "center" }}>
+            Fecha actual: {helperDate(fechaSeleccionada)}
+          </Text>
         </TouchableOpacity>
-        <ThemedText
-          style={[
-            {
-              color: text,
-              width: 300,
-              textAlign: "center",
-            },
-          ]}
-        >
-          Fecha seleccionada: {helperDate(fechaSeleccionada)}
-        </ThemedText>
 
         {showPicker && (
           <DateTimePicker
@@ -195,28 +216,13 @@ export default function CreateShift() {
               borderWidth: 1,
               backgroundColor: "white",
               textAlign: "center",
+              marginTop: 20,
             }}
           >
             Crear turno
           </ThemedText>
         </TouchableOpacity>
       </View>
-    </>
+    </View>
   );
 }
-
-const styles = StyleSheet.create({
-  Input: {
-    width: 300,
-    color: "black",
-    marginBottom: 5,
-  },
-  Text: {
-    fontSize: 24,
-    fontWeight: "bold",
-    paddingBottom: 6,
-  },
-  Error: {
-    color: "red",
-  },
-});
