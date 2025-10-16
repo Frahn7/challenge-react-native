@@ -22,6 +22,8 @@ import { schemaForm } from "@/utils/utils";
 export default function CreateShift() {
   const [showPicker, setShowPicker] = useState(false);
   const [fechaSeleccionada, setFechaSeccionada] = useState(new Date());
+  const [showTimePicker, setShowTimePicker] = useState(false);
+
   const dispatch = useDispatch();
 
   const {
@@ -37,6 +39,17 @@ export default function CreateShift() {
     setShowPicker(false);
     if (date) {
       setFechaSeccionada(date);
+      setShowTimePicker(true);
+    }
+  };
+
+  const handleTimeChange = (_event: DateTimePickerEvent, time?: Date) => {
+    if (time && fechaSeleccionada) {
+      const nuevaFecha = new Date(fechaSeleccionada);
+      nuevaFecha.setHours(time.getHours());
+      nuevaFecha.setMinutes(time.getMinutes());
+      setFechaSeccionada(nuevaFecha);
+      setShowTimePicker(false);
     }
   };
 
@@ -213,6 +226,14 @@ export default function CreateShift() {
             mode="date"
             display="default"
             onChange={handleChange}
+          />
+        )}
+        {showTimePicker && (
+          <DateTimePicker
+            value={fechaSeleccionada ?? new Date()}
+            mode="time"
+            display="default"
+            onChange={handleTimeChange}
           />
         )}
 

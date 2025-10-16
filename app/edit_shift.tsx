@@ -13,7 +13,7 @@ import { FadeIn } from "@/components/fade-in";
 import { useThemeColors } from "@/hooks/use-theme-colors";
 import { Ionicons } from "@expo/vector-icons";
 import { useMutation } from "@tanstack/react-query";
-import { helperDate } from "@/components/helper-fechas";
+import { helperDate, parseToDate } from "@/components/helper-fechas";
 import { globalStyles } from "@/globalStyle";
 import { Data, FormValues } from "@/utils/types";
 import Line from "@/components/line";
@@ -29,12 +29,13 @@ export default function EditShift() {
     fecha: string;
   }>();
 
-  const [dia, mes, año] = fecha.split("/");
-  const fechaFormateada = new Date(Number(año), Number(mes) - 1, Number(dia));
-  const inicial = fechaFormateada || new Date();
   const [showPicker, setShowPicker] = useState(false);
-  const [fechaSeleccionada, setFechaSeleccionada] = useState<Date>(inicial);
+  const [fechaSeleccionada, setFechaSeleccionada] = useState<Date>(
+    parseToDate(fecha)
+  );
+  const [showTimePicker, setShowTimePicker] = useState(false);
 
+  console.log("asfaf", fecha);
   const {
     handleSubmit,
     control,
@@ -52,8 +53,19 @@ export default function EditShift() {
   const handleChange = (event: DateTimePickerEvent, date?: Date) => {
     if (event.type === "set" && date) {
       setFechaSeleccionada(date);
+      setShowTimePicker(true);
     }
     setShowPicker(false);
+  };
+
+  const handleTimeChange = (_event: DateTimePickerEvent, time?: Date) => {
+    if (time && fechaSeleccionada) {
+      const nuevaFecha = new Date(fechaSeleccionada);
+      nuevaFecha.setHours(time.getHours());
+      nuevaFecha.setMinutes(time.getMinutes());
+      setFechaSeleccionada(nuevaFecha);
+      setShowTimePicker(false);
+    }
   };
 
   const mutation = useMutation({
@@ -232,6 +244,14 @@ export default function EditShift() {
           mode="date"
           display="default"
           onChange={handleChange}
+        />
+      )}
+      {showTimePicker && (
+        <DateTimePicker
+          value={fechaSeleccionada ?? new Date()}
+          mode="time"
+          display="default"
+          onChange={handleTimeChange}
         />
       )}
 
