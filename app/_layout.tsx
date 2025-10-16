@@ -50,7 +50,7 @@ function AppShell() {
       <QueryClientProvider client={queryClient}>
         <JotaiProvider>
           <ThemeProvider value={scheme === "dark" ? DarkTheme : DefaultTheme}>
-            <Stack initialRouteName="login">
+            <Stack>
               <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
               <Stack.Screen
                 name="modal"

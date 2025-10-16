@@ -25,6 +25,7 @@ export default function Login() {
   const [, setProfile] = useAtom(profileAtom);
   const [ErrorCorreoMessage, setErrorCorreoMessage] = useState("");
   const [ErrorContrasenaMessage, setErrorContrasenaMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     register,
@@ -61,6 +62,9 @@ export default function Login() {
       setProfile({ name: User.Correo, photo: "" });
       router.push("/");
     }
+  };
+  const showPasswords = () => {
+    setShowPassword(!showPassword);
   };
 
   const { bg, text } = useThemeColors();
@@ -187,12 +191,25 @@ export default function Login() {
                   placeholder="Escribe tu contraseña"
                   style={{
                     color: bg === "#000" ? "gray" : "black",
-                    width: 200,
+                    width: 220,
                   }}
                   value={value}
-                  onChangeText={(value) => onChange(value)}
-                  secureTextEntry={true}
+                  onChangeText={(value) => {
+                    {
+                      onChange(value);
+                    }
+                  }}
+                  secureTextEntry={showPassword ? false : true}
                   {...register("Contrasena", { required: true })}
+                />
+                <Ionicons
+                  name={showPassword ? "eye-outline" : "eye-off-outline"}
+                  size={20}
+                  color={bg === "#000" ? "gray" : "black"}
+                  style={{ padding: 4, marginLeft: 4 }}
+                  onPress={() => {
+                    showPasswords();
+                  }}
                 />
               </View>
             </View>
@@ -225,7 +242,10 @@ export default function Login() {
             width: 300,
           }}
         >
-          <Checkbox style={{ width: 20, height: 20, borderRadius: 4 }} />
+          <Checkbox
+            style={{ width: 20, height: 20, borderRadius: 4 }}
+            value={true}
+          />
           <Text style={{ width: 300 }}>Recordarme</Text>
         </View>
         <Line />
@@ -237,7 +257,6 @@ export default function Login() {
               width: 300,
               padding: 9,
               borderRadius: 10,
-              borderWidth: 1,
               marginTop: 5,
               backgroundColor: " rgb(59, 110, 62)",
             }}
