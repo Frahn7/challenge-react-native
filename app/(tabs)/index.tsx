@@ -10,7 +10,6 @@ import { useGetShifts } from "@/hooks/use-get-shift";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FadeIn } from "@/components/fade-in";
 import { useThemeColors } from "@/hooks/use-theme-colors";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { CardShift } from "@/components/card-shift";
 import Line from "@/components/line";
 
@@ -34,21 +33,18 @@ export default function HomeScreen() {
           <Stack.Screen options={{ headerShown: false }} />
           <View
             style={{
-              paddingLeft: 50,
               gap: 80,
               justifyContent: "center",
-              width: 300,
               flexDirection: "row",
               alignItems: "center",
             }}
           >
             <Ionicons
               name="log-in-sharp"
-              size={24}
+              size={30}
               color={text}
               onPress={() => router.push("/login")}
             />
-            <ThemeToggle />
           </View>
 
           <Line />

@@ -26,6 +26,7 @@ import {
   minDate,
   startOfDay,
 } from "@/utils/data-functions";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function EditShift() {
   const { id, name, doctor, estado, fecha } = useLocalSearchParams<{
@@ -305,6 +306,16 @@ export default function EditShift() {
           Editar turno
         </ThemedText>
       </TouchableOpacity>
+      <LinearGradient
+        colors={["#9ab79a", "#ffffff"]}
+        start={{ x: 0, y: 1 }}
+        end={{ x: 1, y: 0 }}
+        style={{
+          width: 300,
+          height: 150,
+          borderRadius: 15,
+        }}
+      />
     </View>
   );
 }

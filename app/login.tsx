@@ -1,6 +1,7 @@
 import {
   KeyboardAvoidingView,
   Platform,
+  Text,
   TextInput,
   TouchableOpacity,
   View,
@@ -16,14 +17,14 @@ import { regexCorreo, User } from "../utils/utils";
 import { Inputs } from "../utils/types";
 import { globalStyles } from "../globalStyle";
 import { Ionicons } from "@expo/vector-icons";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { Checkbox } from "expo-checkbox";
+
 import Line from "@/components/line";
 
 export default function Login() {
   const [, setProfile] = useAtom(profileAtom);
   const [ErrorCorreoMessage, setErrorCorreoMessage] = useState("");
   const [ErrorContrasenaMessage, setErrorContrasenaMessage] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -37,28 +38,23 @@ export default function Login() {
     setErrorContrasenaMessage("");
 
     let ok = true;
-    setLoading(true);
     const correo = data.Correo.trim().toLowerCase();
     const correoUser = User.Correo.trim().toLowerCase();
 
     if (!regexCorreo.test(correo)) {
-      setErrorCorreoMessage("Ingresa un correo válido");
+      setErrorCorreoMessage("*Email inválido");
       ok = false;
-      setLoading(false);
     } else if (correo !== correoUser) {
-      setErrorCorreoMessage("Usuario no encontrado");
+      setErrorCorreoMessage("*Usuario no encontrado");
       ok = false;
-      setLoading(false);
     }
 
     if (!data.Contrasena || data.Contrasena.length < 8) {
-      setErrorContrasenaMessage("Mínimo 8 caracteres");
+      setErrorContrasenaMessage("*Mínimo 8 caracteres");
       ok = false;
-      setLoading(false);
     } else if (data.Contrasena !== User.Contrasena) {
-      setErrorContrasenaMessage("Usuario no encontrado");
+      setErrorContrasenaMessage("*Usuario no encontrado");
       ok = false;
-      setLoading(false);
     }
 
     if (ok) {
@@ -78,30 +74,22 @@ export default function Login() {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={15}
       >
-        <ThemeToggle />
-        <Line />
-
-        <ThemedText
-          style={[globalStyles.TextLogin, { color: text, marginBottom: 30 }]}
-        >
-          Ingresar a mi cuenta
-          <Ionicons
-            name="medkit"
-            size={25}
-            color={"green"}
-            style={{ marginRight: 6 }}
-          />
-        </ThemedText>
-
-        <ThemedText
+        <Ionicons
+          name="close"
+          onPress={() => router.push("/")}
+          size={35}
           style={{
-            color: "black",
-            backgroundColor: "lightblue",
-            padding: 2,
-            borderRadius: 10,
+            alignSelf: "flex-end",
+            paddingRight: 25,
+            paddingTop: -30,
+            marginBottom: 30,
           }}
-        >
-          F@gmail.com / 12345678
+        />
+        <ThemedText style={[globalStyles.TextLogin]}>
+          Ingresar a mi cuenta
+        </ThemedText>
+        <ThemedText style={{ color: "black", marginTop: -5, marginBottom: 20 }}>
+          Ingresa tu email y contraseña
         </ThemedText>
 
         <Controller
@@ -110,35 +98,56 @@ export default function Login() {
             required: true,
           }}
           render={({ field: { onChange, value } }) => (
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Ionicons
-                name="mail-open"
-                size={20}
-                color={bg === "#000" ? "gray" : "black"}
-                style={{ marginRight: 6 }}
-              />
-              <TextInput
-                placeholder="Correo"
+            <View style={{ alignItems: "center" }}>
+              <Text style={{ textAlign: "left", width: 300, marginBottom: 2 }}>
+                Email
+              </Text>
+              <View
                 style={[
                   globalStyles.InputLogin,
                   {
-                    backgroundColor: bg === "#000" ? "white" : "#F5F5DC",
-                    color: bg === "#000" ? "gray" : "black",
+                    backgroundColor: "white",
+                    flexDirection: "row",
+                    borderRadius: 8,
+                    borderWidth: 1,
+                    height: 50,
+                    alignItems: "center",
                   },
                   errors.Correo && { borderColor: "red", borderWidth: 1 },
                 ]}
-                value={value}
-                onChangeText={(value) => onChange(value)}
-                {...register("Correo", { required: true })}
-              />
+              >
+                <Ionicons
+                  name="mail-outline"
+                  size={20}
+                  style={{
+                    padding: 4,
+                    marginLeft: 4,
+                    textAlign: "center",
+                    fontWeight: "bold",
+                    color: bg === "#000" ? "gray" : "black",
+                  }}
+                />
+                <TextInput
+                  placeholder="F@gmail.com"
+                  value={value}
+                  style={{
+                    color: bg === "#000" ? "gray" : "black",
+                    width: 200,
+                  }}
+                  onChangeText={(value) => onChange(value)}
+                  {...register("Correo", { required: true })}
+                />
+              </View>
             </View>
           )}
           name="Correo"
         />
-        <View style={{ marginTop: -20 }}>
+        <View
+          style={{ marginTop: -20, justifyContent: "flex-start", width: 300 }}
+        >
           {errors.Correo && (
             <ThemedText style={globalStyles.Error}>
-              Debes ingresar un correo
+              *Debes ingresar un correo
             </ThemedText>
           )}
           {ErrorCorreoMessage && (
@@ -151,38 +160,51 @@ export default function Login() {
         <Controller
           control={control}
           render={({ field: { onChange, value } }) => (
-            <View style={{ flexDirection: "row", alignItems: "flex-start" }}>
-              <Ionicons
-                name="lock-closed-outline"
-                size={20}
-                color={bg === "#000" ? "gray" : "black"}
-                style={{ marginRight: 6 }}
-              />
-              <TextInput
-                placeholder="Contraseña"
+            <View style={{ flexDirection: "column", alignItems: "flex-start" }}>
+              <Text style={{ width: 300, marginBottom: 2 }}>Contraseña</Text>
+
+              <View
                 style={[
                   globalStyles.InputLogin,
                   {
-                    backgroundColor: bg === "#000" ? "white" : "#F5F5DC",
-                    color: bg === "#000" ? "gray" : "black",
+                    backgroundColor: "white",
+                    flexDirection: "row",
+                    borderRadius: 8,
+                    borderWidth: 1,
+                    height: 50,
+                    alignItems: "center",
                   },
                   errors.Correo && { borderColor: "red", borderWidth: 1 },
                 ]}
-                value={value}
-                onChangeText={(value) => onChange(value)}
-                secureTextEntry={true}
-                {...register("Contrasena", { required: true })}
-              />
+              >
+                <Ionicons
+                  name="lock-closed-outline"
+                  size={20}
+                  color={bg === "#000" ? "gray" : "black"}
+                  style={{ padding: 4, marginLeft: 4 }}
+                />
+                <TextInput
+                  placeholder="Escribe tu contraseña"
+                  style={{
+                    color: bg === "#000" ? "gray" : "black",
+                    width: 200,
+                  }}
+                  value={value}
+                  onChangeText={(value) => onChange(value)}
+                  secureTextEntry={true}
+                  {...register("Contrasena", { required: true })}
+                />
+              </View>
             </View>
           )}
           name="Contrasena"
           rules={{ required: true }}
         />
 
-        <View style={{ marginTop: -20 }}>
+        <View style={{ marginTop: -20, width: 300 }}>
           {errors.Contrasena && (
             <ThemedText style={globalStyles.Error}>
-              Debes ingresar una contraseña
+              *La contraseña es requerida
             </ThemedText>
           )}
 
@@ -193,37 +215,36 @@ export default function Login() {
               </ThemedText>
             )}
         </View>
+
+        <Text style={{ width: 300 }}>¿Olvidaste tu contraseña?</Text>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 8,
+            width: 300,
+          }}
+        >
+          <Checkbox style={{ width: 20, height: 20, borderRadius: 4 }} />
+          <Text style={{ width: 300 }}>Recordarme</Text>
+        </View>
         <Line />
 
         <TouchableOpacity onPress={handleSubmit(onSubmit)}>
           <ThemedText
             style={{
               color: text,
+              width: 300,
               padding: 9,
               borderRadius: 10,
-              borderColor: "blue",
               borderWidth: 1,
-              backgroundColor: bg,
-              textAlign: "center",
               marginTop: 5,
+              backgroundColor: " rgb(59, 110, 62)",
             }}
           >
-            {loading ? "..." : "INGRESAR"}
-          </ThemedText>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => router.push("/")}>
-          <ThemedText
-            style={{
-              color: text,
-              padding: 9,
-              borderRadius: 10,
-              borderColor: "blue",
-              borderWidth: 1,
-              backgroundColor: bg,
-              textAlign: "center",
-            }}
-          >
-            INGRESAR COMO INVITADO
+            <Text style={{ color: "white", textAlign: "center" }}>
+              Ingresar
+            </Text>
           </ThemedText>
         </TouchableOpacity>
       </KeyboardAvoidingView>

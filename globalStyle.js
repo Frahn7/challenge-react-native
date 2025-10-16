@@ -15,10 +15,11 @@ export const globalStyles = StyleSheet.create({
   TextLogin: {
     fontSize: 28,
     fontWeight: "bold",
+    color: "rgb(59, 110, 62)",
   },
   Error: {
     color: "red",
-    fontWeight: "bold",
+    fontSize: 14,
   },
   InputEdit: {
     backgroundColor: "white",
