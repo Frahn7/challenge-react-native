@@ -23,7 +23,6 @@ export default function CreateShift() {
   const [showPicker, setShowPicker] = useState(false);
   const [fechaSeleccionada, setFechaSeccionada] = useState(new Date());
   const [showTimePicker, setShowTimePicker] = useState(false);
-
   const dispatch = useDispatch();
 
   const {

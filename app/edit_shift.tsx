@@ -19,6 +19,13 @@ import { Data, FormValues } from "@/utils/types";
 import Line from "@/components/line";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { schemaForm } from "@/utils/utils";
+import {
+  BUSINESS_CLOSE,
+  BUSINESS_OPEN,
+  clampToBusinessHours,
+  minDate,
+  startOfDay,
+} from "@/utils/data-functions";
 
 export default function EditShift() {
   const { id, name, doctor, estado, fecha } = useLocalSearchParams<{
@@ -35,7 +42,6 @@ export default function EditShift() {
   );
   const [showTimePicker, setShowTimePicker] = useState(false);
 
-  console.log("asfaf", fecha);
   const {
     handleSubmit,
     control,
@@ -49,24 +55,6 @@ export default function EditShift() {
     },
   });
   const dispatch = useDispatch();
-
-  const handleChange = (event: DateTimePickerEvent, date?: Date) => {
-    if (event.type === "set" && date) {
-      setFechaSeleccionada(date);
-      setShowTimePicker(true);
-    }
-    setShowPicker(false);
-  };
-
-  const handleTimeChange = (_event: DateTimePickerEvent, time?: Date) => {
-    if (time && fechaSeleccionada) {
-      const nuevaFecha = new Date(fechaSeleccionada);
-      nuevaFecha.setHours(time.getHours());
-      nuevaFecha.setMinutes(time.getMinutes());
-      setFechaSeleccionada(nuevaFecha);
-      setShowTimePicker(false);
-    }
-  };
 
   const mutation = useMutation({
     mutationFn: async ({ data }: Data) => {
@@ -91,6 +79,49 @@ export default function EditShift() {
   };
 
   const { bg, text } = useThemeColors();
+
+  const onDateChange = (_: DateTimePickerEvent, date?: Date) => {
+    setShowPicker(false);
+    if (!date) return;
+    const chosen = startOfDay(date) < minDate ? new Date(minDate) : date;
+    const merged = new Date(
+      chosen.getFullYear(),
+      chosen.getMonth(),
+      chosen.getDate(),
+      fechaSeleccionada.getHours(),
+      fechaSeleccionada.getMinutes()
+    );
+    setFechaSeleccionada(clampToBusinessHours(merged));
+    setShowTimePicker(true);
+  };
+
+  const onTimeChange = (event: DateTimePickerEvent, date?: Date) => {
+    if (event.type !== "set" || !date) return;
+
+    const now = new Date();
+
+    if (date.toDateString() === now.toDateString() && date < now) {
+      Alert.alert("Horario no válido", "No podés elegir una hora que ya pasó.");
+      return;
+    }
+
+    const next = new Date(
+      fechaSeleccionada.getFullYear(),
+      fechaSeleccionada.getMonth(),
+      fechaSeleccionada.getDate(),
+      date.getHours(),
+      date.getMinutes()
+    );
+
+    if (next.getHours() < BUSINESS_OPEN || next.getHours() >= BUSINESS_CLOSE) {
+      Alert.alert("Horario no permitido", "Horario maximo 18:00hs.");
+      return;
+    }
+
+    const clamped = clampToBusinessHours(next);
+    setFechaSeleccionada(clamped);
+    setShowTimePicker(false);
+  };
 
   return (
     <View
@@ -243,7 +274,8 @@ export default function EditShift() {
           value={fechaSeleccionada}
           mode="date"
           display="default"
-          onChange={handleChange}
+          onChange={onDateChange}
+          minimumDate={minDate}
         />
       )}
       {showTimePicker && (
@@ -251,7 +283,9 @@ export default function EditShift() {
           value={fechaSeleccionada ?? new Date()}
           mode="time"
           display="default"
-          onChange={handleTimeChange}
+          onChange={(e, date) => {
+            onTimeChange(e, date);
+          }}
         />
       )}
 
