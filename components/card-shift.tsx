@@ -24,7 +24,7 @@ export const CardShift = ({ turno }: { turno: ShiftProps }) => {
         style={{
           width: "100%",
           padding: 10,
-          height: 190,
+          height: 200,
           gap: 6,
           backgroundColor: "white",
           overflow: "hidden",
@@ -37,8 +37,27 @@ export const CardShift = ({ turno }: { turno: ShiftProps }) => {
           marginTop: 14,
           borderWidth: 0.5,
           borderRadius: 8,
+          borderColor: " rgb(59, 110, 62)",
         }}
       >
+        <View style={{ position: "relative" }}>
+          <FontAwesome
+            name="bell"
+            size={24}
+            color="green"
+            style={{ position: "absolute", left: "90%" }}
+            onPress={async () => {
+              await NotificationPush({
+                title: "Turno medico!",
+                body: `Hola! tu turno medico esta programado para el dia ${helperDate(
+                  turno.fecha
+                )}! no te olvides`,
+                time: 1,
+                text: `Hola! test de mi turno del ${helperDate(turno.fecha)}.`,
+              });
+            }}
+          />
+        </View>
         <ThemedText style={{ color: "black", fontSize: 19, fontWeight: 700 }}>
           Paciente:{" "}
           <ThemedText style={{ color: "black", fontWeight: 500 }}>
@@ -81,38 +100,23 @@ export const CardShift = ({ turno }: { turno: ShiftProps }) => {
           <View
             style={{
               flexDirection: "row",
-              gap: 20,
+              gap: 10,
               alignItems: "center",
             }}
           >
-            <FontAwesome
-              name="trash-o"
-              size={24}
-              color="red"
+            <ThemedText
               onPress={() => handleDelete(turno.id)}
-            />
-            <FontAwesome
-              name="bell"
-              size={24}
-              color="green"
-              onPress={async () => {
-                await NotificationPush({
-                  title: "Turno medico!",
-                  body: `Hola! tu turno medico esta programado para el dia ${helperDate(
-                    turno.fecha
-                  )}! no te olvides`,
-                  time: 1,
-                  text: `Hola! test de mi turno del ${helperDate(
-                    turno.fecha
-                  )}.`,
-                });
+              style={{
+                backgroundColor: "red",
+                borderRadius: 8,
+                padding: 8,
+                textAlign: "center",
+                width: 110,
               }}
-            />
-
-            <FontAwesome
-              name="pencil"
-              size={24}
-              color="black"
+            >
+              Eliminar turno
+            </ThemedText>
+            <ThemedText
               onPress={() => {
                 router.push({
                   pathname: "/edit_shift",
@@ -125,18 +129,15 @@ export const CardShift = ({ turno }: { turno: ShiftProps }) => {
                   },
                 });
               }}
-            />
-
-            <ThemedText
               style={{
-                fontSize: 14,
-                backgroundColor: "rgb(59, 110, 62)",
-                color: "white",
+                backgroundColor: "blue",
                 borderRadius: 8,
-                padding: 6,
+                padding: 8,
+                textAlign: "center",
+                width: 110,
               }}
             >
-              Agendar Servicio
+              Editar turno
             </ThemedText>
           </View>
         </View>

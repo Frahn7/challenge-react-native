@@ -30,8 +30,6 @@ export default function HomeScreen() {
 
   const { bg, text } = useThemeColors();
 
-  // onPress={() => router.push("/create_shift")}
-
   return (
     <>
       <SafeAreaView style={{ flex: 1, backgroundColor: bg }}>
@@ -60,12 +58,35 @@ export default function HomeScreen() {
                   padding: 16,
                 }}
               >
-                <ThemedText
-                  onPress={() => router.push("/login")}
-                  style={{ color: "black", fontSize: 16 }}
+                <Text
+                  style={{ textAlign: "right", padding: 1 }}
+                  onPress={() => setModal(false)}
                 >
-                  Iniciar sesión
-                </ThemedText>
+                  <Ionicons name="close-outline" size={30} />
+                </Text>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    padding: 10,
+                    borderTopWidth: 0.5,
+                    borderBottomWidth: 0.5,
+                    width: "100%",
+                    alignItems: "center",
+                  }}
+                >
+                  <Ionicons name="person-outline" size={24} color="green" />
+                  <ThemedText
+                    onPress={() => router.push("/login")}
+                    style={{
+                      color: "black",
+                      fontSize: 16,
+                      textAlign: "left",
+                      marginLeft: 8,
+                    }}
+                  >
+                    Iniciar sesión
+                  </ThemedText>
+                </View>
               </View>
             </View>
           </Modal>
@@ -231,13 +252,13 @@ export default function HomeScreen() {
                         </View>
                         {collapsed ? (
                           <Ionicons
-                            name="arrow-down-outline"
+                            name="chevron-down-outline"
                             size={20}
                             onPress={() => setCollapsed(!collapsed)}
                           />
                         ) : (
                           <Ionicons
-                            name="arrow-up-outline"
+                            name="chevron-up-outline"
                             size={20}
                             onPress={() => setCollapsed(!collapsed)}
                           />
@@ -254,7 +275,29 @@ export default function HomeScreen() {
 
             <View
               style={{
-                marginTop: 20,
+                alignItems: "flex-end",
+                width: "100%",
+              }}
+            >
+              <ThemedText
+                style={{
+                  fontSize: 16,
+                  backgroundColor: "rgb(59, 110, 62)",
+                  color: "white",
+                  borderRadius: 8,
+                  width: 150,
+                  textAlign: "center",
+                  padding: 10,
+                }}
+                onPress={() => router.push("/create_shift")}
+              >
+                Agendar Servicio
+              </ThemedText>
+            </View>
+
+            <View
+              style={{
+                marginTop: 10,
                 width: "105%",
               }}
             >
