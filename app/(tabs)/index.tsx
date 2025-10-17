@@ -1,6 +1,6 @@
 import { ThemedText } from "@/components/themed-text";
 import { Stack, router } from "expo-router";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Modal, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { RootState } from "@/features/store";
 import { useDispatch, useSelector } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
@@ -20,6 +20,7 @@ export default function HomeScreen() {
   const { data, isLoading } = useGetShifts();
   const [collapsed, setCollapsed] = useState(true);
   const [collapsedTurn, setCollapsedTurn] = useState(true);
+  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     if (data) {
@@ -36,6 +37,39 @@ export default function HomeScreen() {
       <SafeAreaView style={{ flex: 1, backgroundColor: bg }}>
         <ScrollView contentContainerStyle={{ padding: 20 }}>
           <Stack.Screen options={{ headerShown: false }} />
+          <Modal
+            visible={modal}
+            transparent
+            animationType="fade"
+            onRequestClose={() => setModal(false)}
+          >
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: "rgba(0,0,0,0.5)",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <View
+                style={{
+                  width: 280,
+                  minHeight: 160,
+                  backgroundColor: "white",
+                  borderRadius: 12,
+                  padding: 16,
+                }}
+              >
+                <ThemedText
+                  onPress={() => router.push("/login")}
+                  style={{ color: "black", fontSize: 16 }}
+                >
+                  Iniciar sesión
+                </ThemedText>
+              </View>
+            </View>
+          </Modal>
+
           <View
             style={{
               flex: 1,
@@ -47,7 +81,7 @@ export default function HomeScreen() {
             <View
               style={{
                 flexDirection: "row",
-                gap: 70,
+                gap: 80,
                 boxShadow: "0 5px 3px -4px gray",
                 paddingBottom: 20,
                 width: 400,
@@ -69,9 +103,9 @@ export default function HomeScreen() {
                   color: text,
                   textDecorationLine: "underline",
                 }}
-                onPress={() => router.push("/login")}
+                onPress={() => setModal(true)}
               >
-                Iniciar sesión
+                <Ionicons name="menu-outline" size={40} color={"green"} />
               </ThemedText>
             </View>
 
