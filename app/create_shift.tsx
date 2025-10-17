@@ -3,7 +3,15 @@ import { Stack, router } from "expo-router";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { agregarTurno } from "../features/shiftSlice";
 import { useDispatch } from "react-redux";
-import { Alert, Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+  Alert,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  Pressable,
+  FlatList,
+} from "react-native";
 import { useState } from "react";
 import DateTimePicker, {
   DateTimePickerEvent,
@@ -25,12 +33,14 @@ import {
   minDate,
   startOfDay,
 } from "@/utils/data-functions";
-import { LinearGradient } from "expo-linear-gradient";
+import BookingScreen, { BookingValue } from "@/components/bookingScreen";
 
 export default function CreateShift() {
   const [showPicker, setShowPicker] = useState(false);
   const [fechaSeleccionada, setFechaSeccionada] = useState(new Date());
   const [showTimePicker, setShowTimePicker] = useState(false);
+  const [booking, setBooking] = useState<BookingValue | null>(null);
+
   const dispatch = useDispatch();
 
   const {
@@ -47,55 +57,14 @@ export default function CreateShift() {
       id: Date.now(),
       nombrePaciente: data.paciente,
       nombreDoctor: data.medico,
-      fecha: FormatDate(fechaSeleccionada)!.toString(),
+      fecha: booking!.display,
       estado: data.estado,
     };
 
-    dispatch(agregarTurno(nuevoTurno));
-    router.replace("/");
-  };
+    console.log(nuevoTurno);
 
-  const onDateChange = (_: DateTimePickerEvent, date?: Date) => {
-    setShowPicker(false);
-    if (!date) return;
-    const chosen = startOfDay(date) < minDate ? new Date(minDate) : date;
-    const merged = new Date(
-      chosen.getFullYear(),
-      chosen.getMonth(),
-      chosen.getDate(),
-      fechaSeleccionada.getHours(),
-      fechaSeleccionada.getMinutes()
-    );
-    setFechaSeccionada(clampToBusinessHours(merged));
-    setShowTimePicker(true);
-  };
-
-  const onTimeChange = (event: DateTimePickerEvent, date?: Date) => {
-    if (event.type !== "set" || !date) return;
-
-    const now = new Date();
-
-    if (date.toDateString() === now.toDateString() && date < now) {
-      Alert.alert("Horario no válido", "No podés elegir una hora que ya pasó.");
-      return;
-    }
-
-    const next = new Date(
-      fechaSeleccionada.getFullYear(),
-      fechaSeleccionada.getMonth(),
-      fechaSeleccionada.getDate(),
-      date.getHours(),
-      date.getMinutes()
-    );
-
-    if (next.getHours() < BUSINESS_OPEN || next.getHours() >= BUSINESS_CLOSE) {
-      Alert.alert("Horario no permitido", "Horario maximo 18:00hs.");
-      return;
-    }
-
-    const clamped = clampToBusinessHours(next);
-    setFechaSeccionada(clamped);
-    setShowTimePicker(false);
+    // dispatch(agregarTurno(nuevoTurno));
+    // router.replace("/");
   };
 
   const { bg, text } = useThemeColors();
@@ -105,33 +74,59 @@ export default function CreateShift() {
       <Stack.Screen options={{ headerShown: false }} />
       <View
         style={{
-          paddingLeft: 50,
-          gap: 80,
-          justifyContent: "flex-start",
-          width: 300,
-          paddingTop: 52,
           flexDirection: "row",
+          boxShadow: "0 5px 3px -4px gray",
+          paddingBottom: 10,
+          justifyContent: "space-between",
+          paddingTop: 52,
           alignItems: "center",
+          padding: 20,
         }}
       >
-        <Ionicons
-          name="close"
-          size={28}
-          color={text}
-          onPress={() => {
-            Alert.alert(
-              "¿Quieres salir?",
-              "Si sales, los cambios no se guardarán.",
-              [
-                { text: "No", style: "cancel" },
-                { text: "Sí", onPress: () => router.push("/") },
-              ],
-              { cancelable: true }
-            );
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 5 }}>
+          <Ionicons name="medkit" size={45} color={"green"} />
+          <ThemedText
+            style={{
+              fontSize: 16,
+              color: text,
+              fontWeight: "500",
+            }}
+          >
+            Agendar turno
+          </ThemedText>
+        </View>
+        <ThemedText
+          style={{
+            fontSize: 16,
+            color: text,
           }}
-        />
+        >
+          <Ionicons
+            name="close"
+            size={35}
+            color={"black"}
+            onPress={() => {
+              Alert.alert(
+                "¿Quieres salir?",
+                "Si sales, los cambios no se guardarán.",
+                [
+                  { text: "No", style: "cancel" },
+                  { text: "Sí", onPress: () => router.push("/") },
+                ],
+                { cancelable: true }
+              );
+            }}
+          />
+        </ThemedText>
       </View>
-      <View
+
+      {!booking && (
+        <View style={{ flex: 1 }}>
+          <BookingScreen onChange={setBooking} />
+        </View>
+      )}
+
+      {/* <View
         style={{
           flex: 1,
           alignItems: "center",
@@ -224,54 +219,6 @@ export default function CreateShift() {
           )}
         </FadeIn>
 
-        <TouchableOpacity
-          onPress={() => setShowPicker(true)}
-          style={{
-            borderWidth: 1,
-            backgroundColor: bg === "#000" ? "white" : "#F5F5DC",
-            padding: 2,
-            maxWidth: 200,
-            borderRadius: 10,
-            alignItems: "center",
-            gap: 5,
-          }}
-        >
-          <ThemedText
-            style={{
-              width: 200,
-              color: "black",
-              textAlign: "center",
-              fontWeight: "bold",
-              fontSize: 18,
-            }}
-          >
-            Seleccionar fecha
-          </ThemedText>
-          <Text style={{ textAlign: "center" }}>
-            Fecha actual: {helperDate(fechaSeleccionada)}
-          </Text>
-        </TouchableOpacity>
-
-        {showPicker && (
-          <DateTimePicker
-            value={fechaSeleccionada ?? new Date()}
-            mode="date"
-            display="default"
-            onChange={onDateChange}
-            minimumDate={minDate}
-          />
-        )}
-        {showTimePicker && (
-          <DateTimePicker
-            value={fechaSeleccionada ?? new Date()}
-            mode="time"
-            display="default"
-            onChange={(e, date) => {
-              onTimeChange(e, date);
-            }}
-          />
-        )}
-
         <TouchableOpacity onPress={handleSubmit(onSubmit)}>
           <ThemedText
             style={{
@@ -288,18 +235,7 @@ export default function CreateShift() {
             Crear turno
           </ThemedText>
         </TouchableOpacity>
-
-        <LinearGradient
-          colors={["#9ab79a", "#ffffff"]}
-          start={{ x: 0, y: 1 }}
-          end={{ x: 1, y: 0 }}
-          style={{
-            width: 300,
-            height: 150,
-            borderRadius: 15,
-          }}
-        />
-      </View>
+      </View> */}
     </View>
   );
 }
