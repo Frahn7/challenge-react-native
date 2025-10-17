@@ -17,8 +17,9 @@ import Collapsible from "react-native-collapsible";
 export default function HomeScreen() {
   const turnos = useSelector((state: RootState) => state.shifts.turnos);
   const dispatch = useDispatch();
-  const [collapsed, setCollapsed] = useState(true);
   const { data, isLoading } = useGetShifts();
+  const [collapsed, setCollapsed] = useState(true);
+  const [collapsedTurn, setCollapsedTurn] = useState(true);
 
   useEffect(() => {
     if (data) {
@@ -50,7 +51,6 @@ export default function HomeScreen() {
                 boxShadow: "0 5px 3px -4px gray",
                 paddingBottom: 20,
                 width: 400,
-                marginBottom: 20,
                 justifyContent: "center",
               }}
             >
@@ -75,48 +75,129 @@ export default function HomeScreen() {
               </ThemedText>
             </View>
 
-            <LinearGradient
-              colors={["#9ab79a", "#ffffff"]}
-              start={{ x: 0, y: 1 }}
-              end={{ x: 1, y: 0 }}
-              style={{
-                width: 300,
-                height: 150,
-                borderRadius: 15,
-              }}
-            />
             <View
               style={{
-                width: 290,
-                padding: 3,
-                flexDirection: "row",
-                alignItems: "flex-end",
-                gap: 5,
+                backgroundColor: "rgb(240, 240, 240)",
+                paddingTop: 20,
+                paddingBottom: 10,
+                alignItems: "center",
+                width: "120%",
               }}
             >
-              <Ionicons name="medkit" size={40} color={"green"} />
-              <ThemedText style={{ color: "black", fontWeight: 600 }}>
-                Gestion de turnos
-              </ThemedText>
+              <LinearGradient
+                colors={["#9ab79a", "#ffffff"]}
+                start={{ x: 0, y: 1 }}
+                end={{ x: 1, y: 0 }}
+                style={{
+                  width: "90%",
+                  height: 150,
+                  borderRadius: 15,
+                }}
+              />
+              <View
+                style={{
+                  alignSelf: "flex-start",
+                  paddingLeft: 20,
+                }}
+              >
+                <View
+                  style={{
+                    width: 290,
+                    padding: 3,
+                    flexDirection: "row",
+                    alignItems: "flex-end",
+                    gap: 5,
+                  }}
+                >
+                  <Ionicons name="medkit" size={40} color={"green"} />
+                  <ThemedText
+                    style={{ color: "black", fontWeight: 600, fontSize: 20 }}
+                  >
+                    Gestion de turnos
+                  </ThemedText>
+                </View>
+                <ThemedText
+                  style={{
+                    color: "black",
+                    width: 280,
+                    marginTop: -4,
+                    fontSize: 16,
+                  }}
+                >
+                  Gestiona tus turnos!
+                </ThemedText>
+
+                <View style={{ width: 340, marginTop: 20 }}>
+                  <TouchableOpacity onPress={() => setCollapsed(!collapsed)}>
+                    <Collapsible
+                      collapsed={collapsed}
+                      collapsedHeight={25}
+                      style={{
+                        gap: 5,
+                        paddingLeft: 10,
+                        borderTopColor: "black",
+                        borderTopWidth: 0.5,
+                        paddingTop: 3,
+                      }}
+                    >
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <Text
+                          style={{
+                            fontSize: 16,
+                            fontWeight: 600,
+                            gap: 4,
+                          }}
+                        >
+                          <Ionicons name="person-outline" size={18} />
+                          Profesionales
+                        </Text>
+                        {collapsed ? (
+                          <Ionicons
+                            name="arrow-down-outline"
+                            size={20}
+                            onPress={() => setCollapsed(!collapsed)}
+                          />
+                        ) : (
+                          <Ionicons
+                            name="arrow-up-outline"
+                            size={20}
+                            onPress={() => setCollapsed(!collapsed)}
+                          />
+                        )}
+                      </View>
+                      <Text style={{ fontSize: 16, fontWeight: 700 }}>
+                        Francisco Villella
+                      </Text>
+                    </Collapsible>
+                  </TouchableOpacity>
+                </View>
+              </View>
             </View>
-            <ThemedText
+
+            <View
               style={{
-                color: "black",
-                width: 280,
-                marginTop: -4,
-                fontSize: 14,
+                marginTop: 20,
+                width: "105%",
               }}
             >
-              Gestiona tus turnos!
-            </ThemedText>
-            <View style={{ width: 300 }}>
-              <TouchableOpacity onPress={() => setCollapsed(!collapsed)}>
+              <TouchableOpacity
+                onPress={() => setCollapsedTurn(!collapsedTurn)}
+              >
                 <Collapsible
-                  collapsed={collapsed}
-                  collapsedHeight={20}
+                  collapsed={collapsedTurn}
+                  collapsedHeight={35}
                   style={{
                     gap: 5,
                     paddingLeft: 10,
+                    backgroundColor: "rgb(240, 243, 244)",
+                    width: "100%",
+                    borderRadius: 8,
                   }}
                 >
                   <View
@@ -124,54 +205,48 @@ export default function HomeScreen() {
                       flexDirection: "row",
                       alignItems: "center",
                       justifyContent: "space-between",
+                      padding: 5,
                     }}
                   >
                     <Text
                       style={{
+                        paddingLeft: 6,
                         fontSize: 16,
-                        fontWeight: 600,
-                        gap: 4,
+                        padding: 3,
+                        fontWeight: 700,
                       }}
                     >
-                      <Ionicons name="person-outline" size={18} />
-                      Profesionales
+                      Turnos
                     </Text>
-                    {collapsed ? (
+                    {collapsedTurn ? (
                       <Ionicons
-                        name="arrow-down-outline"
+                        name="remove-outline"
+                        onPress={() => setCollapsedTurn(!collapsedTurn)}
                         size={20}
-                        onPress={() => setCollapsed(!collapsed)}
                       />
                     ) : (
-                      <Ionicons
-                        name="arrow-up-outline"
-                        size={20}
-                        onPress={() => setCollapsed(!collapsed)}
-                      />
+                      <Text
+                        style={{ fontSize: 20 }}
+                        onPress={() => setCollapsedTurn(!collapsedTurn)}
+                      >
+                        +
+                      </Text>
                     )}
                   </View>
-                  <Text style={{ fontSize: 16, fontWeight: 700 }}>
-                    Francisco Villella
-                  </Text>
                 </Collapsible>
               </TouchableOpacity>
-            </View>
-            {/* <View
-              style={{
-                flex: 1,
-                justifyContent: "center",
-              }}
-            >
+
               <FadeIn delay={20 * 40}>
                 {isLoading ? (
                   <Text style={{ color: "white" }}>Cargando...</Text>
                 ) : (
+                  collapsedTurn &&
                   turnos.map((turno) => (
                     <CardShift turno={turno} key={turno.id} />
                   ))
                 )}
               </FadeIn>
-            </View> */}
+            </View>
           </View>
         </ScrollView>
       </SafeAreaView>
