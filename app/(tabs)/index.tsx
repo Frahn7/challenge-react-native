@@ -124,7 +124,6 @@ export default function HomeScreen() {
                   style={{
                     color: "black",
                     width: 280,
-                    marginTop: -4,
                     fontSize: 16,
                   }}
                 >
@@ -140,16 +139,24 @@ export default function HomeScreen() {
                       justifyContent: "space-between",
                     }}
                   >
-                    <Text
+                    <View
                       style={{
-                        fontSize: 16,
-                        fontWeight: 600,
-                        gap: 4,
+                        flexDirection: "row",
+                        alignItems: "center",
                       }}
                     >
                       <Ionicons name="location-outline" size={18} />
-                      Ubicación y horario
-                    </Text>
+                      <Text
+                        style={{
+                          fontSize: 16,
+                          fontWeight: 600,
+                          gap: 4,
+                          marginLeft: 8,
+                        }}
+                      >
+                        Ubicación y horario
+                      </Text>
+                    </View>
                   </View>
 
                   <TouchableOpacity onPress={() => setCollapsed(!collapsed)}>
@@ -171,16 +178,23 @@ export default function HomeScreen() {
                           justifyContent: "space-between",
                         }}
                       >
-                        <Text
+                        <View
                           style={{
-                            fontSize: 16,
-                            fontWeight: 600,
-                            gap: 4,
+                            flexDirection: "row",
+                            alignItems: "center",
                           }}
                         >
                           <Ionicons name="person-outline" size={18} />
-                          Profesionales
-                        </Text>
+                          <Text
+                            style={{
+                              fontSize: 16,
+                              fontWeight: 600,
+                              marginLeft: 8,
+                            }}
+                          >
+                            Profesionales
+                          </Text>
+                        </View>
                         {collapsed ? (
                           <Ionicons
                             name="arrow-down-outline"

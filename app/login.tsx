@@ -248,7 +248,6 @@ export default function Login() {
           />
           <Text style={{ width: 300 }}>Recordarme</Text>
         </View>
-        <Line />
 
         <TouchableOpacity onPress={handleSubmit(onSubmit)}>
           <ThemedText

@@ -16,6 +16,7 @@ export const globalStyles = StyleSheet.create({
     fontSize: 28,
     fontWeight: "bold",
     color: "rgb(59, 110, 62)",
+    paddingBottom: 10,
   },
   Error: {
     color: "red",

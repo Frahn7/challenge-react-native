@@ -46,17 +46,29 @@ export const CardShift = ({ turno }: { turno: ShiftProps }) => {
           borderRadius: 8,
         }}
       >
-        <ThemedText style={{ color: "black", fontSize: 18 }}>
-          Paciente: {turno.nombrePaciente}
+        <ThemedText style={{ color: "black", fontSize: 19, fontWeight: 700 }}>
+          Paciente:{" "}
+          <ThemedText style={{ color: "black", fontWeight: 500 }}>
+            {turno.nombrePaciente}
+          </ThemedText>
         </ThemedText>
-        <ThemedText style={{ color: "black", fontSize: 18 }}>
-          Doctor: {turno.nombreDoctor}
+        <ThemedText style={{ color: "black", fontSize: 19, fontWeight: 700 }}>
+          Doctor:{" "}
+          <ThemedText style={{ color: "black", fontWeight: 500 }}>
+            {turno.nombreDoctor}
+          </ThemedText>
         </ThemedText>
-        <ThemedText style={{ color: "black", fontSize: 18 }}>
-          Estado: {turno.estado}
+        <ThemedText style={{ color: "black", fontSize: 19, fontWeight: 700 }}>
+          Estado:{" "}
+          <ThemedText style={{ color: "black", fontWeight: 500 }}>
+            {turno.estado}
+          </ThemedText>
         </ThemedText>
-        <ThemedText style={{ color: "black", fontSize: 18 }}>
-          Fecha: {helperDate(turno.fecha)}
+        <ThemedText style={{ color: "black", fontSize: 19, fontWeight: 700 }}>
+          Fecha:{" "}
+          <ThemedText style={{ color: "black", fontWeight: 500 }}>
+            {helperDate(turno.fecha)}
+          </ThemedText>
         </ThemedText>
         <ThemedText
           style={{
