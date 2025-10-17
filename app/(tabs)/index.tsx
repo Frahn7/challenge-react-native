@@ -103,15 +103,19 @@ export default function HomeScreen() {
                 <View
                   style={{
                     width: 290,
-                    padding: 3,
                     flexDirection: "row",
                     alignItems: "flex-end",
                     gap: 5,
                   }}
                 >
-                  <Ionicons name="medkit" size={40} color={"green"} />
+                  <Ionicons name="medkit" size={55} color={"green"} />
                   <ThemedText
-                    style={{ color: "black", fontWeight: 600, fontSize: 20 }}
+                    style={{
+                      color: "black",
+                      fontWeight: 600,
+                      fontSize: 20,
+                      paddingBottom: 5,
+                    }}
                   >
                     Gestion de turnos
                   </ThemedText>
@@ -124,10 +128,30 @@ export default function HomeScreen() {
                     fontSize: 16,
                   }}
                 >
-                  Gestiona tus turnos!
+                  Reserva tus turnos con facilidad!
                 </ThemedText>
 
-                <View style={{ width: 340, marginTop: 20 }}>
+                <View style={{ width: 340, marginTop: 20, gap: 5 }}>
+                  <View
+                    style={{
+                      paddingLeft: 10,
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: 600,
+                        gap: 4,
+                      }}
+                    >
+                      <Ionicons name="location-outline" size={18} />
+                      Ubicación y horario
+                    </Text>
+                  </View>
+
                   <TouchableOpacity onPress={() => setCollapsed(!collapsed)}>
                     <Collapsible
                       collapsed={collapsed}

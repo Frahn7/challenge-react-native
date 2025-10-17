@@ -29,68 +29,95 @@ export const CardShift = ({ turno }: { turno: ShiftProps }) => {
     <View>
       <ThemedView
         style={{
-          width: 250,
-          padding: 5,
+          width: "100%",
+          padding: 10,
+          height: 190,
           gap: 6,
-          backgroundColor: "#1F1F1F",
+          backgroundColor: "white",
           overflow: "hidden",
-          alignItems: "center",
+          alignItems: "flex-start",
           shadowColor: "#000",
           shadowOpacity: 0.15,
-          shadowRadius: 8,
+          shadowRadius: 7,
           shadowOffset: { width: 0, height: 4 },
           elevation: 3,
           marginTop: 14,
+          borderWidth: 0.5,
+          borderRadius: 8,
         }}
       >
-        <ThemedText>Paciente: {turno.nombrePaciente}</ThemedText>
-        <ThemedText>Doctor: {turno.nombreDoctor}</ThemedText>
-        <ThemedText>Estado: {turno.estado}</ThemedText>
-        <ThemedText>Fecha: {helperDate(turno.fecha)}</ThemedText>
-      </ThemedView>
+        <ThemedText style={{ color: "black", fontSize: 18 }}>
+          Paciente: {turno.nombrePaciente}
+        </ThemedText>
+        <ThemedText style={{ color: "black", fontSize: 18 }}>
+          Doctor: {turno.nombreDoctor}
+        </ThemedText>
+        <ThemedText style={{ color: "black", fontSize: 18 }}>
+          Estado: {turno.estado}
+        </ThemedText>
+        <ThemedText style={{ color: "black", fontSize: 18 }}>
+          Fecha: {helperDate(turno.fecha)}
+        </ThemedText>
+        <ThemedText
+          style={{
+            color: "black",
+            fontSize: 13,
+            textDecorationLine: "underline",
+          }}
+        >
+          Mas informacion
+        </ThemedText>
+        <View
+          style={{
+            alignItems: "flex-end",
+            width: "100%",
+          }}
+        >
+          <View
+            style={{
+              flexDirection: "row",
+              gap: 20,
+              alignItems: "center",
+            }}
+          >
+            <FontAwesome
+              name="trash-o"
+              size={24}
+              color="red"
+              onPress={() => handleDelete(turno.id)}
+            />
 
-      <ThemedView
-        style={{
-          flexDirection: "row",
-          justifyContent: "center",
-          gap: 20,
-          padding: 5,
-          backgroundColor: "lightblue",
-        }}
-      >
-        <TouchableOpacity onPress={() => handleDelete(turno.id)}>
-          <FontAwesome name="trash-o" size={24} color="red" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            router.push({
-              pathname: "/edit_shift",
-              params: {
-                id: turno.id,
-                name: turno.nombrePaciente,
-                doctor: turno.nombreDoctor,
-                estado: turno.estado,
-                fecha: turno.fecha,
-              },
-            });
-          }}
-        >
-          <FontAwesome name="pencil" size={24} color="white" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={async () => {
-            await NotificationPush({
-              title: "Turno medico!",
-              body: `Hola! tu turno medico esta programado para el dia ${helperDate(
-                turno.fecha
-              )}! no te olvides`,
-              time: 1,
-              text: `Hola! test de mi turno del ${helperDate(turno.fecha)}.`,
-            });
-          }}
-        >
-          <FontAwesome name="bell" size={24} color="green" />
-        </TouchableOpacity>
+            <FontAwesome
+              name="pencil"
+              size={24}
+              color="black"
+              onPress={() => {
+                router.push({
+                  pathname: "/edit_shift",
+                  params: {
+                    id: turno.id,
+                    name: turno.nombrePaciente,
+                    doctor: turno.nombreDoctor,
+                    estado: turno.estado,
+                    fecha: turno.fecha,
+                  },
+                });
+              }}
+            />
+
+            <ThemedText
+              style={{
+                fontSize: 14,
+                backgroundColor: "rgb(59, 110, 62)",
+                color: "white",
+                borderRadius: 8,
+                padding: 6,
+              }}
+            >
+              Agendar Servicio
+            </ThemedText>
+          </View>
+        </View>
       </ThemedView>
     </View>
   );
