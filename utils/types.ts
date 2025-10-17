@@ -21,3 +21,11 @@ export interface Data {
 export type FormValues = z.infer<typeof schemaForm>;
 
 export const order: ThemePref[] = ["light", "dark"];
+
+export interface ShiftProps {
+  id: number;
+  nombrePaciente: string;
+  nombreDoctor: string;
+  estado: string;
+  fecha: string;
+}

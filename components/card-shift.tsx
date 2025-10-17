@@ -2,20 +2,13 @@ import React from "react";
 import { ThemedView } from "./themed-view";
 import { ThemedText } from "./themed-text";
 import { helperDate } from "./helper-fechas";
-import { TouchableOpacity, View } from "react-native";
+import { View } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useDispatch } from "react-redux";
 import { eliminarTurno } from "@/features/shiftSlice";
 import NotificationPush from "./notification-push";
-
-interface ShiftProps {
-  id: number;
-  nombrePaciente: string;
-  nombreDoctor: string;
-  estado: string;
-  fecha: string;
-}
+import { ShiftProps } from "@/utils/types";
 
 export const CardShift = ({ turno }: { turno: ShiftProps }) => {
   const dispatch = useDispatch();
@@ -97,6 +90,23 @@ export const CardShift = ({ turno }: { turno: ShiftProps }) => {
               size={24}
               color="red"
               onPress={() => handleDelete(turno.id)}
+            />
+            <FontAwesome
+              name="bell"
+              size={24}
+              color="green"
+              onPress={async () => {
+                await NotificationPush({
+                  title: "Turno medico!",
+                  body: `Hola! tu turno medico esta programado para el dia ${helperDate(
+                    turno.fecha
+                  )}! no te olvides`,
+                  time: 1,
+                  text: `Hola! test de mi turno del ${helperDate(
+                    turno.fecha
+                  )}.`,
+                });
+              }}
             />
 
             <FontAwesome
