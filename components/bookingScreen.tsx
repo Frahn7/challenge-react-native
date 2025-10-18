@@ -77,8 +77,6 @@ type ApiResponse = {
 };
 
 async function fetchSlots(dateISO: string): Promise<ApiResponse> {
-  await new Promise((r) => setTimeout(r, 300));
-
   const busyHash =
     dayjs(dateISO).date() % 2 === 0 ? ["19:00", "20:30"] : ["16:30"];
 
@@ -143,7 +141,7 @@ export default function BookingScreen({
 
   const marked = useMemo(
     () => ({
-      [date]: { selected: true, selectedColor: "#2563eb" },
+      [date]: { selected: true, selectedColor: "#25eb39" },
     }),
     [date]
   );
@@ -216,8 +214,8 @@ export default function BookingScreen({
             textDayFontFamily: "System",
             textMonthFontFamily: "System",
             textDayHeaderFontFamily: "System",
-            selectedDayBackgroundColor: "#2563eb",
-            todayTextColor: "#2563eb",
+            selectedDayBackgroundColor: "#25eb60",
+            todayTextColor: "#25eb43",
             arrowColor: "#111827",
           }}
           monthFormat="MMMM"
@@ -308,7 +306,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderWidth: 1,
-    borderColor: "#11182733",
+    borderColor: "#11271833",
     borderRadius: 12,
     marginBottom: 10,
     marginRight: 10,
@@ -318,7 +316,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   slotSelected: {
-    borderColor: "#2563eb",
+    borderColor: "#25eb3c",
     backgroundColor: "#2563eb10",
   },
   slotDisabled: {

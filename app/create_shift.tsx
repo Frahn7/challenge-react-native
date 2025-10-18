@@ -13,35 +13,18 @@ import {
   FlatList,
 } from "react-native";
 import { useState } from "react";
-import DateTimePicker, {
-  DateTimePickerEvent,
-} from "@react-native-community/datetimepicker";
-import { FormatDate } from "@/components/format-date";
 import { FadeIn } from "@/components/fade-in";
 import { useThemeColors } from "@/hooks/use-theme-colors";
 import { Ionicons } from "@expo/vector-icons";
-import { helperDate } from "@/components/helper-fechas";
 import { FormValues } from "@/utils/types";
-import Line from "@/components/line";
 import { globalStyles } from "@/globalStyle";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { schemaForm } from "@/utils/utils";
-import {
-  BUSINESS_CLOSE,
-  BUSINESS_OPEN,
-  clampToBusinessHours,
-  minDate,
-  startOfDay,
-} from "@/utils/data-functions";
 import BookingScreen, { BookingValue } from "@/components/bookingScreen";
 
 export default function CreateShift() {
-  const [showPicker, setShowPicker] = useState(false);
-  const [fechaSeleccionada, setFechaSeccionada] = useState(new Date());
-  const [showTimePicker, setShowTimePicker] = useState(false);
-  const [booking, setBooking] = useState<BookingValue | null>(null);
-
   const dispatch = useDispatch();
+  const [booking, setBooking] = useState<BookingValue | null>(null);
 
   const {
     handleSubmit,
@@ -81,18 +64,21 @@ export default function CreateShift() {
           paddingTop: 52,
           alignItems: "center",
           padding: 20,
+          marginBottom: 20,
+          height: 100,
         }}
       >
         <View style={{ flexDirection: "row", alignItems: "center", gap: 5 }}>
-          <Ionicons name="medkit" size={45} color={"green"} />
+          <Ionicons name="chevron-back-outline" size={20} color={"black"} />
           <ThemedText
             style={{
               fontSize: 16,
               color: text,
               fontWeight: "500",
             }}
+            onPress={() => setBooking(null)}
           >
-            Agendar turno
+            Anterior
           </ThemedText>
         </View>
         <ThemedText
@@ -126,6 +112,11 @@ export default function CreateShift() {
         </View>
       )}
 
+      {booking && (
+        <View>
+          <Text>a</Text>
+        </View>
+      )}
       {/* <View
         style={{
           flex: 1,
@@ -139,7 +130,6 @@ export default function CreateShift() {
         <ThemedText style={[globalStyles.TextCreate, { color: text }]}>
           Registra tu turno
         </ThemedText>
-        <Line />
 
         <FadeIn delay={20 * 40}>
           <Controller
