@@ -21,10 +21,12 @@ import { globalStyles } from "@/globalStyle";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { schemaForm } from "@/utils/utils";
 import BookingScreen, { BookingValue } from "@/components/bookingScreen";
+import Collapsible from "react-native-collapsible";
 
 export default function CreateShift() {
-  const dispatch = useDispatch();
   const [booking, setBooking] = useState<BookingValue | null>(null);
+  const [collapsed, setCollapsed] = useState(true);
+  const dispatch = useDispatch();
 
   const {
     handleSubmit,
@@ -112,11 +114,73 @@ export default function CreateShift() {
         </View>
       )}
 
-      {booking && (
-        <View>
-          <Text>a</Text>
+      {booking !== null && (
+        <View style={{ flex: 1, width: "100%", padding: 10 }}>
+          <TouchableOpacity
+            onPress={() => setCollapsed(!collapsed)}
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              backgroundColor: "rgb(240, 243, 244)",
+              padding: 5,
+              borderRadius: 6,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: "700",
+                paddingLeft: 6,
+              }}
+            >
+              Turno médico
+            </Text>
+
+            {collapsed ? (
+              <Ionicons name="add-outline" size={25} />
+            ) : (
+              <Ionicons name="remove-outline" size={25} />
+            )}
+          </TouchableOpacity>
+
+          <Collapsible
+            collapsed={collapsed}
+            style={{
+              backgroundColor: "rgb(240, 243, 244)",
+              padding: 5,
+            }}
+          >
+            <View
+              style={{
+                gap: 5,
+                alignItems: "flex-start",
+                paddingLeft: 6,
+                paddingBottom: 10,
+                borderRadius: 8,
+              }}
+            >
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Ionicons name="calendar-outline" />
+                <Text>{booking!.display.split(" ")[0]}</Text>
+              </View>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Ionicons name="alarm" />
+                <Text>{booking!.display.split(" ")[1]}</Text>
+              </View>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Ionicons name="medical" />
+                <Text>Centro medico</Text>
+              </View>
+            </View>
+          </Collapsible>
+
+          <View>
+            <Text>Datos de contacto</Text>
+          </View>
         </View>
       )}
+
       {/* <View
         style={{
           flex: 1,

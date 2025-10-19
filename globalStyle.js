@@ -11,6 +11,12 @@ export const globalStyles = StyleSheet.create({
   InputLogin: {
     width: 300,
     marginBottom: 8,
+    backgroundColor: "white",
+    flexDirection: "row",
+    borderRadius: 8,
+    borderWidth: 1,
+    height: 50,
+    alignItems: "center",
   },
   TextLogin: {
     fontSize: 28,
@@ -48,5 +54,35 @@ export const globalStyles = StyleSheet.create({
     fontWeight: "bold",
     marginTop: -5,
     textAlign: "right",
+  },
+  ModalContainer: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  ModalCardContainer: {
+    width: 280,
+    minHeight: 400,
+    backgroundColor: "white",
+    borderRadius: 12,
+    padding: 10,
+  },
+  ModalCard: {
+    flexDirection: "row",
+    padding: 10,
+    borderTopWidth: 0.5,
+    borderBottomWidth: 0.5,
+    width: "100%",
+    alignItems: "center",
+  },
+  IndexHeader: {
+    flexDirection: "row",
+    boxShadow: "0 5px 3px -4px gray",
+    paddingBottom: 20,
+    width: 400,
+    justifyContent: "space-between",
+    paddingLeft: 40,
+    paddingRight: 40,
   },
 });

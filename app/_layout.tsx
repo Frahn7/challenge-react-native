@@ -15,6 +15,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Provider as JotaiProvider, useAtomValue } from "jotai";
 import { resolvedThemeAtom } from "@/features/themeAtom";
 import { useEffect } from "react";
+import GlobalRouteLoading from "@/components/global-route-loading";
+
 import {
   registerNotificationResponse,
   unregisterNotificationResponse,
@@ -68,6 +70,7 @@ function AppShell() {
 export default function RootLayout() {
   return (
     <Provider store={store}>
+      <GlobalRouteLoading />
       <AppShell />
     </Provider>
   );

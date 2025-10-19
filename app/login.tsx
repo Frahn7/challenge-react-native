@@ -19,9 +19,8 @@ import { globalStyles } from "../globalStyle";
 import { Ionicons } from "@expo/vector-icons";
 import { Checkbox } from "expo-checkbox";
 
-import Line from "@/components/line";
-
 export default function Login() {
+  const { bg, text } = useThemeColors();
   const [, setProfile] = useAtom(profileAtom);
   const [ErrorCorreoMessage, setErrorCorreoMessage] = useState("");
   const [ErrorContrasenaMessage, setErrorContrasenaMessage] = useState("");
@@ -33,6 +32,10 @@ export default function Login() {
     control,
     formState: { errors },
   } = useForm<Inputs>();
+
+  const showPasswords = () => {
+    setShowPassword(!showPassword);
+  };
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     setErrorCorreoMessage("");
@@ -63,11 +66,6 @@ export default function Login() {
       router.push("/");
     }
   };
-  const showPasswords = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const { bg, text } = useThemeColors();
 
   return (
     <>
@@ -109,14 +107,6 @@ export default function Login() {
               <View
                 style={[
                   globalStyles.InputLogin,
-                  {
-                    backgroundColor: "white",
-                    flexDirection: "row",
-                    borderRadius: 8,
-                    borderWidth: 1,
-                    height: 50,
-                    alignItems: "center",
-                  },
                   errors.Correo && { borderColor: "red", borderWidth: 1 },
                 ]}
               >
@@ -170,14 +160,6 @@ export default function Login() {
               <View
                 style={[
                   globalStyles.InputLogin,
-                  {
-                    backgroundColor: "white",
-                    flexDirection: "row",
-                    borderRadius: 8,
-                    borderWidth: 1,
-                    height: 50,
-                    alignItems: "center",
-                  },
                   errors.Correo && { borderColor: "red", borderWidth: 1 },
                 ]}
               >

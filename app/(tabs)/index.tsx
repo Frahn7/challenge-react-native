@@ -5,14 +5,17 @@ import { RootState } from "@/features/store";
 import { useDispatch, useSelector } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
 import { setTurnos } from "@/features/shiftSlice";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetShifts } from "@/hooks/use-get-shift";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FadeIn } from "@/components/fade-in";
 import { useThemeColors } from "@/hooks/use-theme-colors";
 import { CardShift } from "@/components/card-shift";
 import { LinearGradient } from "expo-linear-gradient";
+import { Pressable } from "react-native";
+
 import Collapsible from "react-native-collapsible";
+import { globalStyles } from "@/globalStyle";
 
 export default function HomeScreen() {
   const turnos = useSelector((state: RootState) => state.shifts.turnos);
@@ -41,39 +44,15 @@ export default function HomeScreen() {
             animationType="fade"
             onRequestClose={() => setModal(false)}
           >
-            <View
-              style={{
-                flex: 1,
-                backgroundColor: "rgba(0,0,0,0.5)",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <View
-                style={{
-                  width: 280,
-                  minHeight: 160,
-                  backgroundColor: "white",
-                  borderRadius: 12,
-                  padding: 16,
-                }}
-              >
+            <View style={[globalStyles.ModalContainer]}>
+              <View style={[globalStyles.ModalCardContainer]}>
                 <Text
                   style={{ textAlign: "right", padding: 1 }}
                   onPress={() => setModal(false)}
                 >
                   <Ionicons name="close-outline" size={30} />
                 </Text>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    padding: 10,
-                    borderTopWidth: 0.5,
-                    borderBottomWidth: 0.5,
-                    width: "100%",
-                    alignItems: "center",
-                  }}
-                >
+                <View style={[globalStyles.ModalCard]}>
                   <Ionicons name="person-outline" size={24} color="green" />
                   <ThemedText
                     onPress={() => router.push("/login")}
@@ -99,16 +78,7 @@ export default function HomeScreen() {
               alignItems: "center",
             }}
           >
-            <View
-              style={{
-                flexDirection: "row",
-                gap: 80,
-                boxShadow: "0 5px 3px -4px gray",
-                paddingBottom: 20,
-                width: 400,
-                justifyContent: "center",
-              }}
-            >
+            <View style={globalStyles.IndexHeader}>
               <ThemedText
                 style={{
                   fontSize: 18,
@@ -153,6 +123,7 @@ export default function HomeScreen() {
                 style={{
                   alignSelf: "flex-start",
                   paddingLeft: 20,
+                  margin: 5,
                 }}
               >
                 <View
@@ -273,26 +244,24 @@ export default function HomeScreen() {
               </View>
             </View>
 
-            <View
-              style={{
-                alignItems: "flex-end",
-                width: "100%",
-              }}
-            >
-              <ThemedText
+            <View style={{ alignItems: "flex-end", width: "100%", margin: 10 }}>
+              <TouchableOpacity
+                onPress={() => router.push("/create_shift")}
+                activeOpacity={0.7}
                 style={{
-                  fontSize: 16,
                   backgroundColor: "rgb(59, 110, 62)",
-                  color: "white",
                   borderRadius: 8,
                   width: 150,
-                  textAlign: "center",
-                  padding: 10,
+                  paddingVertical: 10,
+                  alignItems: "center",
                 }}
-                onPress={() => router.push("/create_shift")}
               >
-                Agendar Servicio
-              </ThemedText>
+                <ThemedText
+                  style={{ fontSize: 16, color: "white", textAlign: "center" }}
+                >
+                  Agendar Servicio
+                </ThemedText>
+              </TouchableOpacity>
             </View>
 
             <View
@@ -344,7 +313,11 @@ export default function HomeScreen() {
                         style={{ fontSize: 20 }}
                         onPress={() => setCollapsedTurn(!collapsedTurn)}
                       >
-                        +
+                        <Ionicons
+                          name="add-outline"
+                          onPress={() => setCollapsedTurn(!collapsedTurn)}
+                          size={20}
+                        />
                       </Text>
                     )}
                   </View>
