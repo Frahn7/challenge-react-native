@@ -17,8 +17,8 @@ export const CardShift = ({ turno }: { turno: ShiftProps }) => {
 
   const handleDelete = async (id: number) => {
     try {
-      await deleteShift(id);
       dispatch(eliminarTurno(id));
+      await deleteShift(id);
       router.replace("/");
     } catch (e) {
       console.error(e);

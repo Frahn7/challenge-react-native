@@ -23,5 +23,8 @@ export function useGetShifts() {
     queryFn: fetchShifts,
     staleTime: 5 * 60 * 1000,
     gcTime: 30 * 60 * 1000,
+    refetchOnMount: "always",
+    refetchOnWindowFocus: true,
+    refetchOnReconnect: true,
   });
 }

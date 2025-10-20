@@ -263,19 +263,6 @@ export default function HomeScreen() {
               </TouchableOpacity>
             </View>
 
-            <View>
-              <CardShift
-                turno={{
-                  estado: "test",
-                  fecha: "10/03/2003",
-                  nombreDoctor: "aaa",
-                  nombrePaciente: "aa03",
-                  telefono: "aaaa",
-                  id: 12,
-                }}
-              />
-            </View>
-
             <View
               style={{
                 marginTop: 10,

@@ -21,6 +21,7 @@ import { BookingValue } from "./bookingScreen";
 import { router, useLocalSearchParams } from "expo-router";
 import Collapsible from "react-native-collapsible";
 import { useEditShift } from "@/hooks/use-edit-shift";
+import { editarTurno } from "@/features/shiftSlice";
 import { useDispatch } from "react-redux";
 
 type Props = { booking: BookingValue };
@@ -55,18 +56,17 @@ export const FormEditShift = ({ booking }: Props) => {
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const turnoEditado = {
-      id: id,
+      id: Number(id),
       nombrePaciente: data.paciente,
       nombreDoctor: data.medico,
       fecha: booking.display,
       estado: data.estado,
       telefono: data.telefono,
     };
-    console.log(turnoEditado);
 
-    //  await editShift({ id: Number(id), data: turnoEditado });
-    //dispatch(editarTurno({turnoEditado }));
-    //  router.replace("/");
+    dispatch(editarTurno(turnoEditado));
+    await editShift({ id: Number(id), data: turnoEditado });
+    router.replace("/");
   };
 
   return (
@@ -349,7 +349,7 @@ export const FormEditShift = ({ booking }: Props) => {
           }}
         >
           {isPending ? (
-            "Editando"
+            <ThemedText>Editando</ThemedText>
           ) : (
             <ThemedText
               style={{
