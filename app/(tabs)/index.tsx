@@ -1,6 +1,6 @@
 import { ThemedText } from "@/components/themed-text";
 import { Stack, router } from "expo-router";
-import { Modal, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { RootState } from "@/features/store";
 import { useDispatch, useSelector } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
@@ -15,6 +15,7 @@ import { LinearGradient } from "expo-linear-gradient";
 
 import Collapsible from "react-native-collapsible";
 import { globalStyles } from "@/globalStyle";
+import { ModalIndex } from "@/components/modal-index";
 
 export default function HomeScreen() {
   const [collapsed, setCollapsed] = useState(true);
@@ -37,37 +38,8 @@ export default function HomeScreen() {
       <SafeAreaView style={{ flex: 1, backgroundColor: bg }}>
         <ScrollView contentContainerStyle={{ padding: 20 }}>
           <Stack.Screen options={{ headerShown: false }} />
-          <Modal
-            visible={modal}
-            transparent
-            animationType="fade"
-            onRequestClose={() => setModal(false)}
-          >
-            <View style={[globalStyles.ModalContainer]}>
-              <View style={[globalStyles.ModalCardContainer]}>
-                <Text
-                  style={{ textAlign: "right", padding: 1 }}
-                  onPress={() => setModal(false)}
-                >
-                  <Ionicons name="close-outline" size={30} />
-                </Text>
-                <View style={[globalStyles.ModalCard]}>
-                  <Ionicons name="person-outline" size={24} color="green" />
-                  <ThemedText
-                    onPress={() => router.push("/login")}
-                    style={{
-                      color: "black",
-                      fontSize: 16,
-                      textAlign: "left",
-                      marginLeft: 8,
-                    }}
-                  >
-                    Iniciar sesión
-                  </ThemedText>
-                </View>
-              </View>
-            </View>
-          </Modal>
+
+          <ModalIndex open={modal} onClose={() => setModal(false)} />
 
           <View
             style={{
