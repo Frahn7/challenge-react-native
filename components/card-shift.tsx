@@ -2,20 +2,27 @@ import React from "react";
 import { ThemedView } from "./themed-view";
 import { ThemedText } from "./themed-text";
 import { helperDate } from "./helper-fechas";
-import { View } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
+import { TouchableOpacity, View } from "react-native";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useDispatch } from "react-redux";
 import { eliminarTurno } from "@/features/shiftSlice";
 import NotificationPush from "./notification-push";
+import { useDeleteShift } from "@/hooks/use-delete-shift";
 import { ShiftProps } from "@/utils/types";
 
 export const CardShift = ({ turno }: { turno: ShiftProps }) => {
   const dispatch = useDispatch();
+  const { mutateAsync: deleteShift } = useDeleteShift();
 
-  const handleDelete = (id: number) => {
-    dispatch(eliminarTurno(id));
-    router.replace("/");
+  const handleDelete = async (id: number) => {
+    try {
+      await deleteShift(id);
+      dispatch(eliminarTurno(id));
+      router.replace("/");
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
@@ -104,18 +111,19 @@ export const CardShift = ({ turno }: { turno: ShiftProps }) => {
               alignItems: "center",
             }}
           >
-            <ThemedText
-              onPress={() => handleDelete(turno.id)}
-              style={{
-                backgroundColor: "red",
-                borderRadius: 8,
-                padding: 8,
-                textAlign: "center",
-                width: 110,
-              }}
-            >
-              Eliminar turno
-            </ThemedText>
+            <TouchableOpacity>
+              <ThemedText
+                onPress={() => handleDelete(turno.id)}
+                style={{
+                  backgroundColor: "red",
+                  borderRadius: 8,
+                  padding: 8,
+                  textAlign: "center",
+                }}
+              >
+                <Ionicons name="trash" size={20} />
+              </ThemedText>
+            </TouchableOpacity>
             <ThemedText
               onPress={() => {
                 router.push({
@@ -126,18 +134,18 @@ export const CardShift = ({ turno }: { turno: ShiftProps }) => {
                     doctor: turno.nombreDoctor,
                     estado: turno.estado,
                     fecha: turno.fecha,
+                    telefono: turno.telefono,
                   },
                 });
               }}
               style={{
-                backgroundColor: "blue",
+                backgroundColor: "black",
                 borderRadius: 8,
                 padding: 8,
                 textAlign: "center",
-                width: 110,
               }}
             >
-              Editar turno
+              <Ionicons name="pencil" size={20} />
             </ThemedText>
           </View>
         </View>

@@ -77,19 +77,15 @@ type ApiResponse = {
 };
 
 async function fetchSlots(dateISO: string): Promise<ApiResponse> {
-  const busyHash =
-    dayjs(dateISO).date() % 2 === 0 ? ["19:00", "20:30"] : ["16:30"];
-
   const base: ApiSlot[] = [
     { time: "09:00", available: true, period: "DIA" },
     { time: "10:00", available: true, period: "DIA" },
     { time: "11:00", available: true, period: "DIA" },
     { time: "12:00", available: true, period: "DIA" },
-    { time: "13:00", available: !busyHash.includes("16:30"), period: "DIA" },
-    { time: "15:00", available: true, period: "DIA" },
-    { time: "16:30", available: !busyHash.includes("16:30"), period: "Tarde" },
+    { time: "14:00", available: true, period: "Tarde" },
+    { time: "15:00", available: true, period: "Tarde" },
+    { time: "16:00", available: true, period: "Tarde" },
     { time: "17:00", available: true, period: "Tarde" },
-    { time: "17:30", available: true, period: "Tarde" },
   ];
 
   return { date: dateISO, slots: base };

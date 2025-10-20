@@ -6,6 +6,7 @@ interface ShiftInterface {
   nombreDoctor: string;
   fecha: string;
   estado: string;
+  telefono: string;
 }
 
 export interface ShiftState {

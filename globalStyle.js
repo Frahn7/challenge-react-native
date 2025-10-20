@@ -41,8 +41,11 @@ export const globalStyles = StyleSheet.create({
   },
   InputCreate: {
     width: 300,
+    borderWidth: 0.5,
+    borderRadius: 6,
     color: "black",
     marginBottom: 5,
+    marginTop: 5,
   },
   TextCreate: {
     fontWeight: "bold",
@@ -51,9 +54,9 @@ export const globalStyles = StyleSheet.create({
   },
   ErrorCreate: {
     color: "red",
-    fontWeight: "bold",
     marginTop: -5,
-    textAlign: "right",
+    marginBottom: 25,
+    textAlign: "left",
   },
   ModalContainer: {
     flex: 1,

@@ -12,6 +12,7 @@ export type InputsForm = {
   paciente: string;
   medico: string;
   estado: string;
+  telefono: string;
 };
 
 export interface Data {
@@ -28,4 +29,5 @@ export interface ShiftProps {
   nombreDoctor: string;
   estado: string;
   fecha: string;
+  telefono: string;
 }

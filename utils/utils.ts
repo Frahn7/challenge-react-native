@@ -18,4 +18,7 @@ export const schemaForm = z.object({
   estado: z
     .string({ required_error: "El estado es obligatorio" })
     .min(1, { message: "Ingresá el estado" }),
+  telefono: z
+    .string({ required_error: "El telefono es obligatorio" })
+    .min(1, { message: "Ingresá telefono" }),
 });
