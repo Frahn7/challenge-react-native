@@ -154,7 +154,7 @@ export const FormCreateShift = ({ booking }: Props) => {
                 >
                   <View style={{ padding: 15 }}>
                     <View style={{ borderBottomWidth: 0.5, padding: 4 }}>
-                      <Text style={{ fontWeight: 800, fontSize: 16 }}>
+                      <Text style={{ fontWeight: 800, fontSize: 17 }}>
                         Datos de contacto
                       </Text>
                     </View>
@@ -163,7 +163,7 @@ export const FormCreateShift = ({ booking }: Props) => {
                         padding: 4,
                         marginTop: 5,
                         marginBottom: 5,
-                        fontSize: 14,
+                        fontSize: 15,
                       }}
                     >
                       Te notificaremos el turno
@@ -175,7 +175,7 @@ export const FormCreateShift = ({ booking }: Props) => {
                           control={control}
                           render={({ field: { onChange, value } }) => (
                             <View>
-                              <Text>Nombre *</Text>
+                              <Text style={{ fontSize: 17 }}>Nombre *</Text>
                               <TextInput
                                 placeholder="Nombre completo"
                                 style={[
@@ -203,7 +203,9 @@ export const FormCreateShift = ({ booking }: Props) => {
                           control={control}
                           render={({ field: { onChange, value } }) => (
                             <View>
-                              <Text>Nombre del medico *</Text>
+                              <Text style={{ fontSize: 17 }}>
+                                Nombre del medico *
+                              </Text>
                               <TextInput
                                 placeholder="Nombre del medico"
                                 style={[
@@ -231,7 +233,7 @@ export const FormCreateShift = ({ booking }: Props) => {
                           control={control}
                           render={({ field: { onChange, value } }) => (
                             <View>
-                              <Text>Estado *</Text>
+                              <Text style={{ fontSize: 17 }}>Estado *</Text>
                               <TextInput
                                 placeholder="Estado"
                                 style={[
@@ -258,7 +260,7 @@ export const FormCreateShift = ({ booking }: Props) => {
                           control={control}
                           render={({ field: { onChange, value } }) => (
                             <View>
-                              <Text>Teléfono *</Text>
+                              <Text style={{ fontSize: 17 }}>Teléfono *</Text>
                               <TextInput
                                 placeholder="Teléfono"
                                 style={[

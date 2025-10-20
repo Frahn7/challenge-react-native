@@ -1,42 +1,13 @@
 import { ThemedText } from "@/components/themed-text";
 import { Alert, View } from "react-native";
 import { Stack, router } from "expo-router";
-
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-
 import { useThemeColors } from "@/hooks/use-theme-colors";
 import { Ionicons } from "@expo/vector-icons";
-
 import BookingScreen, { BookingValue } from "@/components/bookingScreen";
 import { FormEditShift } from "@/components/form-edit-shift";
 
 export default function EditShift() {
-  const dispatch = useDispatch();
-
-  // const mutation = useMutation({
-  //   mutationFn: async ({ data }: Data) => {
-  //     dispatch(
-  //       editarTurno({
-  //         id: Number(id),
-  //         nombrePaciente: data.paciente,
-  //         nombreDoctor: data.medico,
-  //         estado: data.estado,
-  //         fecha: FormatDate(fechaSeleccionada)!.toString(),
-  //         telefono: data.telefono
-  //       })
-  //     );
-  //     return data;
-  //   },
-  //   onSuccess: () => {
-  //     router.replace("/");
-  //   },
-  // });
-
-  // const onSubmit: SubmitHandler<FormValues> = (data) => {
-  //   mutation.mutate({ data });
-  // };
-
   const { text } = useThemeColors();
   const [booking, setBooking] = useState<BookingValue | null>(null);
 

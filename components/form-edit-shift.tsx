@@ -21,12 +21,14 @@ import { BookingValue } from "./bookingScreen";
 import { router, useLocalSearchParams } from "expo-router";
 import Collapsible from "react-native-collapsible";
 import { useEditShift } from "@/hooks/use-edit-shift";
+import { useDispatch } from "react-redux";
 
 type Props = { booking: BookingValue };
 
 export const FormEditShift = ({ booking }: Props) => {
   const [collapsed, setCollapsed] = useState(true);
   const { mutateAsync: editShift, isPending } = useEditShift();
+  const dispatch = useDispatch();
 
   const { id, name, doctor, estado, telefono } = useLocalSearchParams<{
     id: string;
@@ -63,8 +65,7 @@ export const FormEditShift = ({ booking }: Props) => {
     console.log(turnoEditado);
 
     //  await editShift({ id: Number(id), data: turnoEditado });
-
-    //  await insertShift(turnoEditado);
+    //dispatch(editarTurno({turnoEditado }));
     //  router.replace("/");
   };
 
@@ -170,7 +171,7 @@ export const FormEditShift = ({ booking }: Props) => {
                 >
                   <View style={{ padding: 15 }}>
                     <View style={{ borderBottomWidth: 0.5, padding: 4 }}>
-                      <Text style={{ fontWeight: 800, fontSize: 16 }}>
+                      <Text style={{ fontWeight: 800, fontSize: 17 }}>
                         Datos de contacto
                       </Text>
                     </View>
@@ -179,7 +180,7 @@ export const FormEditShift = ({ booking }: Props) => {
                         padding: 4,
                         marginTop: 5,
                         marginBottom: 5,
-                        fontSize: 14,
+                        fontSize: 15,
                       }}
                     >
                       Te notificaremos el turno
@@ -191,7 +192,7 @@ export const FormEditShift = ({ booking }: Props) => {
                           control={control}
                           render={({ field: { onChange, value } }) => (
                             <View>
-                              <Text>Nombre *</Text>
+                              <Text style={{ fontSize: 17 }}>Nombre *</Text>
                               <TextInput
                                 placeholder={name}
                                 style={[
@@ -219,7 +220,9 @@ export const FormEditShift = ({ booking }: Props) => {
                           control={control}
                           render={({ field: { onChange, value } }) => (
                             <View>
-                              <Text>Nombre del medico *</Text>
+                              <Text style={{ fontSize: 17 }}>
+                                Nombre del medico *
+                              </Text>
                               <TextInput
                                 placeholder={doctor}
                                 style={[
@@ -247,7 +250,7 @@ export const FormEditShift = ({ booking }: Props) => {
                           control={control}
                           render={({ field: { onChange, value } }) => (
                             <View>
-                              <Text>Estado *</Text>
+                              <Text style={{ fontSize: 17 }}>Estado *</Text>
                               <TextInput
                                 placeholder={estado}
                                 style={[
@@ -274,7 +277,7 @@ export const FormEditShift = ({ booking }: Props) => {
                           control={control}
                           render={({ field: { onChange, value } }) => (
                             <View>
-                              <Text>Teléfono *</Text>
+                              <Text style={{ fontSize: 17 }}>Teléfono *</Text>
                               <TextInput
                                 placeholder={telefono}
                                 style={[

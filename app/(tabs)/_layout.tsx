@@ -41,7 +41,7 @@ export default function TabLayout() {
           tabBarLabel: "Perfil",
         }}
       />
-      <Tabs.Screen
+      {/* <Tabs.Screen
         name="theme"
         options={{
           tabBarButton: () => (
@@ -68,7 +68,7 @@ export default function TabLayout() {
           ),
           headerShown: false,
         }}
-      />
+      /> */}
     </Tabs>
   );
 }
