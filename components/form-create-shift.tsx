@@ -16,7 +16,7 @@ import { schemaForm } from "@/utils/utils";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { ThemedText } from "./themed-text";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useInsertShift } from "@/hooks/use-insert-shift";
 import { BookingValue } from "./bookingScreen";
 import { router } from "expo-router";
@@ -27,6 +27,10 @@ type Props = { booking: BookingValue };
 export const FormCreateShift = ({ booking }: Props) => {
   const [collapsed, setCollapsed] = useState(true);
   const { mutateAsync: insertShift, isPending } = useInsertShift();
+
+  useEffect(() => {
+    setCollapsed(false);
+  }, [booking]);
 
   const {
     handleSubmit,

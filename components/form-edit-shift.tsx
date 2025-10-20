@@ -16,7 +16,7 @@ import { schemaForm } from "@/utils/utils";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { ThemedText } from "./themed-text";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BookingValue } from "./bookingScreen";
 import { router, useLocalSearchParams } from "expo-router";
 import Collapsible from "react-native-collapsible";
@@ -39,6 +39,10 @@ export const FormEditShift = ({ booking }: Props) => {
     fecha: string;
     telefono: string;
   }>();
+
+  useEffect(() => {
+    setCollapsed(false);
+  }, [booking]);
 
   const {
     handleSubmit,
