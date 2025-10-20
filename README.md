@@ -32,12 +32,7 @@ TypeScript → Tipado estático que mejora la seguridad y mantenibilidad del có
 
 FLUJO DEL SISTEMA:
 
-![](./assets/images/Flujo/login.jpg)
-![](./assets/images/Flujo/login2.jpg)
-![](./assets/images/Flujo/home.jpg)
-![](./assets/images/Flujo/home2.jpg)
-![](./assets/images/Flujo/turno.jpg)
-![](./assets/images/Flujo/turno2.jpg)
-![](./assets/images/Flujo/editar.jpg)
-![](./assets/images/Flujo/editar2.jpg)
-![](./assets/images/Flujo/profile.jpg)
+![](./assets/images/Flujo/INDEX.jpg)
+![](./assets/images/Flujo/LOGIN.jpg)
+![](./assets/images/Flujo/CALENDARIO.jpg)
+![](./assets/images/Flujo/RESERVA.jpg.jpg)
