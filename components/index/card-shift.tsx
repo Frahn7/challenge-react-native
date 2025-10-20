@@ -1,15 +1,15 @@
 import React from "react";
-import { ThemedView } from "./themed-view";
-import { ThemedText } from "./themed-text";
-import { helperDate } from "./helper-fechas";
+import { ThemedView } from "../themed-view";
+import { ThemedText } from "../themed-text";
+import { helperDate } from "../helper-fechas";
 import { TouchableOpacity, View } from "react-native";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useDispatch } from "react-redux";
 import { eliminarTurno } from "@/features/shiftSlice";
-import NotificationPush from "./notification-push";
 import { useDeleteShift } from "@/hooks/use-delete-shift";
 import { ShiftProps } from "@/utils/types";
+import NotificationPush from "../notification-push";
 
 export const CardShift = ({ turno }: { turno: ShiftProps }) => {
   const dispatch = useDispatch();

@@ -2,7 +2,7 @@ import { globalStyles } from "@/globalStyle";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { Modal, Text, View } from "react-native";
-import { ThemedText } from "./themed-text";
+import { ThemedText } from "../themed-text";
 import { router } from "expo-router";
 
 type Props = { open: boolean; onClose: () => void; children?: React.ReactNode };
