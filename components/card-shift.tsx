@@ -13,7 +13,7 @@ import { ShiftProps } from "@/utils/types";
 
 export const CardShift = ({ turno }: { turno: ShiftProps }) => {
   const dispatch = useDispatch();
-  const { mutateAsync: deleteShift } = useDeleteShift();
+  const { mutateAsync: deleteShift, isPending } = useDeleteShift();
 
   const handleDelete = async (id: number) => {
     try {
@@ -112,17 +112,21 @@ export const CardShift = ({ turno }: { turno: ShiftProps }) => {
             }}
           >
             <TouchableOpacity>
-              <ThemedText
-                onPress={() => handleDelete(turno.id)}
-                style={{
-                  backgroundColor: "red",
-                  borderRadius: 8,
-                  padding: 8,
-                  textAlign: "center",
-                }}
-              >
-                <Ionicons name="trash" size={20} />
-              </ThemedText>
+              {isPending ? (
+                <ThemedText>Eliminando...</ThemedText>
+              ) : (
+                <ThemedText
+                  onPress={() => handleDelete(turno.id)}
+                  style={{
+                    backgroundColor: "red",
+                    borderRadius: 8,
+                    padding: 8,
+                    textAlign: "center",
+                  }}
+                >
+                  <Ionicons name="trash" size={20} />
+                </ThemedText>
+              )}
             </TouchableOpacity>
             <ThemedText
               onPress={() => {

@@ -1,321 +1,116 @@
 import { ThemedText } from "@/components/themed-text";
-import { Alert, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { Stack, useLocalSearchParams, router } from "expo-router";
-import { Controller, useForm, SubmitHandler } from "react-hook-form";
+import { Alert, View } from "react-native";
+import { Stack, router } from "expo-router";
+
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import DateTimePicker, {
-  DateTimePickerEvent,
-} from "@react-native-community/datetimepicker";
-import { FormatDate } from "@/components/format-date";
-import { editarTurno } from "../features/shiftSlice";
-import { FadeIn } from "@/components/fade-in";
+
 import { useThemeColors } from "@/hooks/use-theme-colors";
 import { Ionicons } from "@expo/vector-icons";
-import { useMutation } from "@tanstack/react-query";
-import { helperDate, parseToDate } from "@/components/helper-fechas";
-import { globalStyles } from "@/globalStyle";
-import { Data, FormValues } from "@/utils/types";
-import Line from "@/components/line";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { schemaForm } from "@/utils/utils";
-import {
-  BUSINESS_CLOSE,
-  BUSINESS_OPEN,
-  clampToBusinessHours,
-  minDate,
-  startOfDay,
-} from "@/utils/data-functions";
-import { LinearGradient } from "expo-linear-gradient";
+
+import BookingScreen, { BookingValue } from "@/components/bookingScreen";
+import { FormEditShift } from "@/components/form-edit-shift";
 
 export default function EditShift() {
-  const { id, name, doctor, estado, fecha } = useLocalSearchParams<{
-    id: string;
-    name: string;
-    doctor: string;
-    estado: string;
-    fecha: string;
-  }>();
-
-  const [showPicker, setShowPicker] = useState(false);
-  const [fechaSeleccionada, setFechaSeleccionada] = useState<Date>(
-    parseToDate(fecha)
-  );
-  const [showTimePicker, setShowTimePicker] = useState(false);
-
-  const {
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm<FormValues>({
-    resolver: zodResolver(schemaForm),
-    defaultValues: {
-      paciente: name,
-      medico: doctor,
-      estado: estado,
-    },
-  });
   const dispatch = useDispatch();
 
-  const mutation = useMutation({
-    mutationFn: async ({ data }: Data) => {
-      dispatch(
-        editarTurno({
-          id: Number(id),
-          nombrePaciente: data.paciente,
-          nombreDoctor: data.medico,
-          estado: data.estado,
-          fecha: FormatDate(fechaSeleccionada)!.toString(),
-        })
-      );
-      return data;
-    },
-    onSuccess: () => {
-      router.replace("/");
-    },
-  });
+  // const mutation = useMutation({
+  //   mutationFn: async ({ data }: Data) => {
+  //     dispatch(
+  //       editarTurno({
+  //         id: Number(id),
+  //         nombrePaciente: data.paciente,
+  //         nombreDoctor: data.medico,
+  //         estado: data.estado,
+  //         fecha: FormatDate(fechaSeleccionada)!.toString(),
+  //         telefono: data.telefono
+  //       })
+  //     );
+  //     return data;
+  //   },
+  //   onSuccess: () => {
+  //     router.replace("/");
+  //   },
+  // });
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    mutation.mutate({ data });
-  };
+  // const onSubmit: SubmitHandler<FormValues> = (data) => {
+  //   mutation.mutate({ data });
+  // };
 
-  const { bg, text } = useThemeColors();
-
-  const onDateChange = (_: DateTimePickerEvent, date?: Date) => {
-    setShowPicker(false);
-    if (!date) return;
-    const chosen = startOfDay(date) < minDate ? new Date(minDate) : date;
-    const merged = new Date(
-      chosen.getFullYear(),
-      chosen.getMonth(),
-      chosen.getDate(),
-      fechaSeleccionada.getHours(),
-      fechaSeleccionada.getMinutes()
-    );
-    setFechaSeleccionada(clampToBusinessHours(merged));
-    setShowTimePicker(true);
-  };
-
-  const onTimeChange = (event: DateTimePickerEvent, date?: Date) => {
-    if (event.type !== "set" || !date) return;
-
-    const now = new Date();
-
-    if (date.toDateString() === now.toDateString() && date < now) {
-      Alert.alert("Horario no válido", "No podés elegir una hora que ya pasó.");
-      return;
-    }
-
-    const next = new Date(
-      fechaSeleccionada.getFullYear(),
-      fechaSeleccionada.getMonth(),
-      fechaSeleccionada.getDate(),
-      date.getHours(),
-      date.getMinutes()
-    );
-
-    if (next.getHours() < BUSINESS_OPEN || next.getHours() >= BUSINESS_CLOSE) {
-      Alert.alert("Horario no permitido", "Horario maximo 18:00hs.");
-      return;
-    }
-
-    const clamped = clampToBusinessHours(next);
-    setFechaSeleccionada(clamped);
-    setShowTimePicker(false);
-  };
+  const { text } = useThemeColors();
+  const [booking, setBooking] = useState<BookingValue | null>(null);
 
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "flex-start",
-        alignItems: "center",
-        paddingTop: 50,
-        backgroundColor: bg,
-        gap: 5,
-      }}
-    >
+    <View style={{ flex: 1 }}>
       <Stack.Screen options={{ headerShown: false }} />
       <View
         style={{
-          gap: 80,
-          justifyContent: "flex-start",
-          width: 300,
-          paddingTop: 52,
           flexDirection: "row",
+          boxShadow: "0 5px 3px -4px gray",
+          paddingBottom: 10,
+          justifyContent: "space-between",
+          paddingTop: 52,
           alignItems: "center",
+          padding: 20,
+          height: 100,
         }}
       >
-        <Ionicons
-          name="close"
-          size={28}
-          color={text}
-          onPress={() => {
-            Alert.alert(
-              "¿Quieres salir?",
-              "Si sales, los cambios no se guardarán.",
-              [
-                { text: "No", style: "cancel" },
-                { text: "Sí", onPress: () => router.push("/") },
-              ],
-              { cancelable: true }
-            );
-          }}
-        />
-      </View>
-      <View style={{ paddingTop: 50 }}>
-        <ThemedText style={[globalStyles.TextCreate, { color: text }]}>
-          Editar Turnos!
-        </ThemedText>
-      </View>
-      <Line />
-
-      <FadeIn delay={20 * 40}>
-        <Controller
-          control={control}
-          render={({ field: { onChange, value } }) => (
-            <TextInput
-              placeholder={name}
-              style={[
-                globalStyles.InputEdit,
-                {
-                  color: bg === "#000" ? "gray" : "black",
-                  backgroundColor: bg === "#000" ? "white" : "#F5F5DC",
-                },
-                errors.paciente && { borderColor: "red", borderWidth: 1 },
-              ]}
-              value={value}
-              onChangeText={(value) => onChange(value)}
-            />
-          )}
-          name="paciente"
-          rules={{ required: true }}
-        />
-        {errors.paciente && (
-          <Text style={globalStyles.ErrorCreate}>
-            {errors.paciente.message}
-          </Text>
-        )}
-        <Controller
-          control={control}
-          render={({ field: { onChange, value } }) => (
-            <TextInput
-              placeholder={doctor}
-              style={[
-                globalStyles.InputEdit,
-                {
-                  color: bg === "#000" ? "gray" : "black",
-                  backgroundColor: bg === "#000" ? "white" : "#F5F5DC",
-                },
-              ]}
-              value={value}
-              onChangeText={(value) => onChange(value)}
-            />
-          )}
-          name="medico"
-          rules={{ required: true }}
-        />
-        {errors.medico && (
-          <Text style={globalStyles.ErrorCreate}>{errors.medico.message}</Text>
-        )}
-        <Controller
-          control={control}
-          render={({ field: { onChange, value } }) => (
-            <TextInput
-              placeholder={estado}
-              style={[
-                globalStyles.InputEdit,
-                {
-                  color: bg === "#000" ? "gray" : "black",
-                  backgroundColor: bg === "#000" ? "white" : "#F5F5DC",
-                },
-              ]}
-              value={value}
-              onChangeText={(value) => onChange(value)}
-            />
-          )}
-          name="estado"
-          rules={{ required: true }}
-        />
-        {errors.estado && (
-          <Text style={globalStyles.ErrorCreate}>{errors.estado.message}</Text>
-        )}
-      </FadeIn>
-
-      <TouchableOpacity
-        onPress={() => setShowPicker(true)}
-        style={{
-          borderWidth: 1,
-          backgroundColor: bg === "#000" ? "white" : "#F5F5DC",
-          padding: 2,
-          maxWidth: 200,
-          borderRadius: 10,
-          alignItems: "center",
-          gap: 5,
-        }}
-      >
-        <ThemedText
+        <View
           style={{
-            width: 200,
-            color: "black",
-            textAlign: "center",
-            fontWeight: "bold",
-            fontSize: 18,
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 5,
           }}
         >
-          Seleccionar fecha
-        </ThemedText>
-        <Text style={{ textAlign: "center" }}>
-          Fecha actual: {helperDate(fechaSeleccionada)}
-        </Text>
-      </TouchableOpacity>
-
-      {showPicker && (
-        <DateTimePicker
-          value={fechaSeleccionada}
-          mode="date"
-          display="default"
-          onChange={onDateChange}
-          minimumDate={minDate}
-        />
-      )}
-      {showTimePicker && (
-        <DateTimePicker
-          value={fechaSeleccionada ?? new Date()}
-          mode="time"
-          display="default"
-          onChange={(e, date) => {
-            onTimeChange(e, date);
-          }}
-        />
-      )}
-
-      <TouchableOpacity onPress={handleSubmit(onSubmit)}>
+          <Ionicons
+            name="chevron-back-outline"
+            size={20}
+            color={"black"}
+            onPress={() => setBooking(null)}
+          />
+          <ThemedText
+            style={{
+              fontSize: 16,
+              color: text,
+              fontWeight: "500",
+            }}
+            onPress={() => setBooking(null)}
+          >
+            Anterior
+          </ThemedText>
+        </View>
         <ThemedText
           style={{
-            color: "black",
-            padding: 9,
-            borderRadius: 10,
-            marginTop: 20,
-            borderColor: "blue",
-            borderWidth: 1,
-            backgroundColor: "white",
-            textAlign: "center",
+            fontSize: 16,
+            color: text,
           }}
         >
-          Editar turno
+          <Ionicons
+            name="close"
+            size={35}
+            color={"black"}
+            onPress={() => {
+              Alert.alert(
+                "¿Quieres salir?",
+                "Si sales, los cambios no se guardarán.",
+                [
+                  { text: "No", style: "cancel" },
+                  { text: "Sí", onPress: () => router.push("/") },
+                ],
+                { cancelable: true }
+              );
+            }}
+          />
         </ThemedText>
-      </TouchableOpacity>
-      <LinearGradient
-        colors={["#9ab79a", "#ffffff"]}
-        start={{ x: 0, y: 1 }}
-        end={{ x: 1, y: 0 }}
-        style={{
-          width: 300,
-          height: 150,
-          borderRadius: 15,
-        }}
-      />
+      </View>
+
+      {!booking && (
+        <View style={{ flex: 1 }}>
+          <BookingScreen onChange={setBooking} />
+        </View>
+      )}
+
+      {booking !== null && <FormEditShift booking={booking} />}
     </View>
   );
 }

@@ -13,7 +13,6 @@ export default function GlobalRouteLoading() {
   const [visible, setVisible] = useState(false);
   const opacity = useRef(new Animated.Value(0)).current;
 
-  // pequeño helper para fade in/out
   const fadeTo = (to: number, duration = 180) =>
     new Promise<void>((resolve) => {
       Animated.timing(opacity, {
@@ -24,19 +23,15 @@ export default function GlobalRouteLoading() {
       }).start(() => resolve());
     });
 
-  // cuando cambia la ruta, mostramos overlay breve
   useEffect(() => {
     let cancelled = false;
 
     (async () => {
       setVisible(true);
-      await fadeTo(1); // fade in rápido
-      // Espera un tick para dar tiempo al mount de la nueva screen.
-      // Podés reemplazar este setTimeout por tu propio “isFetching” global
-      // si querés que dure hasta que carguen datos.
+      await fadeTo(1);
       await new Promise((r) => setTimeout(r, 220));
       if (!cancelled) {
-        await fadeTo(0, 160); // fade out
+        await fadeTo(0, 160);
         if (!cancelled) setVisible(false);
       }
     })();
@@ -44,7 +39,6 @@ export default function GlobalRouteLoading() {
     return () => {
       cancelled = true;
     };
-    // se dispara en cada cambio de pathname
   }, [pathname]);
 
   if (!visible) return null;

@@ -12,18 +12,17 @@ import { FadeIn } from "@/components/fade-in";
 import { useThemeColors } from "@/hooks/use-theme-colors";
 import { CardShift } from "@/components/card-shift";
 import { LinearGradient } from "expo-linear-gradient";
-import { Pressable } from "react-native";
 
 import Collapsible from "react-native-collapsible";
 import { globalStyles } from "@/globalStyle";
 
 export default function HomeScreen() {
-  const turnos = useSelector((state: RootState) => state.shifts.turnos);
-  const dispatch = useDispatch();
-  const { data, isLoading } = useGetShifts();
   const [collapsed, setCollapsed] = useState(true);
   const [collapsedTurn, setCollapsedTurn] = useState(true);
   const [modal, setModal] = useState(false);
+  const dispatch = useDispatch();
+  const turnos = useSelector((state: RootState) => state.shifts.turnos);
+  const { data, isLoading } = useGetShifts();
 
   useEffect(() => {
     if (data) {
@@ -262,6 +261,19 @@ export default function HomeScreen() {
                   Agendar Servicio
                 </ThemedText>
               </TouchableOpacity>
+            </View>
+
+            <View>
+              <CardShift
+                turno={{
+                  estado: "test",
+                  fecha: "10/03/2003",
+                  nombreDoctor: "aaa",
+                  nombrePaciente: "aa03",
+                  telefono: "aaaa",
+                  id: 12,
+                }}
+              />
             </View>
 
             <View
