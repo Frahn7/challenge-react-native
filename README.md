@@ -35,4 +35,4 @@ FLUJO DEL SISTEMA:
 ![](./assets/images/Flujo/INDEX.jpg)
 ![](./assets/images/Flujo/LOGIN.jpg)
 ![](./assets/images/Flujo/CALENDARIO.jpg)
-![](./assets/images/Flujo/RESERVA.jpg.jpg)
+![](./assets/images/Flujo/RESERVA.jpg)
