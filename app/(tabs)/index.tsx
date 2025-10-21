@@ -34,18 +34,21 @@ export default function HomeScreen() {
   return (
     <>
       <SafeAreaView style={{ flex: 1, backgroundColor: bg }}>
-        <ScrollView contentContainerStyle={{ padding: 20 }}>
+        <ScrollView contentContainerStyle={[{ padding: 20 }]}>
           <Stack.Screen options={{ headerShown: false }} />
 
           <ModalIndex open={modal} onClose={() => setModal(false)} />
 
           <View
-            style={{
-              flex: 1,
-              paddingTop: 20,
-              gap: 5,
-              alignItems: "center",
-            }}
+            style={[
+              {
+                flex: 1,
+                paddingTop: 20,
+                gap: 5,
+                alignItems: "center",
+                borderColor: "red",
+              },
+            ]}
           >
             <View style={globalStyles.IndexHeader}>
               <ThemedText

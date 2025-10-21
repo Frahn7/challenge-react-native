@@ -4,19 +4,23 @@ import React, { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { ThemedText } from "../themed-text";
 import Collapsible from "react-native-collapsible";
+import { useThemeColors } from "@/hooks/use-theme-colors";
 
 export const IndexColapsed = () => {
   const [collapsed, setCollapsed] = useState(true);
+  const { bg, text } = useThemeColors();
 
   return (
     <View
-      style={{
-        backgroundColor: "rgb(240, 240, 240)",
-        paddingTop: 20,
-        paddingBottom: 10,
-        alignItems: "center",
-        width: "120%",
-      }}
+      style={[
+        {
+          paddingTop: 20,
+          paddingBottom: 10,
+          alignItems: "center",
+          width: "120%",
+        },
+        { backgroundColor: bg },
+      ]}
     >
       <LinearGradient
         colors={["#9ab79a", "#ffffff"]}
@@ -45,22 +49,26 @@ export const IndexColapsed = () => {
         >
           <Ionicons name="medkit" size={55} color={"green"} />
           <ThemedText
-            style={{
-              color: "black",
-              fontWeight: 600,
-              fontSize: 20,
-              paddingBottom: 5,
-            }}
+            style={[
+              {
+                fontWeight: 600,
+                fontSize: 20,
+                paddingBottom: 5,
+              },
+              { color: bg === "#000" ? "white" : "black" },
+            ]}
           >
             Gestion de turnos
           </ThemedText>
         </View>
         <ThemedText
-          style={{
-            color: "black",
-            width: 280,
-            fontSize: 16,
-          }}
+          style={[
+            {
+              width: 280,
+              fontSize: 16,
+            },
+            { color: bg === "#000" ? "white" : "black" },
+          ]}
         >
           Reserva tus turnos con facilidad!
         </ThemedText>
@@ -80,14 +88,21 @@ export const IndexColapsed = () => {
                 alignItems: "center",
               }}
             >
-              <Ionicons name="location-outline" size={18} />
+              <Ionicons
+                name="location-outline"
+                size={18}
+                color={bg === "#000" ? "white" : "black"}
+              />
               <Text
-                style={{
-                  fontSize: 16,
-                  fontWeight: 600,
-                  gap: 4,
-                  marginLeft: 8,
-                }}
+                style={[
+                  {
+                    fontSize: 16,
+                    fontWeight: 600,
+                    gap: 4,
+                    marginLeft: 8,
+                  },
+                  { color: bg === "#000" ? "white" : "black" },
+                ]}
               >
                 Ubicación y horario
               </Text>
@@ -119,13 +134,20 @@ export const IndexColapsed = () => {
                     alignItems: "center",
                   }}
                 >
-                  <Ionicons name="person-outline" size={18} />
+                  <Ionicons
+                    name="person-outline"
+                    size={18}
+                    color={bg === "#000" ? "white" : "black"}
+                  />
                   <Text
-                    style={{
-                      fontSize: 16,
-                      fontWeight: 600,
-                      marginLeft: 8,
-                    }}
+                    style={[
+                      {
+                        fontSize: 16,
+                        fontWeight: 600,
+                        marginLeft: 8,
+                      },
+                      { color: bg === "#000" ? "white" : "black" },
+                    ]}
                   >
                     Profesionales
                   </Text>
@@ -134,17 +156,24 @@ export const IndexColapsed = () => {
                   <Ionicons
                     name="chevron-down-outline"
                     size={20}
+                    color={bg === "#000" ? "white" : "black"}
                     onPress={() => setCollapsed(!collapsed)}
                   />
                 ) : (
                   <Ionicons
                     name="chevron-up-outline"
                     size={20}
+                    color={bg === "#000" ? "white" : "black"}
                     onPress={() => setCollapsed(!collapsed)}
                   />
                 )}
               </View>
-              <Text style={{ fontSize: 16, fontWeight: 700 }}>
+              <Text
+                style={[
+                  { fontSize: 16, fontWeight: 700 },
+                  { color: bg === "#000" ? "white" : "black" },
+                ]}
+              >
                 Francisco Villella
               </Text>
             </Collapsible>
