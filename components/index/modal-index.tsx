@@ -57,7 +57,7 @@ export const ModalIndex = ({ open, onClose, children }: Props) => {
               </View>
             )}
           </View>
-          {/* <ThemeToggle /> */}
+          <ThemeToggle />
         </View>
       </View>
     </Modal>

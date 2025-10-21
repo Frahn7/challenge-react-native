@@ -80,17 +80,32 @@ export default function Login() {
           name="close"
           onPress={() => router.push("/")}
           size={35}
-          style={{
-            alignSelf: "flex-end",
-            paddingRight: 25,
-            paddingTop: -30,
-            marginBottom: 30,
-          }}
+          style={[
+            {
+              alignSelf: "flex-end",
+              paddingRight: 25,
+              paddingTop: -30,
+              marginBottom: 30,
+            },
+            {
+              color: bg === "#000" ? "white" : "black",
+            },
+          ]}
         />
-        <ThemedText style={[globalStyles.TextLogin]}>
+        <ThemedText
+          style={[
+            globalStyles.TextLogin,
+            { color: bg === "#000" ? "white" : "black" },
+          ]}
+        >
           Ingresar a mi cuenta
         </ThemedText>
-        <ThemedText style={{ color: "black", marginTop: -5, marginBottom: 20 }}>
+        <ThemedText
+          style={[
+            { marginTop: -5, marginBottom: 20 },
+            { color: bg === "#000" ? "white" : "black" },
+          ]}
+        >
           Ingresa tu email y contraseña
         </ThemedText>
 
@@ -101,7 +116,12 @@ export default function Login() {
           }}
           render={({ field: { onChange, value } }) => (
             <View style={{ alignItems: "center" }}>
-              <Text style={{ textAlign: "left", width: 300, marginBottom: 2 }}>
+              <Text
+                style={[
+                  { textAlign: "left", width: 300, marginBottom: 2 },
+                  { color: bg === "#000" ? "white" : "black" },
+                ]}
+              >
                 Email
               </Text>
               <View
@@ -155,7 +175,14 @@ export default function Login() {
           control={control}
           render={({ field: { onChange, value } }) => (
             <View style={{ flexDirection: "column", alignItems: "flex-start" }}>
-              <Text style={{ width: 300, marginBottom: 2 }}>Contraseña</Text>
+              <Text
+                style={[
+                  { width: 300, marginBottom: 2 },
+                  { color: bg === "#000" ? "white" : "black" },
+                ]}
+              >
+                Contraseña
+              </Text>
 
               <View
                 style={[
@@ -215,7 +242,11 @@ export default function Login() {
             )}
         </View>
 
-        <Text style={{ width: 300 }}>¿Olvidaste tu contraseña?</Text>
+        <Text
+          style={[{ width: 300 }, { color: bg === "#000" ? "white" : "black" }]}
+        >
+          ¿Olvidaste tu contraseña?
+        </Text>
         <View
           style={{
             flexDirection: "row",
@@ -228,7 +259,14 @@ export default function Login() {
             style={{ width: 20, height: 20, borderRadius: 4 }}
             value={true}
           />
-          <Text style={{ width: 300 }}>Recordarme</Text>
+          <Text
+            style={[
+              { width: 300 },
+              { color: bg === "#000" ? "white" : "black" },
+            ]}
+          >
+            Recordarme
+          </Text>
         </View>
 
         <TouchableOpacity onPress={handleSubmit(onSubmit)}>
