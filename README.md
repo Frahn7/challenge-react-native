@@ -31,7 +31,6 @@ React Query → Manejo de peticiones asíncronas para comunicación con API o ba
 TypeScript → Tipado estático que mejora la seguridad y mantenibilidad del código.
 
 FLUJO DEL SISTEMA:
-
 ![](./assets/images/Flujo/INDEX.jpg)
 ![](./assets/images/Flujo/LOGIN.jpg)
 ![](./assets/images/Flujo/CALENDARIO.jpg)
