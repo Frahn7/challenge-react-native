@@ -31,3 +31,15 @@ export interface ShiftProps {
   fecha: string;
   telefono: string;
 }
+export interface ShiftInterface {
+  id: number;
+  nombrePaciente: string;
+  nombreDoctor: string;
+  fecha: string;
+  estado: string;
+  telefono: string;
+}
+
+export interface ShiftState {
+  turnos: ShiftInterface[];
+}

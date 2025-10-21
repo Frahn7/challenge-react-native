@@ -1,19 +1,7 @@
+import { ShiftInterface, ShiftState } from "@/utils/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface ShiftInterface {
-  id: number;
-  nombrePaciente: string;
-  nombreDoctor: string;
-  fecha: string;
-  estado: string;
-  telefono: string;
-}
-
-export interface ShiftState {
-  turnos: ShiftInterface[];
-}
-
-const initialState: ShiftState = {
+export const initialState: ShiftState = {
   turnos: [],
 };
 

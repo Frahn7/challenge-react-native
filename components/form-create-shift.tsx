@@ -129,13 +129,17 @@ export const FormCreateShift = ({ booking }: Props) => {
                     </Text>
                   </View>
                   <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <Ionicons name="alarm" color={"green"} size={20} />
+                    <Ionicons name="alarm-outline" color={"green"} size={20} />
                     <Text style={{ fontSize: 16, marginLeft: 4 }}>
                       {booking!.display.split(" ")[1]}
                     </Text>
                   </View>
                   <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <Ionicons name="medical" color={"green"} size={20} />
+                    <Ionicons
+                      name="medical-outline"
+                      color={"green"}
+                      size={20}
+                    />
                     <Text style={{ fontSize: 16, marginLeft: 4 }}>
                       Centro medico
                     </Text>
@@ -332,7 +336,7 @@ export const FormCreateShift = ({ booking }: Props) => {
             paddingVertical: 10,
             paddingHorizontal: 10,
             borderRadius: 10,
-            width: "100%",
+            width: "90%",
           }}
         >
           <ThemedText

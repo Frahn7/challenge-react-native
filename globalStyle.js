@@ -46,7 +46,7 @@ export const globalStyles = StyleSheet.create({
     color: "black",
     marginBottom: 5,
     marginTop: 5,
-    fontSize: 18,
+    fontSize: 16,
   },
   TextCreate: {
     fontWeight: "bold",
