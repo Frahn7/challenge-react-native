@@ -1,7 +1,7 @@
 import React from "react";
 import { ThemedView } from "../themed-view";
 import { ThemedText } from "../themed-text";
-import { helperDate } from "../helper-fechas";
+import { helperDate } from "../../lib/helper-fechas";
 import { TouchableOpacity, View } from "react-native";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
