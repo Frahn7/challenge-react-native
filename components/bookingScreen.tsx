@@ -13,6 +13,24 @@ import "dayjs/locale/es";
 
 const todayISO = dayjs().format("YYYY-MM-DD");
 
+function buildWeekendDisabled(year: number, month1to12: number) {
+  const start = dayjs(
+    `${year}-${String(month1to12).padStart(2, "0")}-01`
+  ).startOf("month");
+  const end = start.endOf("month");
+  const marks: Record<string, any> = {};
+  let d = start;
+  while (d.isBefore(end) || d.isSame(end, "day")) {
+    const wd = d.day();
+    if (wd === 0 || wd === 6) {
+      const key = d.format("YYYY-MM-DD");
+      marks[key] = { disabled: true, disableTouchEvent: true };
+    }
+    d = d.add(1, "day");
+  }
+  return marks;
+}
+
 LocaleConfig.locales.es = {
   monthNames: [
     "Enero",
@@ -100,6 +118,9 @@ export default function BookingScreen({
   const [loading, setLoading] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
   const [apiSlots, setApiSlots] = useState<ApiSlot[]>([]);
+  const [weekendMarks, setWeekendMarks] = useState<Record<string, any>>(
+    buildWeekendDisabled(dayjs(date).year(), dayjs(date).month() + 1)
+  );
 
   useEffect(() => {
     let mounted = true;
@@ -126,6 +147,14 @@ export default function BookingScreen({
     }
   }, [date, selectedSlot, onChange]);
 
+  const onMonthChange = (m: {
+    year: number;
+    month: number;
+    timestamp?: number;
+  }) => {
+    setWeekendMarks(buildWeekendDisabled(m.year, m.month));
+  };
+
   const grouped: Record<SlotPeriodKey, ApiSlot[]> = useMemo(() => {
     const groupedInit: Record<SlotPeriodKey, ApiSlot[]> = {
       DIA: [],
@@ -137,12 +166,17 @@ export default function BookingScreen({
 
   const marked = useMemo(
     () => ({
+      ...weekendMarks,
       [date]: { selected: true, selectedColor: "#25eb39" },
     }),
-    [date]
+    [weekendMarks, date]
   );
 
-  const onSelectDay = (d: DateData) => setDate(d.dateString);
+  const onSelectDay = (d: DateData) => {
+    const wd = dayjs(d.dateString).day();
+    if (wd === 0 || wd === 6) return;
+    setDate(d.dateString);
+  };
 
   const renderSlot = (item: ApiSlot) => {
     const isSelected = selectedSlot === item.time;
@@ -203,9 +237,12 @@ export default function BookingScreen({
 
         <Calendar
           onDayPress={onSelectDay}
+          onMonthChange={onMonthChange}
           markedDates={marked}
           firstDay={1}
           minDate={todayISO}
+          disabledDaysIndexes={[0, 6]}
+          disableAllTouchEventsForDisabledDays
           theme={{
             textDayFontFamily: "System",
             textMonthFontFamily: "System",
