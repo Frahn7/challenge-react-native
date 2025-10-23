@@ -54,35 +54,56 @@ export default function Profile() {
         Bienvenido a tu perfil
       </Text>
       <Line />
+      {profile.photo ? (
+        <>
+          <Image
+            source={{ uri: profile.photo }}
+            style={{
+              width: 200,
+              height: 200,
+              marginTop: 20,
+              borderRadius: 999,
+              borderColor: "white",
+              borderWidth: 2,
+            }}
+          />
+          <View>
+            <Text
+              onPress={openCamera}
+              style={{
+                position: "absolute",
+                top: -70,
+                left: 30,
+                color: "black",
+                padding: 5,
+                borderRadius: 10,
+                backgroundColor: "#b6b5b5",
+              }}
+            >
+              <Ionicons name="person-add" size={40} />
+            </Text>
+          </View>
+        </>
+      ) : (
+        <Ionicons onPress={openCamera} name="person-circle-outline" size={50} />
+      )}
+
       <TouchableOpacity
         onPress={openCamera}
         style={{
           alignItems: "center",
           gap: 3,
+          width: "80%",
           borderWidth: 2,
-          backgroundColor: "lightblue",
+          backgroundColor: "rgb(65, 110, 63)",
           padding: 4,
           borderRadius: 9,
           borderColor: "white",
         }}
       >
-        <Text style={{ color: "black", fontSize: 22 }}>SUBIR FOTO</Text>
-        <Ionicons name="image" size={27} color={"black"} />
+        <Text style={{ color: "white", fontSize: 20 }}>SUBIR FOTO</Text>
+        <Ionicons name="image" size={26} color={"white"} />
       </TouchableOpacity>
-
-      {profile.photo && (
-        <Image
-          source={{ uri: profile.photo }}
-          style={{
-            width: 200,
-            height: 200,
-            marginTop: 20,
-            borderRadius: 10,
-            borderColor: "white",
-            borderWidth: 2,
-          }}
-        />
-      )}
     </View>
   );
 }
