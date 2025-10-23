@@ -167,7 +167,7 @@ export default function BookingScreen({
   const marked = useMemo(
     () => ({
       ...weekendMarks,
-      [date]: { selected: true, selectedColor: "#25eb39" },
+      [date]: { selected: true, selectedColor: "rgb(59, 110, 62)" },
     }),
     [weekendMarks, date]
   );
@@ -247,8 +247,8 @@ export default function BookingScreen({
             textDayFontFamily: "System",
             textMonthFontFamily: "System",
             textDayHeaderFontFamily: "System",
-            selectedDayBackgroundColor: "#25eb60",
-            todayTextColor: "#25eb43",
+            selectedDayBackgroundColor: "rgb(59, 110, 62)",
+            todayTextColor: "rgb(59, 110, 62)",
             arrowColor: "#111827",
           }}
           monthFormat="MMMM"
@@ -349,7 +349,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   slotSelected: {
-    borderColor: "#25eb3c",
+    borderColor: "rgb(59, 110, 62)",
     backgroundColor: "#2563eb10",
   },
   slotDisabled: {

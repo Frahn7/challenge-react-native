@@ -52,7 +52,7 @@ export const CardShift = ({ turno }: { turno: ShiftProps }) => {
           <FontAwesome
             name="bell"
             size={24}
-            color="green"
+            color="rgb(59, 110, 62)"
             style={{ position: "absolute", left: "90%" }}
             onPress={async () => {
               await NotificationPush({
