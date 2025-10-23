@@ -21,6 +21,7 @@ import { useInsertShift } from "@/hooks/use-insert-shift";
 import { BookingValue } from "./bookingScreen";
 import { router } from "expo-router";
 import Collapsible from "react-native-collapsible";
+import { Picker } from "@react-native-picker/picker";
 
 type Props = { booking: BookingValue };
 
@@ -237,7 +238,7 @@ export const FormCreateShift = ({ booking }: Props) => {
                           </Text>
                         )}
 
-                        <Controller
+                        {/* <Controller
                           control={control}
                           render={({ field: { onChange, value } }) => (
                             <View>
@@ -263,7 +264,58 @@ export const FormCreateShift = ({ booking }: Props) => {
                           <Text style={globalStyles.ErrorCreate}>
                             *{errors.estado.message}
                           </Text>
+                        )} */}
+
+                        <Controller
+                          control={control}
+                          name="estado"
+                          rules={{ required: "El estado es obligatorio" }}
+                          render={({ field: { onChange, value } }) => (
+                            <View>
+                              <Text style={{ fontSize: 17 }}>Estado *</Text>
+                              <View
+                                style={[
+                                  globalStyles.InputCreate,
+                                  errors.estado && {
+                                    borderColor: "red",
+                                    borderWidth: 1,
+                                  },
+                                ]}
+                              >
+                                <Picker
+                                  selectedValue={value}
+                                  onValueChange={(itemValue) =>
+                                    onChange(itemValue)
+                                  }
+                                >
+                                  <Picker.Item
+                                    label="Seleccionar..."
+                                    value={null}
+                                    enabled={false}
+                                  />
+                                  <Picker.Item
+                                    label="Aprobado"
+                                    value="Aprobado"
+                                  />
+                                  <Picker.Item
+                                    label="Pendiente"
+                                    value="Pendiente"
+                                  />
+                                </Picker>
+                              </View>
+                            </View>
+                          )}
+                        />
+
+                        {errors.estado && (
+                          <Text style={globalStyles.ErrorCreate}>
+                            *
+                            {errors.estado.message && (
+                              <Text>El estado es obligatorio</Text>
+                            )}
+                          </Text>
                         )}
+
                         <Controller
                           control={control}
                           render={({ field: { onChange, value } }) => (

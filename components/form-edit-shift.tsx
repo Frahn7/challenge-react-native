@@ -22,6 +22,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import Collapsible from "react-native-collapsible";
 import { useEditShift } from "@/hooks/use-edit-shift";
 import { editarTurno } from "@/features/shiftSlice";
+import { Picker } from "@react-native-picker/picker";
 import { useDispatch } from "react-redux";
 
 type Props = { booking: BookingValue };
@@ -256,11 +257,12 @@ export const FormEditShift = ({ booking }: Props) => {
 
                         <Controller
                           control={control}
+                          name="estado"
+                          rules={{ required: "El estado es obligatorio" }}
                           render={({ field: { onChange, value } }) => (
                             <View>
                               <Text style={{ fontSize: 17 }}>Estado *</Text>
-                              <TextInput
-                                placeholder={estado}
+                              <View
                                 style={[
                                   globalStyles.InputCreate,
                                   errors.estado && {
@@ -268,19 +270,41 @@ export const FormEditShift = ({ booking }: Props) => {
                                     borderWidth: 1,
                                   },
                                 ]}
-                                value={value}
-                                onChangeText={(value) => onChange(value)}
-                              />
+                              >
+                                <Picker
+                                  selectedValue={value}
+                                  onValueChange={(itemValue) =>
+                                    onChange(itemValue)
+                                  }
+                                >
+                                  <Picker.Item
+                                    label="Seleccionar..."
+                                    value={null}
+                                    enabled={false}
+                                  />
+                                  <Picker.Item
+                                    label="Aprobado"
+                                    value="Aprobado"
+                                  />
+                                  <Picker.Item
+                                    label="Pendiente"
+                                    value="Pendiente"
+                                  />
+                                </Picker>
+                              </View>
                             </View>
                           )}
-                          name="estado"
-                          rules={{ required: true }}
                         />
+
                         {errors.estado && (
                           <Text style={globalStyles.ErrorCreate}>
-                            *{errors.estado.message}
+                            *
+                            {errors.estado.message && (
+                              <Text>El estado es obligatorio</Text>
+                            )}
                           </Text>
                         )}
+
                         <Controller
                           control={control}
                           render={({ field: { onChange, value } }) => (
