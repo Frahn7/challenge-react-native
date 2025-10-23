@@ -31,7 +31,7 @@ export const CardShift = ({ turno }: { turno: ShiftProps }) => {
         style={{
           width: "100%",
           padding: 10,
-          height: 200,
+          height: 230,
           gap: 6,
           backgroundColor: "white",
           overflow: "hidden",
@@ -45,6 +45,7 @@ export const CardShift = ({ turno }: { turno: ShiftProps }) => {
           borderWidth: 0.5,
           borderRadius: 8,
           borderColor: " rgb(59, 110, 62)",
+          paddingBottom: 20,
         }}
       >
         <View style={{ position: "relative" }}>
@@ -145,6 +146,7 @@ export const CardShift = ({ turno }: { turno: ShiftProps }) => {
               style={{
                 backgroundColor: "black",
                 borderRadius: 8,
+                color: "white",
                 padding: 8,
                 textAlign: "center",
               }}

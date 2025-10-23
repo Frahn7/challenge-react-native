@@ -1,13 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useState } from "react";
-import {
-  Image,
-  Text,
-  TouchableOpacity,
-  View,
-  ViewComponent,
-} from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import { ThemedText } from "../themed-text";
 import Collapsible from "react-native-collapsible";
 import { useThemeColors } from "@/hooks/use-theme-colors";
@@ -82,7 +76,7 @@ export const IndexColapsed = () => {
           Reserva tus turnos con facilidad!
         </ThemedText>
 
-        <View style={{ width: 340, marginTop: 20, gap: 5 }}>
+        <View style={{ marginTop: 20, gap: 5 }}>
           <View
             style={{
               paddingLeft: 10,
@@ -113,7 +107,7 @@ export const IndexColapsed = () => {
                   { color: bg === "#000" ? "white" : "black" },
                 ]}
               >
-                Ubicación y horario
+                Ubicación y horarios
               </Text>
             </View>
           </View>
