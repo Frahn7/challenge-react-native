@@ -1,14 +1,23 @@
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+  ViewComponent,
+} from "react-native";
 import { ThemedText } from "../themed-text";
 import Collapsible from "react-native-collapsible";
 import { useThemeColors } from "@/hooks/use-theme-colors";
+import { profileAtom } from "@/features/profileAtom";
+import { useAtom } from "jotai";
 
 export const IndexColapsed = () => {
   const [collapsed, setCollapsed] = useState(true);
-  const { bg, text } = useThemeColors();
+  const { bg } = useThemeColors();
+  const profile = useAtom(profileAtom);
 
   return (
     <View
@@ -168,14 +177,31 @@ export const IndexColapsed = () => {
                   />
                 )}
               </View>
-              <Text
-                style={[
-                  { fontSize: 16, fontWeight: 700 },
-                  { color: bg === "#000" ? "white" : "black" },
-                ]}
+
+              <View
+                style={{ flexDirection: "row", gap: 5, alignItems: "center" }}
               >
-                Francisco Villella
-              </Text>
+                {profile[0].photo && (
+                  <Image
+                    source={{ uri: profile[0].photo }}
+                    style={{
+                      width: 30,
+                      height: 30,
+                      borderRadius: 999,
+                      borderWidth: 2,
+                    }}
+                  />
+                )}
+
+                <Text
+                  style={[
+                    { fontSize: 16, fontWeight: 700 },
+                    { color: bg === "#000" ? "white" : "black" },
+                  ]}
+                >
+                  Francisco Villella
+                </Text>
+              </View>
             </Collapsible>
           </TouchableOpacity>
         </View>
