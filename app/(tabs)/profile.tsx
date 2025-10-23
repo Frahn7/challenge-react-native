@@ -1,5 +1,5 @@
 import { useThemeColors } from "@/hooks/use-theme-colors";
-import { Text, TouchableOpacity, View, Image } from "react-native";
+import { Text, TouchableOpacity, View, Image, Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
@@ -11,6 +11,19 @@ export default function Profile() {
   const [profile, setProfile] = useAtom(profileAtom);
   const { bg, text } = useThemeColors();
 
+  const openCameraOrGallery = async () => {
+    Alert.alert(
+      "Seleccionar imagen",
+      "Elige una opción",
+      [
+        { text: "Cámara", onPress: openCamera },
+        { text: "Galería", onPress: openGallery },
+        { text: "Cancelar", style: "cancel" },
+      ],
+      { cancelable: true }
+    );
+  };
+
   const openCamera = async () => {
     const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
 
@@ -20,6 +33,25 @@ export default function Profile() {
     }
 
     const result = await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setProfile({ name: profile.name, photo: result.assets[0].uri });
+    }
+  };
+
+  const openGallery = async () => {
+    const permissionResult =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (!permissionResult.granted) {
+      alert("Se necesita permiso para acceder a la galería.");
+      return;
+    }
+
+    const result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       aspect: [1, 1],
       quality: 1,
@@ -69,7 +101,7 @@ export default function Profile() {
           />
           <View>
             <Text
-              onPress={openCamera}
+              onPress={openCameraOrGallery}
               style={{
                 position: "absolute",
                 top: -70,
@@ -85,11 +117,15 @@ export default function Profile() {
           </View>
         </>
       ) : (
-        <Ionicons onPress={openCamera} name="person-circle-outline" size={50} />
+        <Ionicons
+          onPress={openCameraOrGallery}
+          name="person-circle-outline"
+          size={50}
+        />
       )}
 
       <TouchableOpacity
-        onPress={openCamera}
+        onPress={openCameraOrGallery}
         style={{
           alignItems: "center",
           gap: 3,
