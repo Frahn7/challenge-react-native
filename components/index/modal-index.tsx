@@ -6,12 +6,16 @@ import { ThemedText } from "../themed-text";
 import { router } from "expo-router";
 import { useAtom } from "jotai";
 import { profileAtom } from "@/features/profileAtom";
-import { ThemeToggle } from "../theme-toggle";
 
 type Props = { open: boolean; onClose: () => void; children?: React.ReactNode };
 
 export const ModalIndex = ({ open, onClose, children }: Props) => {
-  const [profile] = useAtom(profileAtom);
+  const [profile, setProfile] = useAtom(profileAtom);
+
+  const logout = () => {
+    setProfile({ name: "", photo: "" });
+    router.push("/login");
+  };
 
   return (
     <Modal
@@ -26,20 +30,30 @@ export const ModalIndex = ({ open, onClose, children }: Props) => {
             <Ionicons name="close-outline" size={30} />
           </Text>
           <View>
-            <View style={[globalStyles.ModalCard]}>
-              <Ionicons name="person-outline" size={24} color="green" />
-              <ThemedText
-                onPress={() => router.push("/login")}
-                style={{
-                  color: "black",
-                  fontSize: 16,
-                  textAlign: "left",
-                  marginLeft: 8,
-                }}
-              >
-                Iniciar sesión
-              </ThemedText>
-            </View>
+            {profile.name.length > 1 ? (
+              <Ionicons
+                name="log-out-outline"
+                onPress={() => logout()}
+                size={28}
+                color={"red"}
+                style={{ marginLeft: 10, marginBottom: 4 }}
+              />
+            ) : (
+              <View style={[globalStyles.ModalCard]}>
+                <Ionicons name="person-outline" size={24} color="green" />
+                <ThemedText
+                  onPress={() => router.push("/login")}
+                  style={{
+                    color: "black",
+                    fontSize: 16,
+                    textAlign: "left",
+                    marginLeft: 8,
+                  }}
+                >
+                  Iniciar sesión
+                </ThemedText>
+              </View>
+            )}
             {profile.name.length > 1 && (
               <View style={[globalStyles.ModalCard]}>
                 <Ionicons name="happy-outline" size={24} color="green" />
@@ -57,7 +71,7 @@ export const ModalIndex = ({ open, onClose, children }: Props) => {
               </View>
             )}
           </View>
-          <ThemeToggle />
+          {/* <ThemeToggle /> */}
         </View>
       </View>
     </Modal>

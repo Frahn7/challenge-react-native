@@ -112,24 +112,17 @@ export const CardShift = ({ turno }: { turno: ShiftProps }) => {
               alignItems: "center",
             }}
           >
-            <TouchableOpacity>
-              {isPending ? (
-                <ThemedText>Eliminando...</ThemedText>
-              ) : (
-                <ThemedText
-                  onPress={() => handleDelete(turno.id)}
-                  style={{
-                    backgroundColor: "red",
-                    borderRadius: 8,
-                    padding: 8,
-                    textAlign: "center",
-                  }}
-                >
-                  <Ionicons name="trash" size={20} />
-                </ThemedText>
-              )}
+            <TouchableOpacity
+              onPress={() => handleDelete(turno.id)}
+              style={{
+                borderRadius: 8,
+                padding: 8,
+              }}
+              disabled={isPending}
+            >
+              <Ionicons name="trash" size={24} color={"red"} />
             </TouchableOpacity>
-            <ThemedText
+            <TouchableOpacity
               onPress={() => {
                 router.push({
                   pathname: "/edit_shift",
@@ -144,15 +137,12 @@ export const CardShift = ({ turno }: { turno: ShiftProps }) => {
                 });
               }}
               style={{
-                backgroundColor: "black",
                 borderRadius: 8,
-                color: "white",
                 padding: 8,
-                textAlign: "center",
               }}
             >
-              <Ionicons name="pencil" size={20} />
-            </ThemedText>
+              <Ionicons name="pencil" size={24} />
+            </TouchableOpacity>
           </View>
         </View>
       </ThemedView>
