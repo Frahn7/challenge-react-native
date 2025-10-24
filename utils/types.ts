@@ -43,3 +43,5 @@ export interface ShiftInterface {
 export interface ShiftState {
   turnos: ShiftInterface[];
 }
+
+export type Props = { open: boolean; onClose: () => void };

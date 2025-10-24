@@ -6,10 +6,9 @@ import { ThemedText } from "../themed-text";
 import { router } from "expo-router";
 import { useAtom } from "jotai";
 import { profileAtom } from "@/features/profileAtom";
+import { Props } from "@/utils/types";
 
-type Props = { open: boolean; onClose: () => void; children?: React.ReactNode };
-
-export const ModalIndex = ({ open, onClose, children }: Props) => {
+export const ModalIndex = ({ open, onClose }: Props) => {
   const [profile, setProfile] = useAtom(profileAtom);
 
   const logout = () => {

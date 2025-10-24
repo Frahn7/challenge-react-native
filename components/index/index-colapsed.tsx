@@ -7,9 +7,11 @@ import Collapsible from "react-native-collapsible";
 import { useThemeColors } from "@/hooks/use-theme-colors";
 import { profileAtom } from "@/features/profileAtom";
 import { useAtom } from "jotai";
+import { ModalLocation } from "./modal-location";
 
 export const IndexColapsed = () => {
   const [collapsed, setCollapsed] = useState(true);
+  const [modalLocation, setModalLocation] = useState(false);
   const { bg } = useThemeColors();
   const profile = useAtom(profileAtom);
 
@@ -77,13 +79,14 @@ export const IndexColapsed = () => {
         </ThemedText>
 
         <View style={{ marginTop: 20, gap: 5 }}>
-          <View
+          <TouchableOpacity
             style={{
               paddingLeft: 10,
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "space-between",
             }}
+            onPress={() => setModalLocation(true)}
           >
             <View
               style={{
@@ -110,7 +113,13 @@ export const IndexColapsed = () => {
                 Ubicación y horarios
               </Text>
             </View>
-          </View>
+          </TouchableOpacity>
+          {modalLocation && (
+            <ModalLocation
+              open={modalLocation}
+              onClose={() => setModalLocation(false)}
+            />
+          )}
 
           <TouchableOpacity onPress={() => setCollapsed(!collapsed)}>
             <Collapsible

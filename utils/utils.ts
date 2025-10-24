@@ -22,3 +22,26 @@ export const schemaForm = z.object({
     .string({ required_error: "El telefono es obligatorio" })
     .min(1, { message: "Ingresá telefono" }),
 });
+
+export const Days = [
+  {
+    dia: "Lunes",
+    hs: "09:00-18:00",
+  },
+  {
+    dia: "Martes",
+    hs: "09:00-18:00",
+  },
+  {
+    dia: "Miercoles",
+    hs: "09:00-18:00",
+  },
+  {
+    dia: "Jueves",
+    hs: "09:00-18:00",
+  },
+  {
+    dia: "Viernes",
+    hs: "09:00-18:00",
+  },
+];
