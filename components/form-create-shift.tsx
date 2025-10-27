@@ -238,34 +238,6 @@ export const FormCreateShift = ({ booking }: Props) => {
                           </Text>
                         )}
 
-                        {/* <Controller
-                          control={control}
-                          render={({ field: { onChange, value } }) => (
-                            <View>
-                              <Text style={{ fontSize: 17 }}>Estado *</Text>
-                              <TextInput
-                                placeholder="Estado"
-                                style={[
-                                  globalStyles.InputCreate,
-                                  errors.estado && {
-                                    borderColor: "red",
-                                    borderWidth: 1,
-                                  },
-                                ]}
-                                value={value}
-                                onChangeText={(value) => onChange(value)}
-                              />
-                            </View>
-                          )}
-                          name="estado"
-                          rules={{ required: true }}
-                        />
-                        {errors.estado && (
-                          <Text style={globalStyles.ErrorCreate}>
-                            *{errors.estado.message}
-                          </Text>
-                        )} */}
-
                         <Controller
                           control={control}
                           name="estado"

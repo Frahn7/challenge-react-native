@@ -275,7 +275,6 @@ export default function BookingScreen({
               Turno elegido:
               {formatForSaving(date, selectedSlot)}
             </Text>
-            {/* acá podés habilitar un botón de “Confirmar” */}
           </View>
         )}
       </View>
