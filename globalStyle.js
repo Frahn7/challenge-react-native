@@ -40,12 +40,13 @@ export const globalStyles = StyleSheet.create({
     paddingBottom: 6,
   },
   InputCreate: {
-    width: 300,
+    width: "100%",
     borderWidth: 0.5,
+    height: 40,
     borderRadius: 6,
     color: "black",
-    marginBottom: 5,
-    marginTop: 5,
+    marginBottom: 10,
+    marginTop: 10,
     fontSize: 16,
   },
   TextCreate: {
@@ -56,7 +57,7 @@ export const globalStyles = StyleSheet.create({
   ErrorCreate: {
     color: "red",
     marginTop: -5,
-    marginBottom: 25,
+    marginBottom: 15,
     textAlign: "left",
   },
   ModalContainer: {
