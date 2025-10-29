@@ -24,14 +24,11 @@ const shiftSlice = createSlice({
       }
     },
     setTurnos: (state, action: PayloadAction<ShiftInterface[]>) => {
-      action.payload.forEach((nuevo) => {
-        const existente = state.turnos.find((t) => t.id === nuevo.id);
-        if (existente) {
-          Object.assign(existente, nuevo);
-        } else {
-          state.turnos.push(nuevo);
-        }
-      });
+      const byId = new Map<string | number, ShiftInterface>();
+      for (const t of action.payload) {
+        byId.set(t.id, t);
+      }
+      state.turnos = Array.from(byId.values());
     },
   },
 });
