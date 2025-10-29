@@ -4,11 +4,11 @@ import { ScrollView, TouchableOpacity, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useThemeColors } from "@/hooks/use-theme-colors";
-import { globalStyles } from "@/globalStyle";
 import { ModalIndex } from "@/components/index/modal-index";
 import { IndexColapsed } from "@/components/index/index-colapsed";
 import { useState } from "react";
 import { CollapsedShift } from "@/components/index/collapsed-shift";
+import { globalStyles } from "../../globalStyle";
 
 export default function HomeScreen() {
   const [modal, setModal] = useState(false);

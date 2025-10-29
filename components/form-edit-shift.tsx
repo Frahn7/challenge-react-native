@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { globalStyles } from "@/globalStyle";
+import { globalStyles } from "../globalStyle";
 import { FormValues } from "@/utils/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { schemaForm } from "@/utils/utils";

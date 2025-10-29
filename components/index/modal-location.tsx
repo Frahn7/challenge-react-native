@@ -1,4 +1,4 @@
-import { globalStyles } from "@/globalStyle";
+import { globalStyles } from "../../globalStyle";
 import { Props } from "@/utils/types";
 import { Days } from "@/utils/utils";
 import { Ionicons } from "@expo/vector-icons";
