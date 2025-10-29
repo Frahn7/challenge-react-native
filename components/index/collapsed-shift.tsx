@@ -1,26 +1,14 @@
 import { CardShift } from "@/components/index/card-shift";
 import Collapsible from "react-native-collapsible";
-import { RootState } from "@/features/store";
 import { Text, TouchableOpacity, View } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { setTurnos } from "@/features/shiftSlice";
-import { useEffect, useState } from "react";
-import { useGetShifts } from "@/hooks/use-get-shift";
 import { FadeIn } from "@/components/fade-in";
 import { Ionicons } from "@expo/vector-icons";
+import { useShifts } from "@/hooks/use-shift";
+import { useState } from "react";
 
 export const CollapsedShift = () => {
-  const dispatch = useDispatch();
-  const turnos = useSelector((state: RootState) => state.shifts.turnos);
   const [collapsedTurn, setCollapsedTurn] = useState(true);
-
-  const { data, isLoading } = useGetShifts();
-
-  useEffect(() => {
-    if (data) {
-      dispatch(setTurnos(data));
-    }
-  }, [data, dispatch]);
+  const { turnos: data, isLoading } = useShifts();
 
   return (
     <View
@@ -86,7 +74,7 @@ export const CollapsedShift = () => {
           <Text style={{ color: "white" }}>Cargando...</Text>
         ) : (
           collapsedTurn &&
-          turnos.map((turno) => <CardShift turno={turno} key={turno.id} />)
+          data.map((turno) => <CardShift turno={turno} key={turno.id} />)
         )}
       </FadeIn>
     </View>
