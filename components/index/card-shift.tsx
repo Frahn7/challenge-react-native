@@ -8,10 +8,10 @@ import { router } from "expo-router";
 import { useDispatch } from "react-redux";
 import { eliminarTurno } from "@/features/shiftSlice";
 import { useDeleteShift } from "@/hooks/use-delete-shift";
-import { ShiftProps } from "@/utils/types";
 import NotificationPush from "../notification-push";
+import { ShiftInterface } from "@/utils/types";
 
-export const CardShift = ({ turno }: { turno: ShiftProps }) => {
+export const CardShift = ({ turno }: { turno: ShiftInterface }) => {
   const dispatch = useDispatch();
   const { mutateAsync: deleteShift, isPending } = useDeleteShift();
 

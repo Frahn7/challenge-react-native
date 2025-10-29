@@ -42,12 +42,12 @@ export const globalStyles = StyleSheet.create({
   InputCreate: {
     width: "100%",
     borderWidth: 0.5,
-    minheight: 40,
     borderRadius: 6,
     color: "black",
     marginBottom: 10,
     marginTop: 10,
     fontSize: 16,
+    minHeight: 40,
   },
   TextCreate: {
     fontWeight: "bold",

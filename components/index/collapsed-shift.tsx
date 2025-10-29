@@ -1,6 +1,6 @@
 import { CardShift } from "@/components/index/card-shift";
 import Collapsible from "react-native-collapsible";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Alert, Text, TouchableOpacity, View } from "react-native";
 import { FadeIn } from "@/components/fade-in";
 import { Ionicons } from "@expo/vector-icons";
 import { useShifts } from "@/hooks/use-shift";
@@ -8,7 +8,12 @@ import { useState } from "react";
 
 export const CollapsedShift = () => {
   const [collapsedTurn, setCollapsedTurn] = useState(true);
-  const { turnos: data, isLoading } = useShifts();
+  const { turnos: data, isLoading, error, isError } = useShifts();
+
+  if (isError) {
+    const msg = (error as Error).message;
+    Alert.alert("Hubo un error", msg || "Intentalo de nuevo");
+  }
 
   return (
     <View

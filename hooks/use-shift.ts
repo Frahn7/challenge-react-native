@@ -6,12 +6,12 @@ import { setTurnos } from "@/features/shiftSlice";
 
 export function useShifts() {
   const dispatch = useDispatch();
-  const { data, isLoading } = useGetShifts();
+  const { data, isLoading, isError, error } = useGetShifts();
   const turnos = useSelector((state: RootState) => state.shifts.turnos);
 
   useEffect(() => {
     if (data) dispatch(setTurnos(data));
   }, [data, dispatch]);
 
-  return { turnos, isLoading };
+  return { turnos, isLoading, isError, error };
 }
