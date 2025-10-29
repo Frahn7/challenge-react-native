@@ -42,7 +42,7 @@ export const globalStyles = StyleSheet.create({
   InputCreate: {
     width: "100%",
     borderWidth: 0.5,
-    height: 40,
+    minheight: 40,
     borderRadius: 6,
     color: "black",
     marginBottom: 10,

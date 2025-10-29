@@ -185,7 +185,6 @@ export const FormCreateShift = ({ booking }: Props) => {
                             <View>
                               <Text style={{ fontSize: 17 }}>Nombre *</Text>
                               <TextInput
-                                placeholder="Nombre completo"
                                 style={[
                                   globalStyles.InputCreate,
                                   errors.paciente && {
@@ -215,7 +214,6 @@ export const FormCreateShift = ({ booking }: Props) => {
                                 Nombre del medico *
                               </Text>
                               <TextInput
-                                placeholder="Nombre del medico"
                                 style={[
                                   globalStyles.InputCreate,
                                   errors.medico && {
@@ -277,7 +275,7 @@ export const FormCreateShift = ({ booking }: Props) => {
                             <View>
                               <Text style={{ fontSize: 17 }}>Teléfono *</Text>
                               <TextInput
-                                placeholder="Teléfono"
+                                placeholder="1140875898"
                                 style={[
                                   globalStyles.InputCreate,
                                   errors.telefono && {
