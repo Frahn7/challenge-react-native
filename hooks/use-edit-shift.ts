@@ -1,14 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "./use-delete-shift";
-
-export interface ShiftInterface {
-  id: number;
-  nombrePaciente: string;
-  nombreDoctor: string;
-  fecha: string;
-  estado: string;
-  telefono: string;
-}
+import { ShiftInterface } from "@/utils/types";
 
 export function useEditShift() {
   const qc = useQueryClient();

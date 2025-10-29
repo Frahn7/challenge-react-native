@@ -1,14 +1,6 @@
+import { ShiftInterface } from "@/utils/types";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-
-export interface ShiftInterface {
-  id: number;
-  nombrePaciente: string;
-  nombreDoctor: string;
-  estado: string;
-  fecha: string;
-  telefono: string;
-}
 
 const API_URL = process.env.EXPO_PUBLIC_API_URL;
 

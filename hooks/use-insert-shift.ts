@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { agregarTurno, eliminarTurno } from "@/features/shiftSlice";
-import { ShiftInterface } from "./use-get-shift";
 import axios from "axios";
+import { ShiftInterface } from "@/utils/types";
 
 type Ctx = { tempId: number };
 
