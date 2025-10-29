@@ -21,7 +21,6 @@ import { useInsertShift } from "@/hooks/use-insert-shift";
 import { BookingValue } from "./bookingScreen";
 import { router } from "expo-router";
 import Collapsible from "react-native-collapsible";
-import { Picker } from "@react-native-picker/picker";
 
 type Props = { booking: BookingValue };
 
@@ -39,7 +38,7 @@ export const FormCreateShift = ({ booking }: Props) => {
     formState: { errors },
   } = useForm<FormValues>({
     resolver: zodResolver(schemaForm),
-    defaultValues: { paciente: "", medico: "", estado: "", telefono: "" },
+    defaultValues: { paciente: "", medico: "", telefono: "", email: "" },
   });
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
@@ -48,8 +47,8 @@ export const FormCreateShift = ({ booking }: Props) => {
       nombrePaciente: data.paciente,
       nombreDoctor: data.medico,
       fecha: booking.display,
-      estado: data.estado,
       telefono: data.telefono,
+      email: data.email,
     };
 
     await insertShift(nuevoTurno);
@@ -240,50 +239,34 @@ export const FormCreateShift = ({ booking }: Props) => {
 
                         <Controller
                           control={control}
-                          name="estado"
-                          rules={{ required: "El estado es obligatorio" }}
+                          name="email"
+                          rules={{ required: "El Email es obligatorio" }}
                           render={({ field: { onChange, value } }) => (
                             <View>
-                              <Text style={{ fontSize: 17 }}>Estado *</Text>
-                              <View
-                                style={[
-                                  globalStyles.InputCreate,
-                                  errors.estado && {
-                                    borderColor: "red",
-                                    borderWidth: 1,
-                                  },
-                                ]}
-                              >
-                                <Picker
-                                  selectedValue={value}
-                                  onValueChange={(itemValue) =>
-                                    onChange(itemValue)
-                                  }
-                                >
-                                  <Picker.Item
-                                    label="Seleccionar..."
-                                    value={null}
-                                    enabled={false}
-                                  />
-                                  <Picker.Item
-                                    label="Aprobado"
-                                    value="Aprobado"
-                                  />
-                                  <Picker.Item
-                                    label="Pendiente"
-                                    value="Pendiente"
-                                  />
-                                </Picker>
+                              <Text style={{ fontSize: 17 }}>Email *</Text>
+                              <View>
+                                <TextInput
+                                  placeholder="F@gmail.com"
+                                  style={[
+                                    globalStyles.InputCreate,
+                                    errors.email && {
+                                      borderColor: "red",
+                                      borderWidth: 1,
+                                    },
+                                  ]}
+                                  value={value}
+                                  onChangeText={(value) => onChange(value)}
+                                />
                               </View>
                             </View>
                           )}
                         />
 
-                        {errors.estado && (
+                        {errors.email && (
                           <Text style={globalStyles.ErrorCreate}>
                             *
-                            {errors.estado.message && (
-                              <Text>El estado es obligatorio</Text>
+                            {errors.email.message && (
+                              <Text>El mail es obligatorio</Text>
                             )}
                           </Text>
                         )}

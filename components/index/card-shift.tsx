@@ -79,9 +79,9 @@ export const CardShift = ({ turno }: { turno: ShiftProps }) => {
           </ThemedText>
         </ThemedText>
         <ThemedText style={{ color: "black", fontSize: 19, fontWeight: 700 }}>
-          Estado:{" "}
+          Email:{" "}
           <ThemedText style={{ color: "black", fontWeight: 500 }}>
-            {turno.estado}
+            {turno.email}
           </ThemedText>
         </ThemedText>
         <ThemedText style={{ color: "black", fontSize: 19, fontWeight: 700 }}>
@@ -130,7 +130,7 @@ export const CardShift = ({ turno }: { turno: ShiftProps }) => {
                     id: turno.id,
                     name: turno.nombrePaciente,
                     doctor: turno.nombreDoctor,
-                    estado: turno.estado,
+                    email: turno.email,
                     fecha: turno.fecha,
                     telefono: turno.telefono,
                   },

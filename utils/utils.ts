@@ -15,12 +15,12 @@ export const schemaForm = z.object({
   medico: z
     .string({ required_error: "El medico es obligatorio" })
     .min(1, { message: "Ingresá el nombre del medico" }),
-  estado: z
-    .string({ required_error: "El estado es obligatorio" })
-    .min(1, { message: "Ingresá el estado" }),
   telefono: z
     .string({ required_error: "El telefono es obligatorio" })
     .min(1, { message: "Ingresá telefono" }),
+  email: z
+    .string({ required_error: "El email es obligatorio" })
+    .min(1, { message: "Ingresá email" }),
 });
 
 export const Days = [

@@ -22,7 +22,6 @@ import { router, useLocalSearchParams } from "expo-router";
 import Collapsible from "react-native-collapsible";
 import { useEditShift } from "@/hooks/use-edit-shift";
 import { editarTurno } from "@/features/shiftSlice";
-import { Picker } from "@react-native-picker/picker";
 import { useDispatch } from "react-redux";
 
 type Props = { booking: BookingValue };
@@ -32,11 +31,11 @@ export const FormEditShift = ({ booking }: Props) => {
   const { mutateAsync: editShift, isPending } = useEditShift();
   const dispatch = useDispatch();
 
-  const { id, name, doctor, estado, telefono } = useLocalSearchParams<{
+  const { id, name, doctor, email, telefono } = useLocalSearchParams<{
     id: string;
     name: string;
     doctor: string;
-    estado: string;
+    email: string;
     fecha: string;
     telefono: string;
   }>();
@@ -54,7 +53,7 @@ export const FormEditShift = ({ booking }: Props) => {
     defaultValues: {
       paciente: name,
       medico: doctor,
-      estado: estado,
+      email: email,
       telefono: telefono,
     },
   });
@@ -65,7 +64,7 @@ export const FormEditShift = ({ booking }: Props) => {
       nombrePaciente: data.paciente,
       nombreDoctor: data.medico,
       fecha: booking.display,
-      estado: data.estado,
+      email: data.email,
       telefono: data.telefono,
     };
 
@@ -257,50 +256,34 @@ export const FormEditShift = ({ booking }: Props) => {
 
                         <Controller
                           control={control}
-                          name="estado"
-                          rules={{ required: "El estado es obligatorio" }}
+                          name="email"
+                          rules={{ required: "El email es obligatorio" }}
                           render={({ field: { onChange, value } }) => (
                             <View>
-                              <Text style={{ fontSize: 17 }}>Estado *</Text>
-                              <View
-                                style={[
-                                  globalStyles.InputCreate,
-                                  errors.estado && {
-                                    borderColor: "red",
-                                    borderWidth: 1,
-                                  },
-                                ]}
-                              >
-                                <Picker
-                                  selectedValue={value}
-                                  onValueChange={(itemValue) =>
-                                    onChange(itemValue)
-                                  }
-                                >
-                                  <Picker.Item
-                                    label="Seleccionar..."
-                                    value={null}
-                                    enabled={false}
-                                  />
-                                  <Picker.Item
-                                    label="Aprobado"
-                                    value="Aprobado"
-                                  />
-                                  <Picker.Item
-                                    label="Pendiente"
-                                    value="Pendiente"
-                                  />
-                                </Picker>
+                              <Text style={{ fontSize: 17 }}>Email *</Text>
+                              <View>
+                                <TextInput
+                                  placeholder={email}
+                                  style={[
+                                    globalStyles.InputCreate,
+                                    errors.email && {
+                                      borderColor: "red",
+                                      borderWidth: 1,
+                                    },
+                                  ]}
+                                  value={value}
+                                  onChangeText={(value) => onChange(value)}
+                                />
                               </View>
                             </View>
                           )}
                         />
 
-                        {errors.estado && (
+                        {errors.email && (
                           <Text style={globalStyles.ErrorCreate}>
                             *
-                            {errors.estado.message && (
-                              <Text>El estado es obligatorio</Text>
+                            {errors.email.message && (
+                              <Text>El email es obligatorio</Text>
                             )}
                           </Text>
                         )}
