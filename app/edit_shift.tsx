@@ -23,6 +23,7 @@ export default function EditShift() {
           paddingTop: 52,
           alignItems: "center",
           padding: 20,
+          zIndex: 1,
           height: 100,
         }}
       >

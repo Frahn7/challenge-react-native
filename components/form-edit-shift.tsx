@@ -78,7 +78,7 @@ export const FormEditShift = ({ booking }: Props) => {
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={0}
-        style={{ flex: 1 }}
+        style={{ flex: 1, marginTop: -40 }}
       >
         <SafeAreaView style={{ flex: 1 }}>
           <ScrollView
