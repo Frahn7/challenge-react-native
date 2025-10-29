@@ -10,6 +10,7 @@ import { eliminarTurno } from "@/features/shiftSlice";
 import { useDeleteShift } from "@/hooks/use-delete-shift";
 import NotificationPush from "../notification-push";
 import { ShiftInterface } from "@/utils/types";
+import { shadow } from "@/utils/shadow";
 
 export const CardShift = ({ turno }: { turno: ShiftInterface }) => {
   const dispatch = useDispatch();
@@ -29,25 +30,26 @@ export const CardShift = ({ turno }: { turno: ShiftInterface }) => {
   return (
     <View>
       <ThemedView
-        style={{
-          width: "100%",
-          padding: 10,
-          height: 230,
-          gap: 6,
-          backgroundColor: "white",
-          overflow: "hidden",
-          alignItems: "flex-start",
-          shadowColor: "#000",
-          shadowOpacity: 0.15,
-          shadowRadius: 7,
-          shadowOffset: { width: 0, height: 4 },
-          elevation: 3,
-          marginTop: 14,
-          borderWidth: 0.5,
-          borderRadius: 8,
-          borderColor: " rgb(59, 110, 62)",
-          paddingBottom: 20,
-        }}
+        style={[
+          {
+            width: "100%",
+            padding: 10,
+            height: 230,
+            gap: 6,
+            backgroundColor: "white",
+            overflow: "hidden",
+            alignItems: "flex-start",
+            elevation: 3,
+            marginTop: 14,
+            borderWidth: 0.5,
+            borderRadius: 8,
+            borderColor: " rgb(59, 110, 62)",
+            paddingBottom: 20,
+          },
+          {
+            ...shadow(4),
+          },
+        ]}
       >
         <View style={{ position: "relative" }}>
           <FontAwesome

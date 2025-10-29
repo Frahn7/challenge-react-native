@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { shadow } from "./utils/shadow";
 
 export const globalStyles = StyleSheet.create({
   ContainerLogin: {
@@ -83,11 +84,11 @@ export const globalStyles = StyleSheet.create({
   },
   IndexHeader: {
     flexDirection: "row",
-    boxShadow: "0 5px 3px -4px gray",
     paddingBottom: 20,
     width: 400,
     justifyContent: "space-between",
     paddingLeft: 40,
     paddingRight: 40,
+    ...shadow(4),
   },
 });

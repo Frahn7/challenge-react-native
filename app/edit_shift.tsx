@@ -6,6 +6,7 @@ import { useThemeColors } from "@/hooks/use-theme-colors";
 import { Ionicons } from "@expo/vector-icons";
 import BookingScreen, { BookingValue } from "@/components/bookingScreen";
 import { FormEditShift } from "@/components/form-edit-shift";
+import { shadow } from "@/utils/shadow";
 
 export default function EditShift() {
   const { text } = useThemeColors();
@@ -15,17 +16,19 @@ export default function EditShift() {
     <View style={{ flex: 1 }}>
       <Stack.Screen options={{ headerShown: false }} />
       <View
-        style={{
-          flexDirection: "row",
-          boxShadow: "0 5px 3px -4px gray",
-          paddingBottom: 10,
-          justifyContent: "space-between",
-          paddingTop: 52,
-          alignItems: "center",
-          padding: 20,
-          zIndex: 1,
-          height: 100,
-        }}
+        style={[
+          {
+            flexDirection: "row",
+            paddingBottom: 10,
+            justifyContent: "space-between",
+            paddingTop: 52,
+            alignItems: "center",
+            padding: 20,
+            zIndex: 1,
+            height: 100,
+          },
+          shadow(4),
+        ]}
       >
         <View
           style={{

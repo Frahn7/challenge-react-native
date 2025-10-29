@@ -7,6 +7,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import BookingScreen, { BookingValue } from "@/components/bookingScreen";
 import { FormCreateShift } from "@/components/form-create-shift";
+import { shadow } from "@/utils/shadow";
 
 export default function CreateShift() {
   const [booking, setBooking] = useState<BookingValue | null>(null);
@@ -17,17 +18,19 @@ export default function CreateShift() {
     <View style={{ flex: 1 }}>
       <Stack.Screen options={{ headerShown: false }} />
       <View
-        style={{
-          flexDirection: "row",
-          boxShadow: "0 5px 3px -4px gray",
-          paddingBottom: 10,
-          justifyContent: "space-between",
-          paddingTop: insets.top,
-          alignItems: "center",
-          padding: 20,
-          height: 100,
-          zIndex: 1,
-        }}
+        style={[
+          {
+            flexDirection: "row",
+            paddingBottom: 10,
+            justifyContent: "space-between",
+            paddingTop: insets.top,
+            alignItems: "center",
+            padding: 20,
+            height: 100,
+            zIndex: 1,
+          },
+          { ...shadow(4) },
+        ]}
       >
         <View
           style={{
