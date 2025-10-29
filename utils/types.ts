@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { schemaForm } from "./utils";
 import { ThemePref } from "@/features/themeAtom";
+import { Href } from "expo-router";
 
 export type Inputs = {
   Correo: string;
@@ -37,3 +38,16 @@ export interface ShiftState {
 }
 
 export type Props = { open: boolean; onClose: () => void };
+
+type Btn = { title: string; route: Href };
+
+export const textButtons: Btn[] = [
+  {
+    title: "Ver turnos",
+    route: "/show_shift",
+  },
+  {
+    title: "Agendar Turno",
+    route: "/create_shift",
+  },
+];

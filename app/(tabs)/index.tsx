@@ -7,8 +7,8 @@ import { useThemeColors } from "@/hooks/use-theme-colors";
 import { ModalIndex } from "@/components/index/modal-index";
 import { IndexColapsed } from "@/components/index/index-colapsed";
 import { useState } from "react";
-import { CollapsedShift } from "@/components/index/collapsed-shift";
 import { globalStyles } from "../../globalStyle";
+import { textButtons } from "@/utils/types";
 
 export default function HomeScreen() {
   const [modal, setModal] = useState(false);
@@ -62,27 +62,39 @@ export default function HomeScreen() {
 
             <IndexColapsed />
 
-            <View style={{ alignItems: "flex-end", width: "100%", margin: 10 }}>
-              <TouchableOpacity
-                onPress={() => router.push("/create_shift")}
-                activeOpacity={0.7}
-                style={{
-                  backgroundColor: "rgb(59, 110, 62)",
-                  borderRadius: 8,
-                  width: 150,
-                  paddingVertical: 10,
-                  alignItems: "center",
-                }}
-              >
-                <ThemedText
-                  style={{ fontSize: 16, color: "white", textAlign: "center" }}
+            <View
+              style={{
+                width: "100%",
+                margin: 10,
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+            >
+              {textButtons.map((text, k) => (
+                <TouchableOpacity
+                  key={k}
+                  onPress={() => router.push(text.route)}
+                  activeOpacity={0.7}
+                  style={{
+                    backgroundColor: "rgb(59, 110, 62)",
+                    borderRadius: 8,
+                    width: 150,
+                    paddingVertical: 10,
+                    alignItems: "center",
+                  }}
                 >
-                  Agendar Servicio
-                </ThemedText>
-              </TouchableOpacity>
+                  <ThemedText
+                    style={{
+                      fontSize: 16,
+                      color: "white",
+                      textAlign: "center",
+                    }}
+                  >
+                    {text.title}
+                  </ThemedText>
+                </TouchableOpacity>
+              ))}
             </View>
-
-            <CollapsedShift />
           </View>
         </ScrollView>
       </SafeAreaView>
