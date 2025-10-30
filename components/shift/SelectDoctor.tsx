@@ -68,9 +68,8 @@ export const SelectDoctor = ({
 const styles = StyleSheet.create({
   buttons: {
     flexDirection: "row",
-    gap: 10,
+    gap: 15,
     alignItems: "center",
-    borderRadius: 15,
     padding: 10,
     backgroundColor: "rgb(59,110,62, 0.2)",
   },
