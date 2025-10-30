@@ -24,20 +24,19 @@ import { useEditShift } from "@/features/shift/hooks/use-edit-shift";
 import { schemaForm } from "@/features/shift/schema";
 import { globalStyles } from "@/styles/globalStyle";
 
-type Props = { booking: BookingValue };
+type Props = { booking: BookingValue; doctores: string };
 
-export const FormEditShift = ({ booking }: Props) => {
+export const FormEditShift = ({ booking, doctores }: Props) => {
   const [collapsed, setCollapsed] = useState(true);
   const { mutateAsync: editShift, isPending } = useEditShift();
   const dispatch = useDispatch();
 
-  const { id, name, doctor, email, telefono } = useLocalSearchParams<{
+  const { id, name, email, telefono, observaciones } = useLocalSearchParams<{
     id: string;
     name: string;
-    doctor: string;
     email: string;
-    fecha: string;
     telefono: string;
+    observaciones: string;
   }>();
 
   useEffect(() => {
@@ -52,9 +51,9 @@ export const FormEditShift = ({ booking }: Props) => {
     resolver: zodResolver(schemaForm),
     defaultValues: {
       paciente: name,
-      medico: doctor,
       email: email,
       telefono: telefono,
+      observaciones: observaciones,
     },
   });
 
@@ -62,10 +61,11 @@ export const FormEditShift = ({ booking }: Props) => {
     const turnoEditado = {
       id: Number(id),
       nombrePaciente: data.paciente,
-      nombreDoctor: data.medico,
+      nombreDoctor: doctores,
       fecha: booking.display,
       email: data.email,
       telefono: data.telefono,
+      observaciones: data.observaciones,
     };
 
     dispatch(editarTurno(turnoEditado));
@@ -226,36 +226,6 @@ export const FormEditShift = ({ booking }: Props) => {
 
                         <Controller
                           control={control}
-                          render={({ field: { onChange, value } }) => (
-                            <View>
-                              <Text style={{ fontSize: 17 }}>
-                                Nombre del medico *
-                              </Text>
-                              <TextInput
-                                placeholder={doctor}
-                                style={[
-                                  globalStyles.InputCreate,
-                                  errors.medico && {
-                                    borderColor: "red",
-                                    borderWidth: 1,
-                                  },
-                                ]}
-                                value={value}
-                                onChangeText={(value) => onChange(value)}
-                              />
-                            </View>
-                          )}
-                          name="medico"
-                          rules={{ required: true }}
-                        />
-                        {errors.medico && (
-                          <Text style={globalStyles.ErrorCreate}>
-                            *{errors.medico.message}
-                          </Text>
-                        )}
-
-                        <Controller
-                          control={control}
                           name="email"
                           rules={{ required: "El email es obligatorio" }}
                           render={({ field: { onChange, value } }) => (
@@ -283,7 +253,7 @@ export const FormEditShift = ({ booking }: Props) => {
                           <Text style={globalStyles.ErrorCreate}>
                             *
                             {errors.email.message && (
-                              <Text>El email es obligatorio</Text>
+                              <Text>{errors.email.message}</Text>
                             )}
                           </Text>
                         )}
@@ -332,6 +302,30 @@ export const FormEditShift = ({ booking }: Props) => {
                             *{errors.telefono.message}
                           </Text>
                         )}
+
+                        <Controller
+                          control={control}
+                          name="observaciones"
+                          render={({ field: { onChange, value } }) => (
+                            <View style={{ marginTop: 6 }}>
+                              <Text style={{ fontSize: 17 }}>
+                                Observaciones
+                              </Text>
+                              <View>
+                                <TextInput
+                                  placeholder={observaciones}
+                                  style={[
+                                    globalStyles.InputCreate,
+                                    { minHeight: 80, textAlignVertical: "top" },
+                                  ]}
+                                  multiline
+                                  value={value}
+                                  onChangeText={(value) => onChange(value)}
+                                />
+                              </View>
+                            </View>
+                          )}
+                        />
                       </FadeIn>
                     </View>
                   </View>

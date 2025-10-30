@@ -146,6 +146,7 @@ export const CardShift = ({ turno }: { turno: ShiftInterface }) => {
                     email: turno.email,
                     fecha: turno.fecha,
                     telefono: turno.telefono,
+                    observaciones: turno.observaciones,
                   },
                 });
               }}

@@ -7,10 +7,13 @@ import { Ionicons } from "@expo/vector-icons";
 import BookingScreen, { BookingValue } from "@/components/shift/BookingScreen";
 import { shadow } from "@/components/ui/styles/shadow";
 import { FormEditShift } from "@/components/shift/FormEditShift";
+import { SelectDoctor } from "@/components/shift/SelectDoctor";
 
 export default function EditShift() {
   const { text } = useThemeColors();
   const [booking, setBooking] = useState<BookingValue | null>(null);
+  const [selectedDoctor, setSelectedDoctor] = useState<string | null>(null);
+  const [contact, setContact] = useState(false);
 
   return (
     <View style={{ flex: 1 }}>
@@ -85,7 +88,20 @@ export default function EditShift() {
         </View>
       )}
 
-      {booking !== null && <FormEditShift booking={booking} />}
+      {booking !== null && !contact && (
+        <View style={{ flex: 1 }}>
+          <SelectDoctor
+            onSelectDoctor={(doctorName: string) => {
+              setSelectedDoctor(doctorName);
+              setContact(true);
+            }}
+          />
+        </View>
+      )}
+
+      {contact && (
+        <FormEditShift booking={booking!} doctores={selectedDoctor!} />
+      )}
     </View>
   );
 }
