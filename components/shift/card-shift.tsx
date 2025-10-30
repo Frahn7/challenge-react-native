@@ -1,4 +1,3 @@
-import React from "react";
 import { ThemedView } from "../ui/themed-view";
 import { ThemedText } from "../ui/themed-text";
 import { helperDate } from "../../lib/helper-fechas";

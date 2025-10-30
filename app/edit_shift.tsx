@@ -4,9 +4,9 @@ import { Stack, router } from "expo-router";
 import { useState } from "react";
 import { useThemeColors } from "@/hooks/use-theme-colors";
 import { Ionicons } from "@expo/vector-icons";
-import BookingScreen, { BookingValue } from "@/components/bookingScreen";
-import { FormEditShift } from "@/components/form-edit-shift";
+import BookingScreen, { BookingValue } from "@/components/shift/bookingScreen";
 import { shadow } from "@/utils/shadow";
+import { FormEditShift } from "@/components/shift/form-edit-shift";
 
 export default function EditShift() {
   const { text } = useThemeColors();

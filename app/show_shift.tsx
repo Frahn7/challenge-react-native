@@ -1,4 +1,4 @@
-import { CollapsedShift } from "@/components/index/collapsed-shift";
+import { CollapsedShift } from "@/components/shift/collapsed-shift";
 
 export default function ShowShift() {
   return <CollapsedShift />;

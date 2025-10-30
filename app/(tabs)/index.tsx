@@ -4,12 +4,12 @@ import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useThemeColors } from "@/hooks/use-theme-colors";
-import { ModalIndex } from "@/components/index/modal-index";
-import { IndexColapsed } from "@/components/index/index-colapsed";
+import { ModalIndex } from "@/components/shift/modal-index";
+import { IndexColapsed } from "@/components/shift/index-colapsed";
 import { useState } from "react";
 import { globalStyles } from "../../globalStyle";
 import { textButtons } from "@/utils/types";
-import { MedicalServiceCard } from "@/components/medical-services";
+import { MedicalServiceCard } from "@/components/shift/medical-services";
 import { medics } from "@/utils/utils";
 import Collapsible from "react-native-collapsible";
 

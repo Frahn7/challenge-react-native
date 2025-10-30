@@ -17,7 +17,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { ThemedText } from "./ui/themed-text";
 import { useEffect, useState } from "react";
-import { BookingValue } from "./bookingScreen";
+import { BookingValue } from "./shift/bookingScreen";
 import { router, useLocalSearchParams } from "expo-router";
 import Collapsible from "react-native-collapsible";
 import { useEditShift } from "@/hooks/use-edit-shift";

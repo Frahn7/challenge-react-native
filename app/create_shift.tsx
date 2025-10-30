@@ -5,9 +5,9 @@ import { useState } from "react";
 import { useThemeColors } from "@/hooks/use-theme-colors";
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import BookingScreen, { BookingValue } from "@/components/bookingScreen";
-import { FormCreateShift } from "@/components/form-create-shift";
+import BookingScreen, { BookingValue } from "@/components/shift/bookingScreen";
 import { shadow } from "@/utils/shadow";
+import { FormCreateShift } from "@/components/shift/form-create-shift";
 
 export default function CreateShift() {
   const [booking, setBooking] = useState<BookingValue | null>(null);
