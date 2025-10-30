@@ -1,6 +1,6 @@
 import { CardShift } from "@/components/index/card-shift";
 import { Alert, Text, View } from "react-native";
-import { FadeIn } from "@/components/fade-in";
+import { FadeIn } from "@/components/ui/fade-in";
 import { useShifts } from "@/hooks/use-shift";
 
 export const CollapsedShift = () => {

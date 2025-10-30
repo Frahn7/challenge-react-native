@@ -1,4 +1,4 @@
-import { ThemedText } from "@/components/themed-text";
+import { ThemedText } from "@/components/ui/themed-text";
 import { Stack, router } from "expo-router";
 import { Alert, View } from "react-native";
 import { useState } from "react";

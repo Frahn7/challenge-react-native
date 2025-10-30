@@ -1,6 +1,6 @@
 import React from "react";
-import { ThemedView } from "../themed-view";
-import { ThemedText } from "../themed-text";
+import { ThemedView } from "../ui/themed-view";
+import { ThemedText } from "../ui/themed-text";
 import { helperDate } from "../../lib/helper-fechas";
 import { Alert, TouchableOpacity, View } from "react-native";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";

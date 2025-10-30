@@ -1,7 +1,7 @@
 import { globalStyles } from "../../globalStyle";
 import { Ionicons } from "@expo/vector-icons";
 import { Modal, Text, View } from "react-native";
-import { ThemedText } from "../themed-text";
+import { ThemedText } from "../ui/themed-text";
 import { router } from "expo-router";
 import { useAtom } from "jotai";
 import { profileAtom } from "@/features/profileAtom";

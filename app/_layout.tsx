@@ -15,7 +15,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Provider as JotaiProvider, useAtomValue } from "jotai";
 import { resolvedThemeAtom } from "@/features/themeAtom";
 import { useEffect } from "react";
-import GlobalRouteLoading from "@/components/global-route-loading";
+import GlobalRouteLoading from "@/components/ui/global-route-loading";
 
 import {
   registerNotificationResponse,
@@ -31,7 +31,7 @@ const queryClient = new QueryClient();
 function AppShell() {
   const systemScheme = useColorScheme();
   const pref = useAtomValue(resolvedThemeAtom);
-  const scheme = pref === "dark" ? systemScheme ?? "light" : pref;
+  const scheme = pref === "dark" ? (systemScheme ?? "light") : pref;
 
   useEffect(() => {
     registerNotificationResponse();

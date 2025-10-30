@@ -1,4 +1,4 @@
-import { FadeIn } from "./fade-in";
+import { FadeIn } from "./ui/fade-in";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import {
   KeyboardAvoidingView,
@@ -15,7 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { schemaForm } from "@/utils/utils";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
-import { ThemedText } from "./themed-text";
+import { ThemedText } from "./ui/themed-text";
 import { useEffect, useState } from "react";
 import { BookingValue } from "./bookingScreen";
 import { router, useLocalSearchParams } from "expo-router";

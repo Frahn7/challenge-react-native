@@ -5,7 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useAtom } from "jotai";
 import { profileAtom } from "@/features/profileAtom";
-import Line from "@/components/line";
+import Line from "@/components/ui/line";
 
 export default function Profile() {
   const [profile, setProfile] = useAtom(profileAtom);
