@@ -10,14 +10,15 @@ import { ThemedText } from "@/components/ui/themed-text";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { useState } from "react";
 import { router, Stack } from "expo-router";
-import { useThemeColors } from "@/features/theme/use-theme-colors";
+import { useThemeColors } from "@/hooks/use-theme-colors";
 import { useAtom } from "jotai";
 import { profileAtom } from "@/features/profile/profileAtom";
-import { regexCorreo, User } from "../utils/utils";
 import { Inputs } from "../utils/types";
-import { globalStyles } from "../globalStyle";
 import { Ionicons } from "@expo/vector-icons";
 import { Checkbox } from "expo-checkbox";
+import { regexCorreo } from "@/constants/common";
+import { User } from "@/constants/auth";
+import { globalStyles } from "@/styles/globalStyle";
 
 export default function Login() {
   const { bg, text } = useThemeColors();

@@ -1,7 +1,6 @@
 import { z } from "zod";
-import { schemaForm } from "./utils";
 import { ThemePref } from "@/features/theme/themeAtom";
-import { Href } from "expo-router";
+import { schemaForm } from "@/features/shift/schema";
 
 export type Inputs = {
   Correo: string;
@@ -38,15 +37,6 @@ export interface ShiftState {
 }
 
 export type Props = { open: boolean; onClose: () => void };
-
-type Btn = { title: string; route: Href };
-
-export const textButtons: Btn[] = [
-  {
-    title: "Ver turnos",
-    route: "/show_shift",
-  },
-];
 
 export type PropsDoctor = {
   specialty: string;

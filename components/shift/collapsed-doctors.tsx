@@ -1,9 +1,9 @@
 import Collapsible from "react-native-collapsible";
-import { medics } from "@/utils/utils";
 import { useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useThemeColors } from "@/features/theme/use-theme-colors";
+import { useThemeColors } from "@/hooks/use-theme-colors";
+import { medics } from "@/features/shift/mock-medics";
 
 export const CollapsedDoctors = () => {
   const [collapsed, setCollapsed] = useState(true);

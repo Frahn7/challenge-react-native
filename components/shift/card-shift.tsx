@@ -5,11 +5,11 @@ import { Alert, TouchableOpacity, View } from "react-native";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useDispatch } from "react-redux";
-import { eliminarTurno } from "@/features/shift/shiftSlice";
-import { useDeleteShift } from "@/features/shift/use-delete-shift";
+import { eliminarTurno } from "@/features/shift/hooks/shiftSlice";
+import { useDeleteShift } from "@/features/shift/hooks/use-delete-shift";
 import NotificationPush from "../notification-push";
 import { ShiftInterface } from "@/utils/types";
-import { shadow } from "@/utils/shadow";
+import { shadow } from "@/components/ui/styles/shadow";
 
 export const CardShift = ({ turno }: { turno: ShiftInterface }) => {
   const dispatch = useDispatch();

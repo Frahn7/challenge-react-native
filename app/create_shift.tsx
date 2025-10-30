@@ -2,11 +2,11 @@ import { ThemedText } from "@/components/ui/themed-text";
 import { Stack, router } from "expo-router";
 import { Alert, View } from "react-native";
 import { useState } from "react";
-import { useThemeColors } from "@/features/theme/use-theme-colors";
+import { useThemeColors } from "@/hooks/use-theme-colors";
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import BookingScreen, { BookingValue } from "@/components/shift/bookingScreen";
-import { shadow } from "@/utils/shadow";
+import { shadow } from "@/components/ui/styles/shadow";
 import { FormCreateShift } from "@/components/shift/form-create-shift";
 
 export default function CreateShift() {

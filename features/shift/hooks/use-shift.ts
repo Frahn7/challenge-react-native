@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetShifts } from "./use-get-shift";
 import { RootState } from "@/features/store";
-import { setTurnos } from "@/features/shift/shiftSlice";
+import { setTurnos } from "@/features/shift/hooks/shiftSlice";
 
 export function useShifts() {
   const dispatch = useDispatch();

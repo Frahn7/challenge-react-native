@@ -1,4 +1,3 @@
-import { globalStyles } from "../../globalStyle";
 import { Ionicons } from "@expo/vector-icons";
 import { Modal, Text, View } from "react-native";
 import { ThemedText } from "../ui/themed-text";
@@ -6,6 +5,7 @@ import { router } from "expo-router";
 import { useAtom } from "jotai";
 import { profileAtom } from "@/features/profile/profileAtom";
 import { Props } from "@/utils/types";
+import { globalStyles } from "@/styles/globalStyle";
 
 export const ModalIndex = ({ open, onClose }: Props) => {
   const [profile, setProfile] = useAtom(profileAtom);

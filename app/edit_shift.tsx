@@ -2,10 +2,10 @@ import { ThemedText } from "@/components/ui/themed-text";
 import { Alert, View } from "react-native";
 import { Stack, router } from "expo-router";
 import { useState } from "react";
-import { useThemeColors } from "@/features/theme/use-theme-colors";
+import { useThemeColors } from "@/hooks/use-theme-colors";
 import { Ionicons } from "@expo/vector-icons";
 import BookingScreen, { BookingValue } from "@/components/shift/bookingScreen";
-import { shadow } from "@/utils/shadow";
+import { shadow } from "@/components/ui/styles/shadow";
 import { FormEditShift } from "@/components/shift/form-edit-shift";
 
 export default function EditShift() {

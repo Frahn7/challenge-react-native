@@ -3,15 +3,15 @@ import { Stack, router } from "expo-router";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useThemeColors } from "@/features/theme/use-theme-colors";
+import { useThemeColors } from "@/hooks/use-theme-colors";
 import { ModalIndex } from "@/components/shift/modal-index";
 import { IndexColapsed } from "@/components/shift/index-colapsed";
 import { useState } from "react";
-import { globalStyles } from "../../globalStyle";
-import { textButtons } from "@/utils/types";
+import { globalStyles } from "../../styles/globalStyle";
 import { MedicalServiceCard } from "@/components/shift/medical-services";
-import { medics } from "@/utils/utils";
 import Collapsible from "react-native-collapsible";
+import { textButtons } from "@/constants/navigation";
+import { medics } from "@/features/shift/mock-medics";
 
 export default function HomeScreen() {
   const [modal, setModal] = useState(false);

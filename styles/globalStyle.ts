@@ -1,5 +1,5 @@
+import { shadow } from "@/components/ui/styles/shadow";
 import { StyleSheet } from "react-native";
-import { shadow } from "./utils/shadow";
 
 export const globalStyles = StyleSheet.create({
   ContainerLogin: {

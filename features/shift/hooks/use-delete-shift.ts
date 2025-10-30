@@ -1,4 +1,4 @@
-import { eliminarTurno } from "@/features/shift/shiftSlice";
+import { eliminarTurno } from "@/features/shift/hooks/shiftSlice";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useDispatch } from "react-redux";

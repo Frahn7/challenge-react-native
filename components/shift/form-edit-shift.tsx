@@ -10,19 +10,19 @@ import {
 } from "react-native";
 import { FormValues } from "@/utils/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { schemaForm } from "@/utils/utils";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import Collapsible from "react-native-collapsible";
-import { editarTurno } from "@/features/shift/shiftSlice";
+import { editarTurno } from "@/features/shift/hooks/shiftSlice";
 import { useDispatch } from "react-redux";
 import { BookingValue } from "./bookingScreen";
 import { FadeIn } from "../ui/fade-in";
-import { globalStyles } from "@/globalStyle";
 import { ThemedText } from "../ui/themed-text";
-import { useEditShift } from "@/features/shift/use-edit-shift";
+import { useEditShift } from "@/features/shift/hooks/use-edit-shift";
+import { schemaForm } from "@/features/shift/schema";
+import { globalStyles } from "@/styles/globalStyle";
 
 type Props = { booking: BookingValue };
 

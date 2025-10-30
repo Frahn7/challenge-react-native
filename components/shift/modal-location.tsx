@@ -1,6 +1,6 @@
-import { globalStyles } from "../../globalStyle";
+import { Days } from "@/constants/common";
+import { globalStyles } from "@/styles/globalStyle";
 import { Props } from "@/utils/types";
-import { Days } from "@/utils/utils";
 import { Ionicons } from "@expo/vector-icons";
 import {
   Linking,

@@ -1,5 +1,5 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import shiftReducer from "./shift/shiftSlice";
+import shiftReducer from "./shift/hooks/shiftSlice";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
