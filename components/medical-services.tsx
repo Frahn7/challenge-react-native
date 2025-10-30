@@ -1,17 +1,8 @@
+import { PropsDoctor } from "@/utils/types";
 import React from "react";
 import { View, Text, Image, Pressable, StyleSheet } from "react-native";
 
-type Props = {
-  specialty: string;
-  doctor: string;
-  durationMin: number;
-  priceLabel: string;
-  images?: string[];
-  description?: string;
-  onPress?: () => void;
-};
-
-export const MedicalServiceCard: React.FC<Props> = ({
+export const MedicalServiceCard: React.FC<PropsDoctor> = ({
   specialty,
   doctor,
   durationMin,

@@ -47,3 +47,13 @@ export const textButtons: Btn[] = [
     route: "/show_shift",
   },
 ];
+
+export type PropsDoctor = {
+  specialty: string;
+  doctor: string;
+  durationMin: number;
+  priceLabel: string;
+  images?: string[];
+  description?: string;
+  onPress?: () => void;
+};

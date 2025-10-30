@@ -16,7 +16,6 @@ import Collapsible from "react-native-collapsible";
 export default function HomeScreen() {
   const [modal, setModal] = useState(false);
   const [collapsed, setCollapsed] = useState(true);
-
   const { bg, text } = useThemeColors();
 
   return (
@@ -24,9 +23,7 @@ export default function HomeScreen() {
       <SafeAreaView style={{ flex: 1, backgroundColor: bg }}>
         <ScrollView contentContainerStyle={[{ padding: 20 }]}>
           <Stack.Screen options={{ headerShown: false }} />
-
           <ModalIndex open={modal} onClose={() => setModal(false)} />
-
           <View
             style={[
               {
