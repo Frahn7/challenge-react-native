@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { schemaForm } from "./utils";
-import { ThemePref } from "@/features/themeAtom";
+import { ThemePref } from "@/features/theme/themeAtom";
 import { Href } from "expo-router";
 
 export type Inputs = {

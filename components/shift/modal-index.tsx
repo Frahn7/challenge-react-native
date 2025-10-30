@@ -4,7 +4,7 @@ import { Modal, Text, View } from "react-native";
 import { ThemedText } from "../ui/themed-text";
 import { router } from "expo-router";
 import { useAtom } from "jotai";
-import { profileAtom } from "@/features/profileAtom";
+import { profileAtom } from "@/features/profile/profileAtom";
 import { Props } from "@/utils/types";
 
 export const ModalIndex = ({ open, onClose }: Props) => {

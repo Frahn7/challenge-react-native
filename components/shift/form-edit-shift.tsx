@@ -1,4 +1,3 @@
-import { FadeIn } from "./ui/fade-in";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import {
   KeyboardAvoidingView,
@@ -9,20 +8,21 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { globalStyles } from "../globalStyle";
 import { FormValues } from "@/utils/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { schemaForm } from "@/utils/utils";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
-import { ThemedText } from "./ui/themed-text";
 import { useEffect, useState } from "react";
-import { BookingValue } from "./shift/bookingScreen";
 import { router, useLocalSearchParams } from "expo-router";
 import Collapsible from "react-native-collapsible";
-import { useEditShift } from "@/hooks/use-edit-shift";
-import { editarTurno } from "@/features/shiftSlice";
+import { editarTurno } from "@/features/shift/shiftSlice";
 import { useDispatch } from "react-redux";
+import { BookingValue } from "./bookingScreen";
+import { FadeIn } from "../ui/fade-in";
+import { globalStyles } from "@/globalStyle";
+import { ThemedText } from "../ui/themed-text";
+import { useEditShift } from "@/features/shift/use-edit-shift";
 
 type Props = { booking: BookingValue };
 

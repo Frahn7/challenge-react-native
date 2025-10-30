@@ -1,11 +1,11 @@
 import { useAtomValue } from "jotai";
 import { useColorScheme } from "react-native";
-import { resolvedThemeAtom } from "@/features/themeAtom";
+import { resolvedThemeAtom } from "@/features/theme/themeAtom";
 
 export function useThemeColors() {
   const system = useColorScheme();
   const pref = useAtomValue(resolvedThemeAtom);
-  const scheme = pref === "dark" ? system ?? "light" : pref;
+  const scheme = pref === "dark" ? (system ?? "light") : pref;
 
   return {
     bg: scheme === "dark" ? "#000" : "#fff",

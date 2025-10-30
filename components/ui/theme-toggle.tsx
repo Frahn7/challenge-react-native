@@ -1,6 +1,6 @@
 import { Pressable } from "react-native";
 import { useAtom } from "jotai";
-import { themeAtom } from "@/features/themeAtom";
+import { themeAtom } from "@/features/theme/themeAtom";
 import { Ionicons } from "@expo/vector-icons";
 import { order } from "@/utils/types";
 

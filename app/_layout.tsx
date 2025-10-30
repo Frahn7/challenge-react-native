@@ -1,4 +1,4 @@
-import "@/features/notifications";
+import "@/features/notifications/notifications";
 import {
   DarkTheme,
   DefaultTheme,
@@ -6,21 +6,21 @@ import {
 } from "@react-navigation/native";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { useColorScheme } from "@/hooks/use-color-scheme";
+import { useColorScheme } from "@/features/theme/use-color-scheme";
 import { Provider } from "react-redux";
 import { store, persistor } from "@/features/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { ActivityIndicator, View } from "react-native";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Provider as JotaiProvider, useAtomValue } from "jotai";
-import { resolvedThemeAtom } from "@/features/themeAtom";
+import { resolvedThemeAtom } from "@/features/theme/themeAtom";
 import { useEffect } from "react";
 import GlobalRouteLoading from "@/components/ui/global-route-loading";
 
 import {
   registerNotificationResponse,
   unregisterNotificationResponse,
-} from "../utils/notificationListenner";
+} from "../features/notifications/notificationListenner";
 
 export const unstable_settings = {
   anchor: "(tabs)",
