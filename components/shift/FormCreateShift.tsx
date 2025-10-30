@@ -38,7 +38,7 @@ export const FormCreateShift = ({ booking, doctores }: Props) => {
     formState: { errors },
   } = useForm<FormValues>({
     resolver: zodResolver(schemaForm),
-    defaultValues: { paciente: "", telefono: "", email: "" },
+    defaultValues: { paciente: "", telefono: "", email: "", observaciones: "" },
   });
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
@@ -49,9 +49,8 @@ export const FormCreateShift = ({ booking, doctores }: Props) => {
       fecha: booking.display,
       telefono: data.telefono,
       email: data.email,
+      observaciones: data.observaciones,
     };
-
-    console.log(nuevoTurno);
 
     await insertShift(nuevoTurno);
 
@@ -187,6 +186,7 @@ export const FormCreateShift = ({ booking, doctores }: Props) => {
                             <View>
                               <Text style={{ fontSize: 17 }}>Nombre *</Text>
                               <TextInput
+                                placeholder="Ingresa tu nombre"
                                 style={[
                                   globalStyles.InputCreate,
                                   errors.paciente && {
@@ -211,7 +211,9 @@ export const FormCreateShift = ({ booking, doctores }: Props) => {
                         <Controller
                           control={control}
                           name="email"
-                          rules={{ required: "El Email es obligatorio" }}
+                          rules={{
+                            required: "El Email es obligatorio",
+                          }}
                           render={({ field: { onChange, value } }) => (
                             <View>
                               <Text style={{ fontSize: 17 }}>Email *</Text>
@@ -237,7 +239,7 @@ export const FormCreateShift = ({ booking, doctores }: Props) => {
                           <Text style={globalStyles.ErrorCreate}>
                             *
                             {errors.email.message && (
-                              <Text>El email es obligatorio</Text>
+                              <Text>{errors.email.message}</Text>
                             )}
                           </Text>
                         )}
@@ -286,6 +288,30 @@ export const FormCreateShift = ({ booking, doctores }: Props) => {
                             *{errors.telefono.message}
                           </Text>
                         )}
+
+                        <Controller
+                          control={control}
+                          name="observaciones"
+                          render={({ field: { onChange, value } }) => (
+                            <View style={{ marginTop: 6 }}>
+                              <Text style={{ fontSize: 17 }}>
+                                Observaciones
+                              </Text>
+                              <View>
+                                <TextInput
+                                  placeholder="Escribe aqui informacion que consideres relevantes para tu cita"
+                                  style={[
+                                    globalStyles.InputCreate,
+                                    { minHeight: 80, textAlignVertical: "top" },
+                                  ]}
+                                  multiline
+                                  value={value}
+                                  onChangeText={(value) => onChange(value)}
+                                />
+                              </View>
+                            </View>
+                          )}
+                        />
                       </FadeIn>
                     </View>
                   </View>

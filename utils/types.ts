@@ -7,18 +7,6 @@ export type Inputs = {
   Contrasena: string;
 };
 
-export type InputsForm = {
-  id?: number;
-  paciente: string;
-  medico: string;
-  telefono: string;
-  email: string;
-};
-
-export interface Data {
-  data: InputsForm;
-}
-
 export type FormValues = z.infer<typeof schemaForm>;
 
 export const order: ThemePref[] = ["light", "dark"];
@@ -30,6 +18,7 @@ export interface ShiftInterface {
   fecha: string;
   telefono: string;
   email: string;
+  observaciones: string;
 }
 
 export interface ShiftState {

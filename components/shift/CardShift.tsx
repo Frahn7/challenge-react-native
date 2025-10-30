@@ -33,7 +33,6 @@ export const CardShift = ({ turno }: { turno: ShiftInterface }) => {
           {
             width: "100%",
             padding: 10,
-            height: 230,
             gap: 6,
             backgroundColor: "white",
             overflow: "hidden",
@@ -90,6 +89,18 @@ export const CardShift = ({ turno }: { turno: ShiftInterface }) => {
           Fecha:{" "}
           <ThemedText style={{ color: "black", fontWeight: 500 }}>
             {helperDate(turno.fecha)}
+          </ThemedText>
+        </ThemedText>
+        <ThemedText style={{ color: "black", fontSize: 19, fontWeight: 700 }}>
+          Telefono:{" "}
+          <ThemedText style={{ color: "black", fontWeight: 500 }}>
+            {turno.telefono}
+          </ThemedText>
+        </ThemedText>
+        <ThemedText style={{ color: "black", fontSize: 19, fontWeight: 700 }}>
+          Observaciones:{" "}
+          <ThemedText style={{ color: "black", fontWeight: 500 }}>
+            {turno.observaciones}
           </ThemedText>
         </ThemedText>
         <ThemedText

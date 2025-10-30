@@ -10,5 +10,7 @@ export const schemaForm = z.object({
     .min(1, { message: "Ingresá telefono" }),
   email: z
     .string({ required_error: "El email es obligatorio" })
-    .min(1, { message: "Ingresá email" }),
+    .min(1, { message: "Ingresá email" })
+    .email({ message: "Ingresá un email válido" }),
+  observaciones: z.string(),
 });
