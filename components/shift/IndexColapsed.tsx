@@ -2,10 +2,10 @@ import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { ThemedText } from "../ui/themed-text";
+import { ThemedText } from "../ui/ThemedText";
 import { useThemeColors } from "@/hooks/use-theme-colors";
-import { ModalLocation } from "./modal-location";
-import { CollapsedDoctors } from "./collapsed-doctors";
+import { CollapsedDoctors } from "./CollapsedDoctors";
+import { ModalLocation } from "./Modallocation";
 
 export const IndexColapsed = () => {
   const [modalLocation, setModalLocation] = useState(false);

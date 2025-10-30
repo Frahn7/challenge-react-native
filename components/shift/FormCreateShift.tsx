@@ -16,11 +16,11 @@ import { useEffect, useState } from "react";
 import { useInsertShift } from "@/features/shift/hooks/use-insert-shift";
 import { router } from "expo-router";
 import Collapsible from "react-native-collapsible";
-import { BookingValue } from "./bookingScreen";
-import { FadeIn } from "../ui/fade-in";
-import { ThemedText } from "../ui/themed-text";
+import { FadeIn } from "../ui/FadeIn";
+import { ThemedText } from "../ui/ThemedText";
 import { schemaForm } from "@/features/shift/schema";
 import { globalStyles } from "@/styles/globalStyle";
+import { BookingValue } from "./BookingScreen";
 
 type Props = { booking: BookingValue };
 

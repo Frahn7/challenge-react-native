@@ -15,7 +15,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Provider as JotaiProvider, useAtomValue } from "jotai";
 import { resolvedThemeAtom } from "@/features/theme/themeAtom";
 import { useEffect } from "react";
-import GlobalRouteLoading from "@/components/ui/global-route-loading";
+import GlobalRouteLoading from "@/components/ui/GlobalRouteLoading";
 import {
   registerNotificationResponse,
   unregisterNotificationResponse,

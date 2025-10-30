@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { ThemedText } from "@/components/ui/themed-text";
+import { ThemedText } from "@/components/ui/ThemedText";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { useState } from "react";
 import { router, Stack } from "expo-router";

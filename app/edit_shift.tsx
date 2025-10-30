@@ -1,12 +1,12 @@
-import { ThemedText } from "@/components/ui/themed-text";
+import { ThemedText } from "@/components/ui/ThemedText";
 import { Alert, View } from "react-native";
 import { Stack, router } from "expo-router";
 import { useState } from "react";
 import { useThemeColors } from "@/hooks/use-theme-colors";
 import { Ionicons } from "@expo/vector-icons";
-import BookingScreen, { BookingValue } from "@/components/shift/bookingScreen";
+import BookingScreen, { BookingValue } from "@/components/shift/BookingScreen";
 import { shadow } from "@/components/ui/styles/shadow";
-import { FormEditShift } from "@/components/shift/form-edit-shift";
+import { FormEditShift } from "@/components/shift/FormEditShift";
 
 export default function EditShift() {
   const { text } = useThemeColors();
