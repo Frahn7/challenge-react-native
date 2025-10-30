@@ -1,6 +1,6 @@
 import { ThemedText } from "@/components/themed-text";
 import { Stack, router } from "expo-router";
-import { ScrollView, TouchableOpacity, View } from "react-native";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useThemeColors } from "@/hooks/use-theme-colors";
@@ -11,9 +11,11 @@ import { globalStyles } from "../../globalStyle";
 import { textButtons } from "@/utils/types";
 import { MedicalServiceCard } from "@/components/medical-services";
 import { medics } from "@/utils/utils";
+import Collapsible from "react-native-collapsible";
 
 export default function HomeScreen() {
   const [modal, setModal] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
 
   const { bg, text } = useThemeColors();
 
@@ -95,18 +97,57 @@ export default function HomeScreen() {
                 </TouchableOpacity>
               ))}
             </View>
-            {medics.map((medic, k) => (
-              <MedicalServiceCard
-                key={k}
-                specialty={medic.specialty}
-                doctor={medic.doctor}
-                durationMin={medic.durationMin}
-                priceLabel={medic.priceLabel}
-                images={[medic.images]}
-                description={medic.description}
-                onPress={() => router.push("/create_shift")}
-              />
-            ))}
+            <View>
+              <TouchableOpacity onPress={() => setCollapsed((p) => !p)}>
+                <View
+                  style={{
+                    backgroundColor: "#EEF1F4",
+                    borderRadius: 12,
+                    paddingHorizontal: 14,
+                    paddingVertical: 10,
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginBottom: 20,
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#101828",
+                      fontSize: 16,
+                      fontWeight: "600",
+                    }}
+                  >
+                    Servicios
+                  </Text>
+
+                  <Text
+                    style={{
+                      color: "#101828",
+                      fontSize: 18,
+                      fontWeight: "600",
+                    }}
+                  >
+                    {collapsed ? "+" : "−"}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+
+              <Collapsible collapsed={collapsed} style={{ gap: 10 }}>
+                {medics.map((medic, k) => (
+                  <MedicalServiceCard
+                    key={k}
+                    specialty={medic.specialty}
+                    doctor={medic.doctor}
+                    durationMin={medic.durationMin}
+                    priceLabel={medic.priceLabel}
+                    images={[medic.images]}
+                    description={medic.description}
+                    onPress={() => router.push("/create_shift")}
+                  />
+                ))}
+              </Collapsible>
+            </View>
           </View>
         </ScrollView>
       </SafeAreaView>
