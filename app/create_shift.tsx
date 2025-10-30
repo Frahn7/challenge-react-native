@@ -8,11 +8,14 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { shadow } from "@/components/ui/styles/shadow";
 import { FormCreateShift } from "@/components/shift/FormCreateShift";
 import BookingScreen, { BookingValue } from "@/components/shift/BookingScreen";
+import { SelectDoctor } from "@/components/shift/SelectDoctor";
 
 export default function CreateShift() {
   const [booking, setBooking] = useState<BookingValue | null>(null);
+  const [contact, setContact] = useState(false);
   const { text } = useThemeColors();
   const insets = useSafeAreaInsets();
+  const [selectedDoctor, setSelectedDoctor] = useState<string | null>(null);
 
   return (
     <View style={{ flex: 1 }}>
@@ -43,7 +46,10 @@ export default function CreateShift() {
             name="chevron-back-outline"
             size={20}
             color={"black"}
-            onPress={() => setBooking(null)}
+            onPress={() => {
+              setBooking(null);
+              setContact(false);
+            }}
           />
           <ThemedText
             style={{
@@ -51,7 +57,10 @@ export default function CreateShift() {
               color: text,
               fontWeight: "500",
             }}
-            onPress={() => setBooking(null)}
+            onPress={() => {
+              setBooking(null);
+              setContact(false);
+            }}
           >
             Anterior
           </ThemedText>
@@ -86,7 +95,19 @@ export default function CreateShift() {
           <BookingScreen onChange={setBooking} />
         </View>
       )}
-      {booking !== null && <FormCreateShift booking={booking} />}
+      {booking !== null && !contact && (
+        <View style={{ flex: 1 }}>
+          <SelectDoctor
+            onSelectDoctor={(doctorName: string) => {
+              setSelectedDoctor(doctorName);
+              setContact(true);
+            }}
+          />
+        </View>
+      )}
+      {contact && (
+        <FormCreateShift booking={booking!} doctores={selectedDoctor!} />
+      )}
     </View>
   );
 }

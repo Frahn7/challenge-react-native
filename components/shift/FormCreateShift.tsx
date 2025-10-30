@@ -22,9 +22,9 @@ import { schemaForm } from "@/features/shift/schema";
 import { globalStyles } from "@/styles/globalStyle";
 import { BookingValue } from "./BookingScreen";
 
-type Props = { booking: BookingValue };
+type Props = { booking: BookingValue; doctores: string };
 
-export const FormCreateShift = ({ booking }: Props) => {
+export const FormCreateShift = ({ booking, doctores }: Props) => {
   const [collapsed, setCollapsed] = useState(true);
   const { mutateAsync: insertShift, isPending } = useInsertShift();
 
@@ -38,18 +38,20 @@ export const FormCreateShift = ({ booking }: Props) => {
     formState: { errors },
   } = useForm<FormValues>({
     resolver: zodResolver(schemaForm),
-    defaultValues: { paciente: "", medico: "", telefono: "", email: "" },
+    defaultValues: { paciente: "", telefono: "", email: "" },
   });
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const nuevoTurno = {
       id: Date.now(),
       nombrePaciente: data.paciente,
-      nombreDoctor: data.medico,
+      nombreDoctor: doctores,
       fecha: booking.display,
       telefono: data.telefono,
       email: data.email,
     };
+
+    console.log(nuevoTurno);
 
     await insertShift(nuevoTurno);
 
@@ -208,35 +210,6 @@ export const FormCreateShift = ({ booking }: Props) => {
 
                         <Controller
                           control={control}
-                          render={({ field: { onChange, value } }) => (
-                            <View>
-                              <Text style={{ fontSize: 17 }}>
-                                Nombre del medico *
-                              </Text>
-                              <TextInput
-                                style={[
-                                  globalStyles.InputCreate,
-                                  errors.medico && {
-                                    borderColor: "red",
-                                    borderWidth: 1,
-                                  },
-                                ]}
-                                value={value}
-                                onChangeText={(value) => onChange(value)}
-                              />
-                            </View>
-                          )}
-                          name="medico"
-                          rules={{ required: true }}
-                        />
-                        {errors.medico && (
-                          <Text style={globalStyles.ErrorCreate}>
-                            *{errors.medico.message}
-                          </Text>
-                        )}
-
-                        <Controller
-                          control={control}
                           name="email"
                           rules={{ required: "El Email es obligatorio" }}
                           render={({ field: { onChange, value } }) => (
@@ -264,7 +237,7 @@ export const FormCreateShift = ({ booking }: Props) => {
                           <Text style={globalStyles.ErrorCreate}>
                             *
                             {errors.email.message && (
-                              <Text>El mail es obligatorio</Text>
+                              <Text>El email es obligatorio</Text>
                             )}
                           </Text>
                         )}
