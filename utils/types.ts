@@ -46,8 +46,4 @@ export const textButtons: Btn[] = [
     title: "Ver turnos",
     route: "/show_shift",
   },
-  {
-    title: "Agendar Turno",
-    route: "/create_shift",
-  },
 ];

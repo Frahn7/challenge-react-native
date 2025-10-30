@@ -9,6 +9,8 @@ import { IndexColapsed } from "@/components/index/index-colapsed";
 import { useState } from "react";
 import { globalStyles } from "../../globalStyle";
 import { textButtons } from "@/utils/types";
+import { MedicalServiceCard } from "@/components/medical-services";
+import { medics } from "@/utils/utils";
 
 export default function HomeScreen() {
   const [modal, setModal] = useState(false);
@@ -59,9 +61,7 @@ export default function HomeScreen() {
                 />
               </ThemedText>
             </View>
-
             <IndexColapsed />
-
             <View
               style={{
                 width: "100%",
@@ -95,6 +95,18 @@ export default function HomeScreen() {
                 </TouchableOpacity>
               ))}
             </View>
+            {medics.map((medic, k) => (
+              <MedicalServiceCard
+                key={k}
+                specialty={medic.specialty}
+                doctor={medic.doctor}
+                durationMin={medic.durationMin}
+                priceLabel={medic.priceLabel}
+                images={[medic.images]}
+                description={medic.description}
+                onPress={() => router.push("/create_shift")}
+              />
+            ))}
           </View>
         </ScrollView>
       </SafeAreaView>
